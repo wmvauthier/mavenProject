@@ -1,0 +1,1 @@
+UPDATE calls SET STATUS = 'false' WHERE ID = 'Walmart Olinda2018-08-29';
