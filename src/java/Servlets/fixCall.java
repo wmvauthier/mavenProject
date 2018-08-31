@@ -41,12 +41,13 @@ public class fixCall extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String id = request.getParameter("id");
+        String description = request.getParameter("description");
 
         try (PrintWriter out = response.getWriter()) {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String query = "UPDATE calls SET STATUS = 'true' WHERE ID = '"+id+"'";
+            String query = "UPDATE calls SET STATUS = 'true', DESCRICAO = '"+description+"' WHERE ID = '"+id+"'";
             try {
                 PreparedStatement ps = null;
                 ps = con.prepareStatement(query);

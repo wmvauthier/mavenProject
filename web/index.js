@@ -88,12 +88,12 @@ function sendServletAddCall(client, dat, description) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             document.getElementById('addCall-formCloseBtn').click();
             var call = JSON.parse(xhr.responseText);
-            createPendingCall(call.cliente, call.data, call.descricao);
+            createPendingCall(call.id, call.cliente, call.data, call.descricao);
         }
     };
     xhr.open("post", "registerCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send(`client=${client.value}&date=${dat.value}&description=${description.value}`);
+    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "");
 }
 
 function sendServletRefreshCall() {
@@ -159,9 +159,11 @@ function sendServletReturnCall(choosenCall) {
                     document.getElementById('fixCall-formClient').value = '';
                     document.getElementById('fixCall-formDat').value = '';
                     document.getElementById('fixCall-formDescription').value = '';
+                    document.getElementById('fixCall-formselectedCall').innerHTML = '';
                     document.getElementById('fixCall-formClient').value = call.cliente;
                     document.getElementById('fixCall-formDat').value = call.data;
                     document.getElementById('fixCall-formDescription').value = call.descricao;
+                    document.getElementById('fixCall-formselectedCall').innerHTML = call.id;
                 }
             }
         }
@@ -171,30 +173,23 @@ function sendServletReturnCall(choosenCall) {
     xhr.send();
 }
 
-function preSendServletReturnCall(choosenCall) {
-    console.log("ESTA INDO AO BANCO: " + choosenCall.id);
-    var a = sendServletReturnCall(choosenCall);
-    console.log(a);
-    //var call = "a";
-//    console.log(call);
-//    console.log("ESTA VOLTANDO DO BANCO: " + call);
-}
+function sendServletFixCall() {
 
-function sendServletFixCall(call) {
+    var callToFind = document.getElementById('fixCall-formselectedCall');
+    var description = document.getElementById('fixCall-formDescription').value;
 
-    var callToFind = call.value;
-    console.log(callToFind);
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var element = document.getElementById(callToFind.innerHTML);
+            element.parentNode.removeChild(element);
+            document.getElementById('fixCall-formCloseBtn').click();
+        }
+    };
+    xhr.open("post", "fixCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("id="+callToFind.innerHTML+"&description="+description+"");
 
-//    var xhr = new XMLHttpRequest();
-//    xhr.onreadystatechange = function () {
-//        if (xhr.readyState === 4 && xhr.status === 200) {
-//            var element = document.getElementById(callToFind);
-//            element.parentNode.removeChild(element);
-//        }
-//    };
-//    xhr.open("post", "fixCall", true);
-//    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//    xhr.send(`id=${callToFind}`);
 }
 
 function codeAddress() {
