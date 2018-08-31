@@ -211,7 +211,7 @@ function sendServletReportCall() {
             var divTitle = document.createElement('div');
             var title = document.createElement('p');
 
-            title.innerHTML = 'Relatorio de Chamados do Cliente ' + client + ' do dia ' + datIni + ' a ' + datFin + ' | ';
+            title.innerHTML = '<center><b>Relatorio de Chamados do Cliente</b></center>';
 
             divTitle.appendChild(title);
 
@@ -222,10 +222,10 @@ function sendServletReportCall() {
             var tdTecnico1 = document.createElement('td');
             var tdDescricao1 = document.createElement('td');
 
-            tdData1.innerHTML = 'Data';
-            tdCliente1.innerHTML = 'Cliente';
-            tdDescricao1.innerHTML = 'Descricao';
-            tdTecnico1.innerHTML = 'Tecnico';
+            tdData1.innerHTML = '<b>DATA</b>';
+            tdCliente1.innerHTML = '<b>CLIENTE</b>';
+            tdDescricao1.innerHTML = '<b>DESCRICAO</b>';
+            tdTecnico1.innerHTML = '<b>TECNICO</b>';
 
             tr1.appendChild(tdData1);
             tr1.appendChild(tdCliente1);
@@ -291,6 +291,8 @@ function sendServletSaveReportCall(table, divTitle) {
             pdf.save("download.pdf");
         }
     });
+    hiddenResults.innerHTML = '';
+    
 }
 
 function codeAddress() {

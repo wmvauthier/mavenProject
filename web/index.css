@@ -94,6 +94,7 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     background-color: #ececec;
+    width: 100%;
     max-width: 209mm;
     text-align: center;
 }
@@ -115,13 +116,13 @@ td, th , tr{
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: white;
     text-align: center;
     overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
 }
 
 #hiddenResults {
-
+    background-color: white;
 }
 
 .dot {
