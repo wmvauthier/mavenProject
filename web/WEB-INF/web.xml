@@ -16,6 +16,10 @@
         <servlet-name>fixCall</servlet-name>
         <servlet-class>Servlets.fixCall</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>reportCall</servlet-name>
+        <servlet-class>Servlets.reportCall</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registerCall</servlet-name>
         <url-pattern>/registerCall</url-pattern>
@@ -31,6 +35,10 @@
     <servlet-mapping>
         <servlet-name>fixCall</servlet-name>
         <url-pattern>/fixCall</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reportCall</servlet-name>
+        <url-pattern>/reportCall</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

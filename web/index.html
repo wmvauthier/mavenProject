@@ -10,6 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
         <link rel="stylesheet" href="index.css">
     </head>
@@ -33,7 +34,7 @@
                                 <li><a href="#" data-toggle="modal" data-target="#addCall-modal">Abrir um Chamado</a></li>
                                 <li><a href="#" data-toggle="modal" data-target="#findCall-modal">Pesquisar um Chamado</a></li>
                                 <li><a href="#">Remover um Chamado</a></li>
-                                <li><a href="#">Relatórios de Chamados</a></li>
+                                <li><a href="#" data-toggle="modal" data-target="#reportCall-modal">Relatórios de Chamados</a></li>
                             </ul>
                         </li>
                         <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROGRAMAÇÕES<span class="caret"></span></a>
@@ -51,7 +52,9 @@
         </nav>
 
         <!-- Spacing -->
-        <div class="container-fluid bg-2 text-center"></div>
+        <div id="spacing" class="container-fluid bg-2 text-center"></div>
+        
+        <div id="hiddenResults"></div>
 
         <!-- First Container -->
         <div class="container-fluid bg-2 text-center">
@@ -216,6 +219,49 @@
                         <div class="modal-footer">
                             <div>
                                 <button type="submit" class="btn btn-danger btn-lg btn-block">Resolver Chamado</button>
+                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- BEGIN # REPORT CALL MODAL -->
+        <div class="modal fade" id="reportCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <button id="reportCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <div id="div-login-msg">
+                            <span id="text-login-msg">Preencha abaixo as informações:</span><br>
+                        </div>
+                    </div>
+
+                    <form id="reportCall-form" action="JavaScript:sendServletReportCall();">
+                        <div id="reportCall-formselectedCall" class="hidden"></div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>
+                            </div>
+                            <br>
+                            <div id="reportCall-formResult"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-danger btn-lg btn-block">Gerar Relatório</button>
                                 <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
                             </div>
                         </div>

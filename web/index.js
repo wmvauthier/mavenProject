@@ -1,3 +1,5 @@
+//FUNÇÕES QUE CRIAM ELEMENTOS HTML
+
 function createPendingCall(id, title, date, description) {
     var div = document.createElement('div');
     div.innerHTML = '<div id="' + id + '" class="col-md-6 col-xs-12 col-sm-12 col-md-4 col-lg-4">' +
@@ -82,6 +84,8 @@ function createLastPiece(title, date, description) {
     document.getElementById("lastPiece").appendChild(div);
 }
 
+//FUNÇÕES QUE CHAMAM SERVLETS
+
 function sendServletAddCall(client, dat, description) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -120,7 +124,6 @@ function sendServletFindCall() {
     var dateToFind = document.getElementById('findCall-formDat').value;
     var results = document.getElementById('findCall-formResult');
     results.innerHTML = '';
-
     if (clientToFind === '' && dateToFind === '') {
         return false;
     }
@@ -177,7 +180,6 @@ function sendServletFixCall() {
 
     var callToFind = document.getElementById('fixCall-formselectedCall');
     var description = document.getElementById('fixCall-formDescription').value;
-
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -188,8 +190,107 @@ function sendServletFixCall() {
     };
     xhr.open("post", "fixCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("id="+callToFind.innerHTML+"&description="+description+"");
+    xhr.send("id=" + callToFind.innerHTML + "&description=" + description + "");
+}
 
+function sendServletReportCall() {
+
+    var xhr = new XMLHttpRequest();
+    var client = document.getElementById('reportCall-formClient').value;
+    var datIni = document.getElementById('reportCall-formDatIni').value;
+    var datFin = document.getElementById('reportCall-formDatFin').value;
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+
+            document.getElementById("reportCall-formResult").innerHTML = '';
+
+            //Criação da Tabela
+            var divTitle = document.createElement('div');
+            var title = document.createElement('p');
+
+            title.innerHTML = 'Relatorio de Chamados do Cliente ' + client + ' do dia ' + datIni + ' a ' + datFin + ' | ';
+
+            divTitle.appendChild(title);
+
+            var table = document.createElement('table');
+            var tr1 = document.createElement('tr');
+            var tdData1 = document.createElement('td');
+            var tdCliente1 = document.createElement('td');
+            var tdTecnico1 = document.createElement('td');
+            var tdDescricao1 = document.createElement('td');
+
+            tdData1.innerHTML = 'Data';
+            tdCliente1.innerHTML = 'Cliente';
+            tdDescricao1.innerHTML = 'Descricao';
+            tdTecnico1.innerHTML = 'Tecnico';
+
+            tr1.appendChild(tdData1);
+            tr1.appendChild(tdCliente1);
+            tr1.appendChild(tdTecnico1);
+            tr1.appendChild(tdDescricao1);
+
+            table.appendChild(tr1);
+
+            for (var i = 0; i < jsonData.calls.length; i++) {
+                var call = jsonData.calls[i];
+                if ((call.data >= datIni && call.data <= datFin) || (call.cliente == client)) {
+                    var tr = document.createElement('tr');
+                    var tdData = document.createElement('td');
+                    var tdCliente = document.createElement('td');
+                    var tdTecnico = document.createElement('td');
+                    var tdDescricao = document.createElement('td');
+                    tdData.innerHTML = call.data;
+                    tdCliente.innerHTML = call.cliente;
+                    tdDescricao.innerHTML = call.descricao;
+                    tdTecnico.innerHTML = call.tecnico;
+                    tr.appendChild(tdData);
+                    tr.appendChild(tdCliente);
+                    tr.appendChild(tdTecnico);
+                    tr.appendChild(tdDescricao);
+                    table.appendChild(tr);
+                }
+            }
+
+            var formResults = document.getElementById('reportCall-formResult');
+            formResults.appendChild(divTitle);
+            formResults.appendChild(table);
+
+            if (confirm('Relatório Completo! Deseja salvá-lo em um arquivo?')) {
+                sendServletSaveReportCall(table, divTitle);
+                document.getElementById('reportCall-formCloseBtn').click();
+            } else {
+
+            }
+
+        }
+    };
+
+    xhr.open("post", "refreshCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletSaveReportCall(table, divTitle) {
+
+    var hiddenResults = document.getElementById('hiddenResults');
+    var formResults = document.getElementById('reportCall-formResult');
+    formResults.innerHTML = '';
+    hiddenResults.innerHTML = '';
+    hiddenResults.appendChild(divTitle);
+    hiddenResults.appendChild(table);
+    console.log(hiddenResults);
+
+    html2canvas(document.getElementById('hiddenResults'), {
+        onrendered: function (canvas) {
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF();
+            pdf.addImage(imgData, 'JPEG', 0, 0);
+            pdf.save("download.pdf");
+        }
+    });
 }
 
 function codeAddress() {

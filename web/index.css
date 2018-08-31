@@ -3,7 +3,7 @@ body {
     font-family: sans-serif;
 }
 .hidden{
-    display: none;
+    visibility:hidden;
 }
 p {font-size: 16px;}
 .selectedLink {
@@ -88,6 +88,40 @@ button {
     text-align: center;
     text-decoration: none;
     display: inline-block;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    background-color: #ececec;
+    max-width: 209mm;
+    text-align: center;
+}
+
+th {
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
+    min-width: 209mm;
+}
+
+td, th , tr{
+    border: 1px solid #dddddd;
+    text-align: center;
+    padding: 8px;
+    overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
+    min-width: 25mm;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+    text-align: center;
+    overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
+}
+
+#hiddenResults {
+
 }
 
 .dot {
