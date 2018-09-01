@@ -123,6 +123,7 @@ tr:nth-child(even) {
 
 #hiddenResults {
     background-color: white;
+    max-width: 209mm;
 }
 
 .dot {
