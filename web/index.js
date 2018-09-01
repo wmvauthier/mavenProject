@@ -18,7 +18,7 @@ function createReadyFoundCall(id, title, date, description, tec) {
             '<div class = "panel panel-success">' +
             '<div class = "panel-heading"><b>' + title + ' >> ' + date + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><span class="dot"></span>' + tec + '</div>' +
+            '<div class = "panel-footer"><span>' + tec + '</span></div>' +
             '</div>' +
             '</div>';
     document.getElementById("findCall-formResult").appendChild(div);
