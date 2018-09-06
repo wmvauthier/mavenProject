@@ -4,9 +4,10 @@ function createPendingCall(id, title, date, description) {
     var div = document.createElement('div');
     div.innerHTML = '<div id="' + id + '" class="col-md-6 col-xs-12 col-sm-12 col-md-6 col-lg-6">' +
             '<div class = "panel panel-default">' +
-            '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + ' >> ' + date + '</b></div>' +
+            '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button id="' + id + '" data-toggle="modal" onclick="sendServletReturnCall(this);" data-target="#fixCall-modal">Resolver</button></div>' +
+            '<div class = "panel-footer"><a id="' + id + '" data-toggle="modal" onclick="sendServletReturnCall(this);" data-target="#fixCall-modal" class="botaoEmpSmall">Resolver</a>' +
+            '&nbsp;<a id="' + id + '" data-toggle="modal" onclick="sendServletReturnCall(this);" data-target="#fixCall-modal" class="botaoEmpSmall">Excluir</a></div>' +
             '</div>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
@@ -93,6 +94,9 @@ function sendServletAddCall(client, dat, description) {
             document.getElementById('addCall-formCloseBtn').click();
             var call = JSON.parse(xhr.responseText);
             createPendingCall(call.id, call.cliente, call.data, call.descricao);
+            document.getElementById('addCall-formClient').value = '';
+            document.getElementById('addCall-formDat').value = '';
+            document.getElementById('addCall-formDescription').value = '';
         }
     };
     xhr.open("post", "registerCall", true);
@@ -143,6 +147,8 @@ function sendServletFindCall() {
                     }
                 }
             }
+            clientToFind = '';
+            dateToFind = '';
         }
     };
     xhr.open("post", "refreshCall", true);
@@ -264,7 +270,10 @@ function sendServletReportCall() {
             } else {
 
             }
-
+            
+            client = '';
+            datIni = '';
+            datFin = '';
         }
     };
 

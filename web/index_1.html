@@ -32,17 +32,12 @@
                 <div class="logo"><a href="#banner"><img src="imagens/logo-link.png" width="130" height="53" alt="Logo"></a></div>
                 <nav class="menu">
                     <ul>
-                        <li><a class="dropdown-toggle linkMenu" data-toggle="dropdown" href="#secChamados">CHAMADOS</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" data-toggle="modal" data-target="#addCall-modal">Abrir um Chamado</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#findCall-modal">Pesquisar um Chamado</a></li>
-                                <li><a href="#">Remover um Chamado</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#reportCall-modal">Relatórios de Chamados</a></li>
-                            </ul>
-                        <li><a href="#serv" class="linkMenu">Serviços</a></li>
-                        <li><a href="produtos.html" class="linkMenu">Produtos</a></li>
-                        <li><a href="produtos-atm-auto-servico.html" class="linkMenu">Autoserviço</a></li>
-                        <li><a href="acessorios.html" class="linkMenu">Acessórios</a></li>
+                        <li><a href="index.html" class="linkMenu"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
+                        <li><a href="#secChamados" class="linkMenu">CHAMADOS</a>
+                        <li><a href="#serv" class="linkMenu">PROGRAMAÇÕES</a></li>
+                        <li><a href="produtos.html" class="linkMenu">LIGAÇÕES</a></li>
+                        <li><a href="produtos-atm-auto-servico.html" class="linkMenu">PEÇAS</a></li>
+                        <li><a href="acessorios.html" class="linkMenu">ESTOQUE</a></li>
                         <li><a href="contato.html" class="linkMenu">Contato</a></li>
                     </ul>    
                 </nav>
@@ -56,40 +51,33 @@
                 </picture>
             </div>
 
-        </header><!-- FIM header -->
+        </header>
 
         <div class="bnr-home" id="banner" >
             <div class="video">
                 <img style="width:100%;" src="imagens/banner.jpg" alt="1">
             </div> 
             <div class="video-obj"><img src="imagens/topo-video-baixo.png"  alt=""/></div>
-        </div><!-- FIM bnr-home -->
+        </div>
 
         <div id="hiddenResults"></div>
 
-        <section class="sobre produtos-fundoP" id="secChamados">
+        <!--CHAMADOS-->
+        <section class="sobre produtos-fundoP " id="secChamados">
 
             <article class="emp">
-                <h2>CHAMADOS</h2> 
-                <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
+                <div class="centerButton">
+                    <h2>CHAMADOS</h2>
+                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
+                </div>
             </article>
-            <div id="pendingCalls" class="container">
-            </div>
+            <div id="pendingCalls" class="container overflowBar"></div>
 
             <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
 
         </section>
-
-        <!-- Second Container -->
-        <div class="container-fluid bg-1 text-center">
-            <h3 class="margin">Programações Pendentes</h3>
-            <div id="pendingProgram" class="container">
-                <div class="row">
-                </div>
-            </div>
-        </div>
 
         <!-- Third Container -->
         <div class="container-fluid bg-3 text-center">
@@ -267,7 +255,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="reportCall-formDatIni" name="dateini" type="datetime-local" class="form-control"/>
+                                <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
