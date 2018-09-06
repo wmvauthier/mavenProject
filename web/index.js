@@ -291,7 +291,7 @@ function sendServletSaveReportCall(table, divTitle) {
             pdf.save("download.pdf");
         }
     });
-    //hiddenResults.innerHTML = '';
+    hiddenResults.innerHTML = '';
     
 }
 
