@@ -81,6 +81,24 @@ input{
     color: #2f2f2f;
 }
 
+.panel-heading-danger-fd{
+    background: #a01d26;
+    background: -moz-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a01d26), color-stop(100%, #efa9ae));
+    background: -webkit-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
+    background: -o-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
+    background: -ms-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
+    background: linear-gradient(to bottom, #a01d26 0%, #efa9ae 100%);
+    color: #ffffff;
+    padding: 5px 17px 8px;
+
+}
+
+.panel-title-fd{
+    color: #ffffff;
+    text-transform: uppercase;
+}
+
 button {
     color: black;
     margin: 1px;
