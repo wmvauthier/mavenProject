@@ -32,13 +32,41 @@
                 <div class="logo"><a href="#banner"><img src="imagens/logo-link.png" width="130" height="53" alt="Logo"></a></div>
                 <nav class="menu">
                     <ul>
-                        <li><a href="index.html" class="linkMenu"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></a></li>
-                        <li><a href="#secChamados" class="linkMenu">CHAMADOS</a>
-                        <li><a href="#serv" class="linkMenu">PROGRAMAÇÕES</a></li>
-                        <li><a href="produtos.html" class="linkMenu">LIGAÇÕES</a></li>
-                        <li><a href="produtos-atm-auto-servico.html" class="linkMenu">PEÇAS</a></li>
-                        <li><a href="acessorios.html" class="linkMenu">ESTOQUE</a></li>
-                        <li><a href="contato.html" class="linkMenu">Contato</a></li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfCalls" class="notify-bubble">1</span>
+                                <a href="#secChamados" class="linkMenu">CHAMADOS</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfProg" class="notify-bubble">1</span>
+                                <a href="#serv" class="linkMenu">PROGRAMAÇÕES</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfCell" class="notify-bubble">1</span>
+                                <a href="produtos.html" class="linkMenu">LIGAÇÕES</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfPieces" class="notify-bubble">1</span>
+                                <a href="produtos-atm-auto-servico.html" class="linkMenu">PEÇAS</a>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfStock" class="notify-bubble">1</span>
+                                <a href="acessorios.html" class="linkMenu">ESTOQUE</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfAdd" class="notify-bubble">1</span>
+                                <a href="contato.html" class="linkMenu">Contato</a>
+                            </div>
+                        </li>
                     </ul>    
                 </nav>
             </div>
@@ -137,7 +165,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" required>
+                                <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>
                             </div>
                         </div>
                         <div class="modal-footer">

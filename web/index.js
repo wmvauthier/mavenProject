@@ -110,11 +110,17 @@ function sendServletRefreshCall() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
+            var count = 0;
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
-                if (call.status == 'false')
+                if (call.status == 'false') {
                     createPendingCall(call.id, call.cliente, call.data, call.descricao);
+                    count++;
+                }
             }
+            document.getElementById("ntfCalls").innerHTML = '';
+            document.getElementById("ntfCalls").innerHTML = count;
+            $('#ntfCalls').show(400);
         }
     };
     xhr.open("post", "refreshCall", true);
@@ -270,7 +276,7 @@ function sendServletReportCall() {
             } else {
 
             }
-            
+
             client = '';
             datIni = '';
             datFin = '';
@@ -301,7 +307,7 @@ function sendServletSaveReportCall(table, divTitle) {
         }
     });
     hiddenResults.innerHTML = '';
-    
+
 }
 
 function codeAddress() {

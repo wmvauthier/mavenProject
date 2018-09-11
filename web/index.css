@@ -80,6 +80,7 @@ input{
 .panel-body {
     padding: 15px;
     color: #2f2f2f;
+    height: 100px;
 }
 
 .panel-heading-danger-fd{
@@ -167,15 +168,29 @@ tr:nth-child(even) {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+    background: #a01d26; 
 }
 
-.dot {
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
+.container {
+    text-align: center;
+}
+
+.notify-container {
+    position: relative;
     display: inline-block;
+}
+
+.notify-bubble {
+    position: absolute;
+    top: -8px;
+    right: -7px;
+    padding: 2px 5px 2px 6px;
+    background-color: #a01d26;
+    color: white;
+    font-size: 0.65em;
+    border-radius: 40%;
+    box-shadow: 1px 1px 1px gray;
+    display: none;
 }
 
 /* #####################################################################
