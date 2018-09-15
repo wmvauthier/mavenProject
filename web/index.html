@@ -16,76 +16,107 @@
         <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
         <script type="text/javascript" src="index.js"></script>
         <link rel="stylesheet" href="index.css">
-        <!--<link rel="stylesheet" href="newcss.css">-->
+        <link rel="stylesheet" href="newcss.css">
     </head>
 
     <body>
-        <!-- NavBar -->
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                    <a class="navbar-brand" href="index.html" style="color: #e2005a">GerLinkC NE</a>
-                </div>
-                <div class="collapse navbar-collapse" id="myNavbar">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">CHAMADOS<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#" data-toggle="modal" data-target="#addCall-modal">Abrir um Chamado</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#findCall-modal">Pesquisar um Chamado</a></li>
-                                <li><a href="#">Remover um Chamado</a></li>
-                                <li><a href="#" data-toggle="modal" data-target="#reportCall-modal">Relatórios de Chamados</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">PROGRAMAÇÕES<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Adicionar uma Programação</a></li>
-                                <li><a href="#">Relatórios de Programações</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="cell.html">LIGAÇÕES</a></li>
-                        <li><a href="item.html">PEÇAS</a></li>
-                        <li><a href="stock.html">ESTOQUE</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <header id="topo">
 
-        <!-- Spacing -->
-        <div id="spacing" class="container-fluid bg-2 text-center"></div>
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>                        
+            </button>
+
+            <div class="bgBranco centralizando">
+                <div class="logo"><a href="#banner"><img src="imagens/logo-link.png" width="130" height="53" alt="Logo"></a></div>
+                <nav class="menu">
+                    <ul>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfCalls" class="notify-bubble">0</span>
+                                <a href="#secChamados" class="linkMenu">CHAMADOS</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfProg" class="notify-bubble">0</span>
+                                <a href="#serv" class="linkMenu">PROGRAMAÇÕES</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfCell" class="notify-bubble">0</span>
+                                <a href="produtos.html" class="linkMenu">LIGAÇÕES</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfPieces" class="notify-bubble">0</span>
+                                <a href="produtos-atm-auto-servico.html" class="linkMenu">PEÇAS</a>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfStock" class="notify-bubble">0</span>
+                                <a href="acessorios.html" class="linkMenu">ESTOQUE</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="notify-container">
+                                <span id="ntfAdd" class="notify-bubble">0</span>
+                                <a href="contato.html" class="linkMenu">Contato</a>
+                            </div>
+                        </li>
+                    </ul>    
+                </nav>
+            </div>
+
+            <div class="topo-obj">
+                <picture>
+                    <source srcset="imagens/topo-obj-cel.png" media="(max-width: 745px)">
+                    <source srcset="imagens/topo-obj.png">
+                    <img  src="imagens/topo-obj.png" alt=""/>
+                </picture>
+            </div>
+
+        </header>
+
+        <div class="bnr-home" id="banner" >
+            <div class="video">
+                <img style="width:100%;" src="imagens/banner.jpg" alt="1">
+            </div> 
+            <div class="video-obj"><img src="imagens/topo-video-baixo.png"  alt=""/></div>
+        </div>
 
         <div id="hiddenResults"></div>
 
-        <!-- First Container -->
-        <div class="container-fluid bg-2 text-center">
-            <h3 class="margin">Chamados Pendentes</h3>
-            <div id="pendingCalls" class="container">
-                <div class="row">
+        <!--CHAMADOS-->
+        <section class="sobre produtos-fundoP " id="secChamados">
+            <article class="emp">
+                <div class="centerButton">
+                    <h2>CHAMADOS</h2>
+                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
                 </div>
-            </div>
-        </div>
+            </article>
+            <div id="pendingCalls" class="container overflowBar"></div>
+            <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
+        </section>
 
-        <!-- Second Container -->
-        <div class="container-fluid bg-1 text-center">
-            <h3 class="margin">Programações Pendentes</h3>
-            <div id="pendingProgram" class="container">
-                <div class="row">
+        <!-- PROGRAMAÇÕES -->
+        <section class="sobre produtos-fundoP " id="secProgramacoes">
+            <article class="emp">
+                <div class="centerButton">
+                    <h2>CHAMADOS</h2>
+                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
+                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
                 </div>
-            </div>
-        </div>
-
-        <!-- Third Container -->
-        <div class="container-fluid bg-3 text-center">
-            <h3 class="margin">Últimas Ligações Recebidas</h3>
-            <div id="lastCalls" class="container">
-                <div class="row">
-                </div>
-            </div>
-        </div>
+            </article>
+            <div id="pendingCalls" class="container overflowBar"></div>
+            <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
+        </section>
 
         <!-- Quarter Container -->
         <div class="container-fluid bg-5 text-center">
@@ -136,7 +167,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" required>
+                                <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -254,7 +285,7 @@
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="reportCall-formDatIni" name="dateini" type="datetime-local" class="form-control"/>
+                                <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
