@@ -2,13 +2,18 @@
 
 function createPendingCall(id, title, date, description) {
     var div = document.createElement('div');
-    div.innerHTML = '<div id="' + id + '" class="col-md-6 col-xs-12 col-sm-12 col-md-6 col-lg-6">' +
-            '<div class = "panel panel-default">' +
+    div.id = id;
+    div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
+    div.innerHTML = '' +
+            '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><a id="' + id + '" data-toggle="modal" onclick="sendServletReturnCall(this);" data-target="#fixCall-modal" class="botaoEmpSmall">Resolver</a>' +
-            '&nbsp;<a id="' + id + '" data-toggle="modal" onclick="sendServletReturnCall(this);" data-target="#fixCall-modal" class="botaoEmpSmall">Excluir</a></div>' +
-            '</div>' +
+            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addBtn">' +
+            '<i class="material-icons">done</i>' +
+            '</button>' +
+            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addBtn">' +
+            '<i class="material-icons">clear</i>' +
+            '</button>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
 }
@@ -85,6 +90,15 @@ function createLastPiece(title, date, description) {
     document.getElementById("lastPiece").appendChild(div);
 }
 
+//FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
+
+document.getElementById('navCalls').addEventListener('click', function(){
+    document.getElementById('titlePage').innerHTML = 'Chamados';
+    document.getElementById('addBtn').setAttribute("data-toggle", "modal");
+    document.getElementById('addBtn').setAttribute("data-target", "addCall-modal");
+    alert();
+});
+
 //FUNÇÕES QUE CHAMAM SERVLETS
 
 function sendServletAddCall(client, dat, description) {
@@ -118,9 +132,9 @@ function sendServletRefreshCall() {
                     count++;
                 }
             }
-            document.getElementById("ntfCalls").innerHTML = '';
-            document.getElementById("ntfCalls").innerHTML = count;
-            $('#ntfCalls').show(400);
+            //document.getElementById("ntfCalls").innerHTML = '';
+            //document.getElementById("ntfCalls").innerHTML = count;
+            //$('#ntfCalls').show(400);
         }
     };
     xhr.open("post", "refreshCall", true);

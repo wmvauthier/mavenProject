@@ -1,52 +1,15 @@
-body {
-    line-height: 1.8;
-    font-family: sans-serif;
-}
 .hidden{
     visibility:hidden;
 }
 p {font-size: 16px;}
 a { text-decoration: none; }
+a:hover{
+    text-decoration: none;
+}
 .selectedLink {
     color: #a01d26 !important;
 }
 .margin {margin-bottom: 45px;}
-.bg-1 { 
-    background-color: #f4f4ef; /* White */
-    color: #20232a;
-}
-.bg-2 { 
-    background-color: #a01d26; /* Red */
-    color: #ffffff;
-}
-.bg-3 { 
-    background-color: #acbebe; /* Gray */
-    color: #20232a;
-}
-.bg-4 { 
-    background-color: #20232a; /* Black */
-    color: #fff;
-}
-.bg-5 { 
-    background-color: #edb83b; /* Yellow */
-    color: #20232a;
-}
-.container-fluid {
-    padding-top: 70px;
-    padding-bottom: 70px;
-}
-.navbar {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    border: 0;
-    border-radius: 0;
-    margin-bottom: 0;
-    font-size: 12px;
-    letter-spacing: 5px;
-}
-.navbar-nav  li a:hover {
-    color: #a01d26 !important;
-}
 
 input{
     color: black;
@@ -84,13 +47,13 @@ input{
 }
 
 .panel-heading-danger-fd{
-    background: #a01d26;
-    background: -moz-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a01d26), color-stop(100%, #efa9ae));
-    background: -webkit-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
-    background: -o-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
-    background: -ms-linear-gradient(top, #a01d26 0%, #efa9ae 100%);
-    background: linear-gradient(to bottom, #a01d26 0%, #efa9ae 100%);
+    background: #ee3b78;
+    background: -moz-linear-gradient(top, #ee3b78 0%, #ee3b78 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ee3b78), color-stop(100%, #ee3b78));
+    background: -webkit-linear-gradient(top, #ee3b78 0%, #ee3b78 100%);
+    background: -o-linear-gradient(top, #ee3b78 0%, #ee3b78 100%);
+    background: -ms-linear-gradient(top, #ee3b78 0%, #ee3b78 100%);
+    background: linear-gradient(to bottom, #ee3b78 0%, #ee3b78 100%);
     color: #ffffff;
     padding: 5px 17px 8px;
 }
@@ -98,15 +61,6 @@ input{
 .panel-title-fd{
     color: #ffffff;
     text-transform: uppercase;
-}
-
-button {
-    color: black;
-    margin: 1px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
 }
 
 table {
@@ -181,27 +135,14 @@ tr:nth-child(even) {
 }
 
 .notify-bubble {
-    position: absolute;
-    top: -8px;
-    right: -7px;
     padding: 2px 5px 2px 6px;
-    background-color: #a01d26;
+    background-color: green;
     color: white;
     font-size: 0.65em;
-    border-radius: 40%;
+    border-radius: 80%;
     box-shadow: 1px 1px 1px gray;
     display: none;
 }
-
-/* #####################################################################
-   #
-   #   Project       : Modal Login with jQuery Effects
-   #   Author        : Rodrigo Amarante (rodrigockamarante)
-   #   Version       : 1.0
-   #   Created       : 07/28/2015
-   #   Last Change   : 08/02/2015
-   #
-   ##################################################################### */
 
 #login-modal .modal-dialog {
     width: 350px;
@@ -297,43 +238,4 @@ tr:nth-child(even) {
     padding: 15px 15px 15px 15px;
     text-align: left;
     border-top: 0px;
-}
-
-.checkbox {
-    margin-bottom: 0px;
-}
-
-.btn {
-    border-radius: 0px;
-}
-
-.btn:focus,
-.btn:active:focus,
-.btn.active:focus,
-.btn.focus,
-.btn:active.focus,
-.btn.active.focus {
-    outline: none;
-}
-
-.btn-lg, .btn-group-lg>.btn {
-    border-radius: 0px;
-}
-
-.btn-link {
-    padding: 5px 10px 0px 0px;
-    color: #95a5a6;
-}
-
-.btn-link:hover, .btn-link:focus {
-    color: #2c3e50;
-    text-decoration: none;
-}
-
-.glyphicon {
-    top: 0px;
-}
-
-.form-control {
-    border-radius: 0px;
 }
