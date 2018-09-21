@@ -95,7 +95,7 @@ function createLastPiece(title, date, description) {
 document.getElementById('navCalls').addEventListener('click', function(){
     document.getElementById('titlePage').innerHTML = 'Chamados';
     document.getElementById('addBtn').setAttribute("data-toggle", "modal");
-    document.getElementById('addBtn').setAttribute("data-target", "addCall-modal");
+    document.getElementById('addBtn').setAttribute("data-target", "#addCall-modal");
     alert();
 });
 
