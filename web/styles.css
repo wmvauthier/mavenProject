@@ -1,4 +1,3 @@
-
 html, body {
     font-family: 'Roboto', 'Helvetica', sans-serif;
 }
@@ -120,6 +119,10 @@ html, body {
     -webkit-align-items: stretch;
     -ms-flex-align: stretch;
     align-items: stretch;
+}
+
+.contentX {
+    margin:8px;
 }
 /* TODO: Find a proper solution to have the graphs
  * not float around outside their container in IE10/11.

@@ -92,11 +92,15 @@ function createLastPiece(title, date, description) {
 
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
 
-document.getElementById('navCalls').addEventListener('click', function(){
-    document.getElementById('titlePage').innerHTML = 'Chamados';
-    document.getElementById('addBtn').setAttribute("data-toggle", "modal");
-    document.getElementById('addBtn').setAttribute("data-target", "#addCall-modal");
-    alert();
+$('#navCalls').click(function() {
+    $('#titlePage').html('CHAMADOS');
+    $('.contentX').attr('id','pendingCalls');
+    $('#addPanelTitle').html("ADICIONAR CHAMADO");
+    $('#findPanelTitle').html("PESQUISAR CHAMADO");
+    $('#reportPanelTitle').html("RELATÓRIO DE CHAMADOS");
+    $('#addPanelBody').html(addCallForm);
+    sendServletRefreshCall();
+    document.getElementById('addPanelTitleBtn').click();
 });
 
 //FUNÇÕES QUE CHAMAM SERVLETS
@@ -225,41 +229,31 @@ function sendServletReportCall() {
     var client = document.getElementById('reportCall-formClient').value;
     var datIni = document.getElementById('reportCall-formDatIni').value;
     var datFin = document.getElementById('reportCall-formDatFin').value;
-
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
-
             document.getElementById("reportCall-formResult").innerHTML = '';
-
             //Criação da Tabela
             var divTitle = document.createElement('div');
             var title = document.createElement('p');
-
             title.innerHTML = '<center><b>Relatorio de Chamados do Cliente</b></center>';
-
             divTitle.appendChild(title);
-
             var table = document.createElement('table');
             var tr1 = document.createElement('tr');
             var tdData1 = document.createElement('td');
             var tdCliente1 = document.createElement('td');
             var tdTecnico1 = document.createElement('td');
             var tdDescricao1 = document.createElement('td');
-
             tdData1.innerHTML = '<b>DATA</b>';
             tdCliente1.innerHTML = '<b>CLIENTE</b>';
             tdDescricao1.innerHTML = '<b>DESCRICAO</b>';
             tdTecnico1.innerHTML = '<b>TECNICO</b>';
-
             tr1.appendChild(tdData1);
             tr1.appendChild(tdCliente1);
             tr1.appendChild(tdTecnico1);
             tr1.appendChild(tdDescricao1);
-
             table.appendChild(tr1);
-
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
                 if ((call.data >= datIni && call.data <= datFin) || (call.cliente == client)) {
@@ -283,7 +277,6 @@ function sendServletReportCall() {
             var formResults = document.getElementById('reportCall-formResult');
             formResults.appendChild(divTitle);
             formResults.appendChild(table);
-
             if (confirm('Relatório Completo! Deseja salvá-lo em um arquivo?')) {
                 sendServletSaveReportCall(table, divTitle);
                 document.getElementById('reportCall-formCloseBtn').click();
@@ -296,7 +289,6 @@ function sendServletReportCall() {
             datFin = '';
         }
     };
-
     xhr.open("post", "refreshCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
@@ -311,7 +303,6 @@ function sendServletSaveReportCall(table, divTitle) {
     hiddenResults.appendChild(divTitle);
     hiddenResults.appendChild(table);
     console.log(hiddenResults);
-
     html2canvas(document.getElementById('hiddenResults'), {
         onrendered: function (canvas) {
             var imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -321,10 +312,33 @@ function sendServletSaveReportCall(table, divTitle) {
         }
     });
     hiddenResults.innerHTML = '';
-
 }
 
 function codeAddress() {
-    sendServletRefreshCall();
+    
 }
 window.onload = codeAddress;
+
+var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall(document.getElementById(\'addCall-formClient\'),document.getElementById(\'addCall-formDat\'),document.getElementById(\'addCall-formDescription\'));">' +
+        '<div class="modal-body">' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
+        '<input id="addCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente" required>' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
+        '<input id="addCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado" required />' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">mode_comment</i></span>' +
+        '<input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
+        '</div>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<div>' +
+        '<button type="submit">Abrir Chamado</button>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
+
+        
