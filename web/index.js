@@ -9,7 +9,7 @@ function createPendingCall(id, title, date, description) {
             '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
             '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
-            '<i id="'+id+'" class="material-icons">check_box</i>' +
+            '<i id="' + id + '" class="material-icons">check_box</i>' +
             '</button>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
@@ -92,9 +92,9 @@ function createLastPiece(title, date, description) {
 $('#navCalls').click(function () {
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
-    $('#addPanelTitle').html('ADICIONAR CHAMADO');
-    $('#findPanelTitle').html('PESQUISAR CHAMADO');
-    $('#reportPanelTitle').html('RELATÓRIO DE CHAMADOS');
+    $('#addPanelTitle').html('ADICIONAR');
+    $('#findPanelTitle').html('PESQUISAR');
+    $('#reportPanelTitle').html('RELATÓRIO');
     $('#addPanelBody').html(addCallForm);
     sendServletRefreshCall();
     document.getElementById('addPanelTitleBtn').click();
@@ -109,22 +109,25 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     equalDat(dateNow, realDateNow);
 
     var data = google.visualization.arrayToDataTable([
-        ['Dia', 'Concluídos', 'Pendentes'],
-        [`${minusEqualDat(realDateNow,dateNow,7,'day')}/${minusEqualDat(realDateNow,dateNow,7,'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-        [`${minusEqualDat(realDateNow,dateNow,6,'day')}/${minusEqualDat(realDateNow,dateNow,6,'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-        [`${minusEqualDat(realDateNow,dateNow,5,'day')}/${minusEqualDat(realDateNow,dateNow,5,'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-        [`${minusEqualDat(realDateNow,dateNow,4,'day')}/${minusEqualDat(realDateNow,dateNow,4,'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-        [`${minusEqualDat(realDateNow,dateNow,3,'day')}/${minusEqualDat(realDateNow,dateNow,3,'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-        [`${minusEqualDat(realDateNow,dateNow,2,'day')}/${minusEqualDat(realDateNow,dateNow,2,'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-        [`${minusEqualDat(realDateNow,dateNow,1,'day')}/${minusEqualDat(realDateNow,dateNow,1,'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-        [`${realDateNow.day}/${realDateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
+    ['Dia', 'Concluídos', 'Pendentes'],
+    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+    [`${realDateNow.day} / ${realDateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-
-    var options = {
-        title: 'Chamados dos Últimos 7 Dias',
-        hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0},
-    };
+            var options = {
+                title: 'Chamados dos Últimos 7 Dias',
+                hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0},
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+            };
 
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
@@ -468,9 +471,9 @@ function equalDat(real, copy) {
 }
 
 //IGUALA DOIS DIAS EM MYDAT E REDUZ (PARA SVG'S)
-function minusEqualDat(real,copy,times,back){
-    equalDat(real,copy);
-    return minusDat(copy,times,back);
+function minusEqualDat(real, copy, times, back) {
+    equalDat(real, copy);
+    return minusDat(copy, times, back);
 }
 
 //EXECUTA AO INICIAR
@@ -501,7 +504,7 @@ var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall
         '</div>' +
         '<div class="modal-footer">' +
         '<div>' +
-        '<button type="submit"  class="btn btn-primary">Abrir Chamado</button>' +
+        '<button type="submit"  class="btn btn-primary">Adicionar</button>' +
         '</div>' +
         '</div>' +
         '</form>';
