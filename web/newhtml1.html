@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
     <head>
         <title>GerLinkCNE</title>
         <link rel="shortcut icon" type="image/png" href="favicon.png"/>
@@ -96,19 +97,44 @@
                             </div>
                         </div>
 
-                        <!--PANEL PARA PESQUISAR-->
+                        <!--PANEL PARA RESOLVER-->
                         <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
                             <div class="panel panel-primary">
                                 <div class="panel-heading" id="accordion">
-                                    <b><span id="findPanelTitle"></span></b>
+                                    <b><span id="fixPanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                            <i class="material-icons">search</i>
+                                        <button id="fixPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                            <i class="material-icons">done</i>
                                         </button>
                                     </div>
                                 </div>
                                 <div class="panel-collapse collapse" id="collapseTwo">
-                                    <div id="findPanelBody" class="panel-body"></div>
+                                    <div id="fixPanelBody" class="panel-bodyForm">
+                                        <form id="fixCall-form" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
+                                            <div id="fixCall-formselectedCall" class="hidden"></div>
+                                            <div class="modal-body">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                                    <input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                    <input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                                    <textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>
+                                                </div>
+                                                <br>
+                                                <div id="fixCall-formResult" class="text-center"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div>
+                                                    <button type="submit" class="btn btn-primary">Resolver</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -160,35 +186,40 @@
                 </div>
 
                 <!--DASHBOARD CARDS-->
-                <div id="cards" class="mdl-grid demo-content">
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
-                        <div class="demo-graphs mdl-shadow--2dp randomColor">
-                            <h1><b>10</b></h1><br>
-                            <p><b>CATEGORIA</b></p><br>
+
+                <!--GRÁFICOS-->
+                <div id="showHome">
+
+                    <div id="cards" class="mdl-grid demo-content">
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                            <div class="demo-graphs mdl-shadow--2dp randomColor">
+                                <h1><b>10</b></h1><br>
+                                <p><b>CATEGORIA</b></p><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
-                        <div class="demo-graphs mdl-shadow--2dp randomColor">
-                            <h1><b>10</b></h1><br>
-                            <p><b>CATEGORIA</b></p><br>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                            <div class="demo-graphs mdl-shadow--2dp randomColor">
+                                <h1><b>10</b></h1><br>
+                                <p><b>CATEGORIA</b></p><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
-                        <div class="demo-graphs mdl-shadow--2dp randomColor">
-                            <h1><b>10</b></h1><br>
-                            <p><b>CATEGORIA</b></p><br>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                            <div class="demo-graphs mdl-shadow--2dp randomColor">
+                                <h1><b>10</b></h1><br>
+                                <p><b>CATEGORIA</b></p><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
-                        <div class="demo-graphs mdl-shadow--2dp randomColor">
-                            <h1><b>10</b></h1><br>
-                            <p><b>CATEGORIA</b></p><br>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                            <div class="demo-graphs mdl-shadow--2dp randomColor">
+                                <h1><b>10</b></h1><br>
+                                <p><b>CATEGORIA</b></p><br>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
-                        <div class="demo-graphs mdl-shadow--2dp randomColor">
-                            <h1><b>10</b></h1><br>
-                            <p><b>CATEGORIA</b></p><br>
+                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                            <div class="demo-graphs mdl-shadow--2dp randomColor">
+                                <h1><b>10</b></h1><br>
+                                <p><b>CATEGORIA</b></p><br>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -303,4 +334,5 @@
         <link rel="stylesheet" href="index.css">
 
     </body>
+
 </html>

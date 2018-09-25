@@ -1,6 +1,6 @@
 //FUNÇÕES QUE CRIAM ELEMENTOS HTML
 
-function createPendingCall(id, title, date, description) {
+function createTicket(id, title, description) {
     var div = document.createElement('div');
     div.id = id;
     div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
@@ -8,102 +8,38 @@ function createPendingCall(id, title, date, description) {
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
-            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
-            '<i id="' + id + '" class="material-icons">check_box</i>' +
+            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<i class="material-icons">check_circle</i>' +
+            '</button>' +
+            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<i class="material-icons">info</i>' +
+            '</button>' +
+            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<i class="material-icons">cancel</i>' +
             '</button>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
-}
-
-function createReadyFoundCall(id, title, date, description, tec) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div id="' + id + '" class="col-md-12">' +
-            '<div class = "panel panel-success">' +
-            '<div class = "panel-heading"><b>' + title + ' >> ' + date + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><span>' + tec + '</span></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("findCall-formResult").appendChild(div);
-}
-
-function createUnReadyFoundCall(id, title, date, description) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div id="' + id + '" class="col-md-12">' +
-            '<div class = "panel panel-danger">' +
-            '<div class = "panel-heading"><b>' + title + ' >> ' + date + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button>Resolver</button></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("findCall-formResult").appendChild(div);
-}
-
-function createPendingProgram(title, date, description) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div class="col-md-6 col-xs-12 col-sm-12 col-md-4 col-lg-4">' +
-            '<div class = "panel panel-primary">' +
-            '<div class = "panel-heading"><b>' + title + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button>Resolver</button></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("pendingProgram").appendChild(div);
-}
-
-function createLastCall(title, date, description) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div class="col-md-6 col-xs-12 col-sm-12 col-md-4 col-lg-4">' +
-            '<div class = "panel panel-warning">' +
-            '<div class = "panel-heading"><b>' + title + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button>Resolver</button></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("lastCalls").appendChild(div);
-}
-
-function createLastStock(title, date, description) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div class="col-md-6 col-xs-12 col-sm-12 col-md-4 col-lg-4">' +
-            '<div class = "panel panel-success">' +
-            '<div class = "panel-heading"><b>' + title + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button>Resolver</button></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("lastStock").appendChild(div);
-}
-
-function createLastPiece(title, date, description) {
-    var div = document.createElement('div');
-    div.innerHTML = '<div class="col-md-6 col-xs-12 col-sm-12 col-md-4 col-lg-4">' +
-            '<div class = "panel panel-info">' +
-            '<div class = "panel-heading"><b>' + title + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<div class = "panel-footer"><button>Resolver</button></div>' +
-            '</div>' +
-            '</div>';
-    document.getElementById("lastPiece").appendChild(div);
 }
 
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
 
 $('#navCalls').click(function () {
     $('#showContent').show();
-    $('#cards').hide();
+    $('#showHome').hide();
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
-    $('#findPanelTitle').html('PESQUISAR');
+    $('#fixPanelTitle').html('RESOLVER');
     $('#reportPanelTitle').html('RELATÓRIO');
     $('#addPanelBody').html(addCallForm);
     sendServletRefreshCall();
+    openCollapsePanels($('#collapseOne'));
 });
 
 $('#home').click(function () {
     $('#showContent').hide();
-    $('#cards').show();
+    $('#showHome').show();
+    $('#titlePage').html('HOME');
 });
 
 //FUNÇÕES QUE DESENHAM GRÁFICOS
@@ -126,7 +62,7 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     ]);
             var options = {
                 title: 'Chamados dos Últimos 7 Dias',
-                hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
+                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0},
                 animation: {
                     duration: 1000,
@@ -145,7 +81,7 @@ function sendServletAddCall(client, dat, description) {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var call = JSON.parse(xhr.responseText);
-            createPendingCall(call.id, call.cliente, call.data, call.descricao);
+            createTicket(call.id, call.cliente, call.descricao);
             document.getElementById('addCall-formClient').value = '';
             document.getElementById('addCall-formDat').value = '';
             document.getElementById('addCall-formDescription').value = '';
@@ -171,7 +107,7 @@ function sendServletRefreshCall() {
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
                 if (call.status === 'false') {
-                    createPendingCall(call.id, call.cliente, call.data, call.descricao);
+                    createTicket(call.id, call.cliente, call.descricao);
                     count++;
                 }
             }
@@ -264,7 +200,7 @@ function sendServletReturnCall(choosenCall) {
             var jsonData = JSON.parse(response);
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
-                if (call.id == choosenCall.id) {
+                if (call.id === choosenCall.id) {
                     document.getElementById('fixCall-formClient').value = '';
                     document.getElementById('fixCall-formDat').value = '';
                     document.getElementById('fixCall-formDescription').value = '';
@@ -273,6 +209,7 @@ function sendServletReturnCall(choosenCall) {
                     document.getElementById('fixCall-formDat').value = call.data;
                     document.getElementById('fixCall-formDescription').value = call.descricao;
                     document.getElementById('fixCall-formselectedCall').innerHTML = call.id;
+                    openCollapsePanels($('#collapseTwo'));
                 }
             }
         }
@@ -491,10 +428,57 @@ function colorCategory(category) {
     $(category).css('color', textColors[choosed]);
 }
 
+//ABRE O PANEL SELECIONADO, SE JÁ NÃO ESTIVER ABERTO
+function openCollapsePanels(button) {
+    var check = $(button).hasClass('in');
+    if (check === false) {
+        if ($(button).attr('id') === 'collapseOne') {
+            $('#addPanelTitleBtn').click();
+            closeCollapsePanels($('#collapseTwo'));
+            closeCollapsePanels($('#collapseThree'));
+            return;
+        } else if ($(button).attr('id') === 'collapseTwo') {
+            $('#fixPanelTitleBtn').click();
+            closeCollapsePanels($('#collapseOne'));
+            closeCollapsePanels($('#collapseThree'));
+            return;
+        } else if ($(button).attr('id') === 'collapseThree') {
+            $('#reportPanelTitleBtn').click();
+            closeCollapsePanels($('#collapseOne'));
+            closeCollapsePanels($('#collapseTwo'));
+            return;
+        }
+    } else if (check === true) {
+        return;
+    }
+    return;
+}
+
+//FECHA O PANEL SELECIONADO, SE JÁ NÃO ESTIVER FECHADO
+function closeCollapsePanels(button) {
+    var check = $(button).hasClass('in');
+    if (check === false) {
+        return;
+    } else if (check === true) {
+        if ($(button).attr('id') == 'collapseOne') {
+            $('#addPanelTitleBtn').click();
+            closeCollapsePanels()
+            return;
+        } else if ($(button).attr('id') == 'collapseTwo') {
+            $('#fixPanelTitleBtn').click();
+            return;
+        } else if ($(button).attr('id') == 'collapseThree') {
+            $('#reportPanelTitleBtn').click();
+            return;
+        }
+    }
+    return;
+}
+
 //EXECUTA AO INICIAR
 function codeAddress() {
-    //$('#navCalls').click();
-    $('#showContent').hide();
+    $('#navCalls').click();
+    //$('#showContent').hide();
     var collection = $(".randomColor");
     collection.each(function () {
         colorCategory(this);
@@ -503,6 +487,7 @@ function codeAddress() {
 window.onload = codeAddress;
 
 //VARIÁVEIS GLOBAIS
+
 var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
         '<div class="input-group">' +
