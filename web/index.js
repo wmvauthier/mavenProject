@@ -92,16 +92,43 @@ function createLastPiece(title, date, description) {
 
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
 
-$('#navCalls').click(function() {
+$('#navCalls').click(function () {
     $('#titlePage').html('CHAMADOS');
-    $('.contentX').attr('id','pendingCalls');
-    $('#addPanelTitle').html("ADICIONAR CHAMADO");
-    $('#findPanelTitle').html("PESQUISAR CHAMADO");
-    $('#reportPanelTitle').html("RELATÓRIO DE CHAMADOS");
+    $('.contentX').attr('id', 'pendingCalls');
+    $('#addPanelTitle').html('ADICIONAR CHAMADO');
+    $('#findPanelTitle').html('PESQUISAR CHAMADO');
+    $('#reportPanelTitle').html('RELATÓRIO DE CHAMADOS');
     $('#addPanelBody').html(addCallForm);
     sendServletRefreshCall();
     document.getElementById('addPanelTitleBtn').click();
+
 });
+
+//FUNÇÕES QUE DESENHAM GRÁFICOS
+
+function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
+    console.log(qtdCalls);
+    console.log(qtdReadyCalls);
+    var data = google.visualization.arrayToDataTable([
+        ['Dia', 'Concluídos', 'Pendentes'],
+        [`${dateNow.day - 6}/${dateNow.month}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${dateNow.day - 5}/${dateNow.month}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${dateNow.day - 4}/${dateNow.month}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${dateNow.day - 3}/${dateNow.month}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${dateNow.day - 2}/${dateNow.month}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusDat(dateNow, 1,'day')}/${dateNow.month}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`${dateNow.day}/${dateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
+    ]);
+
+    var options = {
+        title: 'Chamados dos Últimos 7 Dias',
+        hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
+    chart.draw(data, options);
+}
 
 //FUNÇÕES QUE CHAMAM SERVLETS
 
@@ -128,14 +155,58 @@ function sendServletRefreshCall() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
+            var dateNow = myDat(new Date);
             var count = 0;
+
+            //DESENHA OS CHAMADOS ABERTOS
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
-                if (call.status == 'false') {
+                if (call.status === 'false') {
                     createPendingCall(call.id, call.cliente, call.data, call.descricao);
                     count++;
                 }
             }
+
+            //MANTENDO A MESMA DATA ATUAL
+            var realDateNow = new Object();
+            realDateNow.year = dateNow.year;
+            realDateNow.month = dateNow.month;
+            realDateNow.day = dateNow.day;
+            console.log("DATA REAL:");
+            console.log(realDateNow);
+
+            //DESENHA O  GRÁFICO DE CHAMADOS ABERTOS
+
+            //VETORES QUE RECEBEM OS CHAMADOS
+            var valuesSVG = [];
+            var valuesSVGReady = [];
+
+            for (var o = 0; o < 21; o++) {
+
+                var countCalls = 0;
+                var countReadyCalls = 0;
+
+                for (var s = 0; s < jsonData.calls.length; s++) {
+                    var call = jsonData.calls[s];
+                    var convertedCall = toMyDat(call.data);
+                    if (convertedCall.day === dateNow.day) {
+                        if (call.status === 'false') {
+                            countCalls++;
+                        }
+                        if (call.status !== 'false') {
+                            countReadyCalls++;
+                        }
+                    }
+                }
+
+                minusDat(dateNow, 1);
+                valuesSVG[o] = countCalls;
+                valuesSVGReady[o] = countReadyCalls;
+
+            }
+
+            drawSVGCalls(valuesSVG, valuesSVGReady, realDateNow);
+
             //document.getElementById("ntfCalls").innerHTML = '';
             //document.getElementById("ntfCalls").innerHTML = count;
             //$('#ntfCalls').show(400);
@@ -314,11 +385,91 @@ function sendServletSaveReportCall(table, divTitle) {
     hiddenResults.innerHTML = '';
 }
 
+//FUNÇÕES AUXILIARES
+
+//DATA ATUAL NO MYDAT
+function myDat(dateNow) {
+
+    var n = dateNow.getMonth();
+    var okMonth = parseInt(n, 10);
+    okMonth++;
+    var myDat = new Object();
+    myDat.year = dateNow.getFullYear();
+    myDat.month = okMonth;
+    myDat.day = dateNow.getDate();
+
+    return myDat;
+
+}
+
+//CONVERTE PARA MYDAT O QUE VEM DO SERVLET
+function toMyDat(dateNow) {
+    var times = 0;
+    var myDat = new Object();
+    var concat = '';
+
+    for (i = 0; i < dateNow.length; i++) {
+        if (dateNow[i] === '-') {
+            if (times === 0 && concat !== '') {
+                var n = parseInt(concat, 10);
+                myDat.year = n;
+                concat = '';
+                times++;
+            }
+            if (times === 1 && concat !== '') {
+                var n = parseInt(concat, 10);
+                myDat.month = n;
+                concat = '';
+                times++;
+            }
+        } else {
+            concat = concat + dateNow[i];
+        }
+    }
+    var n = parseInt(concat, 10);
+    myDat.day = n;
+    return myDat;
+}
+
+//REDUZ UM DIA EM MYDAT
+function minusDat(dateNow, times, back) {
+
+    for (var i = 0; i < times; i++) {
+        //VERIFICA VIRADAS DE MÊS E DE ANO
+        if ((dateNow.day === 1) && (dateNow.month === 1)) {
+            dateNow.day = 31;
+            dateNow.month = 12;
+            dateNow.year = dateNow.year - 1;
+        }
+        if (dateNow.day === 1) {
+            dateNow.day = 31;
+            dateNow.month = dateNow.month - 1;
+        } else {
+            dateNow.day = dateNow.day - 1;
+        }
+    }
+
+    if (back == 'day') {
+        return dateNow.day;
+    } else if (back == 'month') {
+        return dateNow.month;
+    } else if (back == 'year') {
+        return dateNow.year;
+    } else if (back == null) {
+        return dateNow;
+    }
+
+    return dateNow;
+
+}
+
+//EXECUTA AO INICIAR
 function codeAddress() {
-    
+    $('#navCalls').click();
 }
 window.onload = codeAddress;
 
+//VARIÁVEIS GLOBAIS
 var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall(document.getElementById(\'addCall-formClient\'),document.getElementById(\'addCall-formDat\'),document.getElementById(\'addCall-formDescription\'));">' +
         '<div class="modal-body">' +
         '<div class="input-group">' +
