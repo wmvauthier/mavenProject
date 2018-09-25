@@ -27,6 +27,7 @@
             google.charts.setOnLoadCallback(drawChart);
         </script>
     </head>
+
     <body>
         <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
             <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
@@ -53,7 +54,7 @@
                     </div>
                 </header>
                 <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+                    <a class="mdl-navigation__link" id="home" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
                     <a class="mdl-navigation__link" id="navCalls" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">feedback</i>Chamados</a>
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">today</i>Programações</a>
                     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">call</i>Ligações</a>
@@ -65,7 +66,7 @@
                 </nav>
             </div>
             <main id="mainContent" class="mdl-layout__content mdl-color--grey-100">
-                
+
                 <!--DASHBOARD-->
                 <div id="showContent" class="mdl-grid demo-content">
 
@@ -155,21 +156,43 @@
                         </div>
 
                     </div>
-                    <!--LISTA DE PANELS - END-->
 
                 </div>
-                
+
                 <!--DASHBOARD CARDS-->
                 <div id="cards" class="mdl-grid demo-content">
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
-                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--3-col"></div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                        <div class="demo-graphs mdl-shadow--2dp randomColor">
+                            <h1><b>10</b></h1><br>
+                            <p><b>CATEGORIA</b></p><br>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                        <div class="demo-graphs mdl-shadow--2dp randomColor">
+                            <h1><b>10</b></h1><br>
+                            <p><b>CATEGORIA</b></p><br>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                        <div class="demo-graphs mdl-shadow--2dp randomColor">
+                            <h1><b>10</b></h1><br>
+                            <p><b>CATEGORIA</b></p><br>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                        <div class="demo-graphs mdl-shadow--2dp randomColor">
+                            <h1><b>10</b></h1><br>
+                            <p><b>CATEGORIA</b></p><br>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 container">
+                        <div class="demo-graphs mdl-shadow--2dp randomColor">
+                            <h1><b>10</b></h1><br>
+                            <p><b>CATEGORIA</b></p><br>
+                        </div>
+                    </div>
                 </div>
-                
+
             </main>
         </div>
         <!-- MODAIS UTILIZADOS PARA CHAMADOS -->

@@ -91,6 +91,7 @@ function createLastPiece(title, date, description) {
 
 $('#navCalls').click(function () {
     $('#showContent').show();
+    $('#cards').hide();
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
@@ -98,7 +99,11 @@ $('#navCalls').click(function () {
     $('#reportPanelTitle').html('RELATÓRIO');
     $('#addPanelBody').html(addCallForm);
     sendServletRefreshCall();
-    document.getElementById('addPanelTitleBtn').click();
+});
+
+$('#home').click(function () {
+    $('#showContent').hide();
+    $('#cards').show();
 });
 
 //FUNÇÕES QUE DESENHAM GRÁFICOS
@@ -119,8 +124,7 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
     [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-    
-    var options = {
+            var options = {
                 title: 'Chamados dos Últimos 7 Dias',
                 hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0},
@@ -453,8 +457,8 @@ function minusDat(dateNow, times, back) {
     if (back == 'day') {
         return dateNow.day;
     } else if (back == 'month') {
-        var a = ["Jan", "Fev", "Mar", "Abr", "Mai","Jun","Jul", "Ago","Set", "Out", "Nov", "Dez"];
-        return a[dateNow.month  - 1];
+        var a = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"];
+        return a[dateNow.month - 1];
     } else if (back == 'year') {
         return dateNow.year;
     } else if (back == null) {
@@ -478,10 +482,23 @@ function minusEqualDat(real, copy, times, back) {
     return minusDat(copy, times, back);
 }
 
+//COR ALEATÓRIA NA CATEGORIA
+function colorCategory(category) {
+    var colors = ['#ee3b78', '#34d387', '#94f03c', '#ff703f', '#4c4cd4', '#7f41d1', '#ffee3f', '#ffcf3f'];
+    var textColors = ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#000000', '#000000'];
+    var choosed = Math.floor(Math.random() * 7) + 0;
+    $(category).css('background-color', colors[choosed]);
+    $(category).css('color', textColors[choosed]);
+}
+
 //EXECUTA AO INICIAR
 function codeAddress() {
     //$('#navCalls').click();
     $('#showContent').hide();
+    var collection = $(".randomColor");
+    collection.each(function () {
+        colorCategory(this);
+    });
 }
 window.onload = codeAddress;
 
