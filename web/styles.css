@@ -124,6 +124,16 @@ html, body {
 .contentX {
     margin:8px;
 }
+
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 /* TODO: Find a proper solution to have the graphs
  * not float around outside their container in IE10/11.
  * Using a browserhacks.com solution for now.

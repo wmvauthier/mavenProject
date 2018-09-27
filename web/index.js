@@ -8,11 +8,8 @@ function createPendingCall(id, title, date, description) {
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
             '<div class = "panel-body">' + description + '</div>' +
-            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addBtn">' +
-            '<i class="material-icons">done</i>' +
-            '</button>' +
-            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="addBtn">' +
-            '<i class="material-icons">clear</i>' +
+            '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<i id="'+id+'" class="material-icons">check_box</i>' +
             '</button>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
@@ -107,17 +104,20 @@ $('#navCalls').click(function () {
 //FUNÇÕES QUE DESENHAM GRÁFICOS
 
 function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
-    console.log(qtdCalls);
-    console.log(qtdReadyCalls);
+
+    var realDateNow = new Object();
+    equalDat(dateNow, realDateNow);
+
     var data = google.visualization.arrayToDataTable([
         ['Dia', 'Concluídos', 'Pendentes'],
-        [`${dateNow.day - 6}/${dateNow.month}`, qtdReadyCalls[6], qtdCalls[6]],
-        [`${dateNow.day - 5}/${dateNow.month}`, qtdReadyCalls[5], qtdCalls[5]],
-        [`${dateNow.day - 4}/${dateNow.month}`, qtdReadyCalls[4], qtdCalls[4]],
-        [`${dateNow.day - 3}/${dateNow.month}`, qtdReadyCalls[3], qtdCalls[3]],
-        [`${dateNow.day - 2}/${dateNow.month}`, qtdReadyCalls[2], qtdCalls[2]],
-        [`${minusDat(dateNow, 1,'day')}/${dateNow.month}`, qtdReadyCalls[1], qtdCalls[1]],
-        [`${dateNow.day}/${dateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
+        [`${minusEqualDat(realDateNow,dateNow,7,'day')}/${minusEqualDat(realDateNow,dateNow,7,'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+        [`${minusEqualDat(realDateNow,dateNow,6,'day')}/${minusEqualDat(realDateNow,dateNow,6,'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${minusEqualDat(realDateNow,dateNow,5,'day')}/${minusEqualDat(realDateNow,dateNow,5,'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${minusEqualDat(realDateNow,dateNow,4,'day')}/${minusEqualDat(realDateNow,dateNow,4,'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${minusEqualDat(realDateNow,dateNow,3,'day')}/${minusEqualDat(realDateNow,dateNow,3,'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${minusEqualDat(realDateNow,dateNow,2,'day')}/${minusEqualDat(realDateNow,dateNow,2,'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusEqualDat(realDateNow,dateNow,1,'day')}/${minusEqualDat(realDateNow,dateNow,1,'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`${realDateNow.day}/${realDateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
 
     var options = {
@@ -155,6 +155,7 @@ function sendServletRefreshCall() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
+            document.getElementById("pendingCalls").innerHTML = '';
             var dateNow = myDat(new Date);
             var count = 0;
 
@@ -169,11 +170,7 @@ function sendServletRefreshCall() {
 
             //MANTENDO A MESMA DATA ATUAL
             var realDateNow = new Object();
-            realDateNow.year = dateNow.year;
-            realDateNow.month = dateNow.month;
-            realDateNow.day = dateNow.day;
-            console.log("DATA REAL:");
-            console.log(realDateNow);
+            equalDat(dateNow, realDateNow);
 
             //DESENHA O  GRÁFICO DE CHAMADOS ABERTOS
 
@@ -463,6 +460,19 @@ function minusDat(dateNow, times, back) {
 
 }
 
+//IGUALA DOIS DIAS EM MYDAT
+function equalDat(real, copy) {
+    copy.year = real.year;
+    copy.month = real.month;
+    copy.day = real.day;
+}
+
+//IGUALA DOIS DIAS EM MYDAT E REDUZ (PARA SVG'S)
+function minusEqualDat(real,copy,times,back){
+    equalDat(real,copy);
+    return minusDat(copy,times,back);
+}
+
 //EXECUTA AO INICIAR
 function codeAddress() {
     $('#navCalls').click();
@@ -470,7 +480,7 @@ function codeAddress() {
 window.onload = codeAddress;
 
 //VARIÁVEIS GLOBAIS
-var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall(document.getElementById(\'addCall-formClient\'),document.getElementById(\'addCall-formDat\'),document.getElementById(\'addCall-formDescription\'));">' +
+var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
         '<div class="input-group">' +
         '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
@@ -481,13 +491,17 @@ var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall
         '<input id="addCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado" required />' +
         '</div>' +
         '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">contacts</i></span>' +
+        '<input id="addCall-formDat" name="tec" type="text" class="form-control" placeholder="Técnico designado" required />' +
+        '</div>' +
+        '<div class="input-group">' +
         '<span class="input-group-addon"><i class="material-icons">mode_comment</i></span>' +
         '<input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div>' +
         '</div>' +
         '<div class="modal-footer">' +
         '<div>' +
-        '<button type="submit">Abrir Chamado</button>' +
+        '<button type="submit"  class="btn btn-primary">Abrir Chamado</button>' +
         '</div>' +
         '</div>' +
         '</form>';

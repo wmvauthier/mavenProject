@@ -71,12 +71,6 @@
 
                     <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col">
                         <div id="graphs"></div>
-                        <!--<svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
-                        <use xlink:href="#chart" />
-                        </svg>
-                        <svg fill="currentColor" viewBox="0 0 500 250" class="demo-graph">
-                        <use xlink:href="#chart" />
-                        </svg>-->
                     </div>
 
 
@@ -117,7 +111,7 @@
                             </div>
                         </div>
 
-                        <!--PANEL PARA PESQUISAR-->
+                        <!--PANEL PARA RELATÓRIOS-->
                         <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
                             <div class="panel panel-primary">
                                 <div class="panel-heading" id="accordion">
@@ -129,7 +123,32 @@
                                     </div>
                                 </div>
                                 <div class="panel-collapse collapse" id="collapseThree">
-                                    <div id="reportPanelBody" class="panel-body"></div>
+                                    <div id="reportPanelBody" class="panel-bodyForm">
+                                        <form id="reportCall-form" action="JavaScript:sendServletReportCall();">
+                                            <div id="reportCall-formselectedCall" class="hidden"></div>
+                                            <div class="modal-body">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>
+                                                    <input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="material-icons">calendar_today</i></span>
+                                                    <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="material-icons">calendar_today</i></span>
+                                                    <input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>
+                                                </div>
+                                                <br>
+                                                <div id="reportCall-formResult"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <div>
+                                                    <button type="submit"  class="btn btn-primary">Gerar Relatório</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -140,176 +159,112 @@
                 </div>
             </main>
         </div>
-    <!-- MODAIS UTILIZADOS PARA CHAMADOS -->
-    <!-- BEGIN # ADD CALL MODAL -->
-    <div class="modal fade" id="addCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" align="center">
-                    <button id="addCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                    <div id="div-login-msg">
-                        <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+        <!-- MODAIS UTILIZADOS PARA CHAMADOS -->
+
+        <!-- BEGIN # FIND CALL MODAL -->
+        <div class="modal fade" id="findCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <button id="findCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <div id="div-login-msg">
+                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+                        </div>
                     </div>
+
+                    <form id="findCall-form" action="JavaScript:sendServletFindCall(document.getElementById('findCall-formClient'),document.getElementById('findCall-formDat'));">
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="findCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <input id="findCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
+                            </div>
+                            <br>
+                            <div id="findCall-formResult" class="text-center"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-danger btn-lg btn-block">Pesquisar Chamado</button>
+                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-
-                <!-- Begin # Login Form -->
-                <form id="addCall-form" action="JavaScript:sendServletAddCall(document.getElementById('addCall-formClient'),document.getElementById('addCall-formDat'),document.getElementById('addCall-formDescription'));">
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="addCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente" required>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="addCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado" required />
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                            <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Abrir Chamado</button>
-                            <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
-
             </div>
         </div>
-    </div>
 
-    <!-- BEGIN # FIND CALL MODAL -->
-    <div class="modal fade" id="findCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" align="center">
-                    <button id="findCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                    <div id="div-login-msg">
-                        <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+        <!-- BEGIN # FIX CALL MODAL -->
+        <div class="modal fade" id="fixCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <button id="fixCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <div id="div-login-msg">
+                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+                        </div>
                     </div>
+
+                    <form id="fixCall-form" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
+                        <div id="fixCall-formselectedCall" class="hidden"></div>
+                        <div class="modal-body">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                <input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
+                                <textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>
+                            </div>
+                            <br>
+                            <div id="fixCall-formResult" class="text-center"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div>
+                                <button type="submit" class="btn btn-danger btn-lg btn-block">Resolver Chamado</button>
+                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-
-                <form id="findCall-form" action="JavaScript:sendServletFindCall(document.getElementById('findCall-formClient'),document.getElementById('findCall-formDat'));">
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="findCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="findCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
-                        </div>
-                        <br>
-                        <div id="findCall-formResult" class="text-center"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Pesquisar Chamado</button>
-                            <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
-
             </div>
         </div>
-    </div>
 
-    <!-- BEGIN # FIX CALL MODAL -->
-    <div class="modal fade" id="fixCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" align="center">
-                    <button id="fixCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                    <div id="div-login-msg">
-                        <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+        <!-- BEGIN # REPORT CALL MODAL -->
+        <div class="modal fade" id="reportCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" align="center">
+                        <button id="reportCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        <div id="div-login-msg">
+                            <span id="text-login-msg">Preencha abaixo as informações:</span><br>
+                        </div>
                     </div>
+
+
+
                 </div>
-
-                <form id="fixCall-form" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
-                    <div id="fixCall-formselectedCall" class="hidden"></div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                            <textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>
-                        </div>
-                        <br>
-                        <div id="fixCall-formResult" class="text-center"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Resolver Chamado</button>
-                            <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
-
             </div>
         </div>
-    </div>
 
-    <!-- BEGIN # REPORT CALL MODAL -->
-    <div class="modal fade" id="reportCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header" align="center">
-                    <button id="reportCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                    </button>
-                    <div id="div-login-msg">
-                        <span id="text-login-msg">Preencha abaixo as informações:</span><br>
-                    </div>
-                </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="index.css">
 
-                <form id="reportCall-form" action="JavaScript:sendServletReportCall();">
-                    <div id="reportCall-formselectedCall" class="hidden"></div>
-                    <div class="modal-body">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
-                        </div>
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                            <input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>
-                        </div>
-                        <br>
-                        <div id="reportCall-formResult"></div>
-                    </div>
-                    <div class="modal-footer">
-                        <div>
-                            <button type="submit" class="btn btn-danger btn-lg btn-block">Gerar Relatório</button>
-                            <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                        </div>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-    <script type="text/javascript" src="index.js"></script>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="index.css">
-
-</body>
+    </body>
 </html>
