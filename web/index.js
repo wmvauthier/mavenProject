@@ -136,12 +136,12 @@ function sendServletAddCall(client, dat, description) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            document.getElementById('addCall-formCloseBtn').click();
             var call = JSON.parse(xhr.responseText);
             createPendingCall(call.id, call.cliente, call.data, call.descricao);
             document.getElementById('addCall-formClient').value = '';
             document.getElementById('addCall-formDat').value = '';
             document.getElementById('addCall-formDescription').value = '';
+            sendServletRefreshCall();
         }
     };
     xhr.open("post", "registerCall", true);
@@ -505,5 +505,3 @@ var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall
         '</div>' +
         '</div>' +
         '</form>';
-
-        
