@@ -90,6 +90,7 @@ function createLastPiece(title, date, description) {
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
 
 $('#navCalls').click(function () {
+    $('#showContent').show();
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
@@ -98,7 +99,6 @@ $('#navCalls').click(function () {
     $('#addPanelBody').html(addCallForm);
     sendServletRefreshCall();
     document.getElementById('addPanelTitleBtn').click();
-
 });
 
 //FUNÇÕES QUE DESENHAM GRÁFICOS
@@ -117,9 +117,10 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
     [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
     [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-    [`${realDateNow.day} / ${realDateNow.month}`, qtdReadyCalls[0], qtdCalls[0]]
+    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-            var options = {
+    
+    var options = {
                 title: 'Chamados dos Últimos 7 Dias',
                 hAxis: {title: 'Year', titleTextStyle: {color: '#333'}},
                 vAxis: {minValue: 0},
@@ -452,7 +453,8 @@ function minusDat(dateNow, times, back) {
     if (back == 'day') {
         return dateNow.day;
     } else if (back == 'month') {
-        return dateNow.month;
+        var a = ["Jan", "Fev", "Mar", "Abr", "Mai","Jun","Jul", "Ago","Set", "Out", "Nov", "Dez"];
+        return a[dateNow.month  - 1];
     } else if (back == 'year') {
         return dateNow.year;
     } else if (back == null) {
@@ -478,7 +480,8 @@ function minusEqualDat(real, copy, times, back) {
 
 //EXECUTA AO INICIAR
 function codeAddress() {
-    $('#navCalls').click();
+    //$('#navCalls').click();
+    $('#showContent').hide();
 }
 window.onload = codeAddress;
 
