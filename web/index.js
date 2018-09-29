@@ -228,7 +228,8 @@ function sendServletFixCall() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var element = document.getElementById(callToFind.innerHTML);
             element.parentNode.removeChild(element);
-            document.getElementById('fixCall-formCloseBtn').click();
+            document.getElementById('fixCall-form').reset();
+            closeCollapsePanels($('#collapseTwo'));
         }
     };
     xhr.open("post", "fixCall", true);
@@ -449,7 +450,19 @@ function openCollapsePanels(button) {
             return;
         }
     } else if (check === true) {
-        return;
+        if ($(button).attr('id') === 'collapseOne') {
+            closeCollapsePanels($('#collapseTwo'));
+            closeCollapsePanels($('#collapseThree'));
+            return;
+        } else if ($(button).attr('id') === 'collapseTwo') {
+            closeCollapsePanels($('#collapseOne'));
+            closeCollapsePanels($('#collapseThree'));
+            return;
+        } else if ($(button).attr('id') === 'collapseThree') {
+            closeCollapsePanels($('#collapseOne'));
+            closeCollapsePanels($('#collapseTwo'));
+            return;
+        }
     }
     return;
 }
@@ -462,7 +475,6 @@ function closeCollapsePanels(button) {
     } else if (check === true) {
         if ($(button).attr('id') == 'collapseOne') {
             $('#addPanelTitleBtn').click();
-            closeCollapsePanels()
             return;
         } else if ($(button).attr('id') == 'collapseTwo') {
             $('#fixPanelTitleBtn').click();

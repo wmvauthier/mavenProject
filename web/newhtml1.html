@@ -110,7 +110,7 @@
                                 </div>
                                 <div class="panel-collapse collapse" id="collapseTwo">
                                     <div id="fixPanelBody" class="panel-bodyForm">
-                                        <form id="fixCall-form" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
+                                        <form id="c" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
                                             <div id="fixCall-formselectedCall" class="hidden"></div>
                                             <div class="modal-body">
                                                 <div class="input-group">
@@ -145,7 +145,7 @@
                                 <div class="panel-heading" id="accordion">
                                     <b><span id="reportPanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        <button id="reportPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
                                             <i class="material-icons">assignment</i>
                                         </button>
                                     </div>
@@ -187,7 +187,6 @@
 
                 <!--DASHBOARD CARDS-->
 
-                <!--GRÁFICOS-->
                 <div id="showHome">
 
                     <div id="cards" class="mdl-grid demo-content">
@@ -227,44 +226,6 @@
             </main>
         </div>
         <!-- MODAIS UTILIZADOS PARA CHAMADOS -->
-
-        <!-- BEGIN # FIND CALL MODAL -->
-        <div class="modal fade" id="findCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <button id="findCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div id="div-login-msg">
-                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
-                        </div>
-                    </div>
-
-                    <form id="findCall-form" action="JavaScript:sendServletFindCall(document.getElementById('findCall-formClient'),document.getElementById('findCall-formDat'));">
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="findCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="findCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
-                            </div>
-                            <br>
-                            <div id="findCall-formResult" class="text-center"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block">Pesquisar Chamado</button>
-                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
 
         <!-- BEGIN # FIX CALL MODAL -->
         <div class="modal fade" id="fixCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
