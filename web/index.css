@@ -69,6 +69,24 @@ input{
     text-transform: uppercase;
 }
 
+.panelTicketBtn {
+    padding: -5px 0px !important;
+    margin-top: -5px;
+}
+
+.panelTicketBtnArea {
+    padding: 5px 0px 5px 0px !important;
+}
+
+.panelTicketBtnInverter {
+    padding: -5px 0px !important;
+    margin-top: 5px;
+}
+
+.panelTicketBtnAreaInverter {
+    padding: 5px 0px 5px 0px !important;
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;

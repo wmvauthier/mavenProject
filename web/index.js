@@ -6,9 +6,9 @@ function createTicket(id, title, description) {
     div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
     div.innerHTML = '' +
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
-            '<div class = "panel-heading panel-heading-danger-fd"><b class="panel-title-fd">' + title + '</b></div>' +
-            '<div class = "panel-body">' + description + '</div>' +
-            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
+            '<div class="btn-group pull-right panelTicketBtn">' +
+            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons">check_circle</i>' +
             '</button>' +
             '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
@@ -17,8 +17,34 @@ function createTicket(id, title, description) {
             '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons">cancel</i>' +
             '</button>' +
+            '</div>' +
+            '</div>' +
+            '<div class = "panel-body">' + description + '</div>' +
             '</div>';
     document.getElementById("pendingCalls").appendChild(div);
+}
+
+function createCategory() {
+    var div = document.createElement('div');
+    div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
+    div.innerHTML = '' +
+            '<div class="col mdl-shadow--2dp randomColor">' +
+            '<div class="row">' +
+            '<div class="col col-sm-6 panelTicketBtnInverter">' +
+            '<a><i class="material-icons">create</i></a>' +
+            '</div>' +
+            '<div class="col col-sm-6 panelTicketBtnInverter">' +
+            '<a onclick="alert()"><i class="material-icons">clear</i></a>' +
+            '</div>' +
+            '</div>' +
+            '<div class="row">' +
+            '<div class="col col-sm-12">' +
+            '<h1><b>10</b></h1><br>' +
+            '<p><b>CATEGORIA</b></p><br>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    document.getElementById("categories").appendChild(div);
 }
 
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
@@ -50,25 +76,25 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     equalDat(dateNow, realDateNow);
 
     var data = google.visualization.arrayToDataTable([
-    ['Dia', 'Concluídos', 'Pendentes'],
-    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+        ['Dia', 'Concluídos', 'Pendentes'],
+        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-            var options = {
-                title: 'Chamados dos Últimos 7 Dias',
-                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0},
-                animation: {
-                    duration: 1000,
-                    easing: 'out',
-                },
-            };
+    var options = {
+        title: 'Chamados dos Últimos 7 Dias',
+        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        animation: {
+            duration: 1000,
+            easing: 'out',
+        },
+    };
 
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
@@ -427,6 +453,7 @@ function colorCategory(category) {
     var choosed = Math.floor(Math.random() * 7) + 0;
     $(category).css('background-color', colors[choosed]);
     $(category).css('color', textColors[choosed]);
+    $(category).css('cursor', 'pointer');
 }
 
 //ABRE O PANEL SELECIONADO, SE JÁ NÃO ESTIVER ABERTO
@@ -489,12 +516,26 @@ function closeCollapsePanels(button) {
 
 //EXECUTA AO INICIAR
 function codeAddress() {
-    $('#navCalls').click();
-    //$('#showContent').hide();
+    $('#home').click();
+
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+    createCategory();
+
     var collection = $(".randomColor");
     collection.each(function () {
         colorCategory(this);
     });
+
 }
 window.onload = codeAddress;
 
