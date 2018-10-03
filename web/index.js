@@ -47,6 +47,22 @@ function createCategory() {
     document.getElementById("categories").appendChild(div);
 }
 
+function createCategoryButton() {
+    var div = document.createElement('div');
+    div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
+    div.style = 'cursor:pointer; ';
+    div.innerHTML = '' +
+            '<div class="col mdl-shadow--2dp">' +
+            '<div class="row">' +
+            '<div class="col col-sm-12">' +
+            '<h1><b><i class="material-icons" style="font-size: 72px;">add_circle</i></b></h1><br>' +
+            '<p><b>ADICIONAR CATEGORIA</b></p><br>' +
+            '</div>' +
+            '</div>' +
+            '</div>';
+    document.getElementById("categoriesBtn").appendChild(div);
+}
+
 //FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
 
 $('#navCalls').click(function () {
@@ -529,7 +545,7 @@ function codeAddress() {
     createCategory();
     createCategory();
     createCategory();
-    createCategory();
+    createCategoryButton();
 
     var collection = $(".randomColor");
     collection.each(function () {
