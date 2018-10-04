@@ -1,20 +1,23 @@
-//FUNÇÕES QUE CRIAM ELEMENTOS HTML
+// ----- FUNÇÕES QUE CRIAM DOCUMENTOS HTML -----
 
 function createTicket(id, title, description) {
     var div = document.createElement('div');
+    var cp1 = "\#collapseOne";
+    var cp2 = "\#collapseTwo";
+    var cp3 = "\#collapseThree";
     div.id = id;
     div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
     div.innerHTML = '' +
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
             '<div class="btn-group pull-right panelTicketBtn">' +
-            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
             '<i class="material-icons">check_circle</i>' +
             '</button>' +
-            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
             '<i class="material-icons">info</i>' +
             '</button>' +
-            '<button onclick= "sendServletReturnCall(this)" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp3}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
             '<i class="material-icons">cancel</i>' +
             '</button>' +
             '</div>' +
@@ -24,27 +27,43 @@ function createTicket(id, title, description) {
     document.getElementById("pendingCalls").appendChild(div);
 }
 
-function createCategory() {
+function createCategory(id, qtd, description) {
     var div = document.createElement('div');
     div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
     div.innerHTML = '' +
             '<div class="col mdl-shadow--2dp randomColor">' +
             '<div class="row">' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a><i class="material-icons">create</i></a>' +
+            '<a><i id="catEdit' + id + '" class="material-icons">create</i></a>' +
             '</div>' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a onclick="alert()"><i class="material-icons">clear</i></a>' +
+            '<a><i id="catDelete' + id + '" class="material-icons">clear</i></a>' +
             '</div>' +
             '</div>' +
             '<div class="row">' +
             '<div class="col col-sm-12">' +
-            '<h1><b>10</b></h1><br>' +
-            '<p><b>CATEGORIA</b></p><br>' +
+            '<h1><b>' + qtd + '</b></h1><br>' +
+            '<p><b>' + description + '</b></p><br>' +
             '</div>' +
             '</div>' +
             '</div>';
     document.getElementById("categories").appendChild(div);
+
+    var collection = $(".randomColor");
+    collection.each(function () {
+        colorCategory(this);
+    });
+
+}
+
+function createNavCategory(id, qtd, description) {
+    var div = document.createElement('div');
+    div.innerHTML = '' +
+            '<a id="nav' + id + '" class="mdl-navigation__link" href="">' +
+            '<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">' +
+            'supervised_user_circle' +
+            '</i>' + description + '</a>';
+    document.getElementById("navCategories").appendChild(div);
 }
 
 function createCategoryButton() {
@@ -63,7 +82,7 @@ function createCategoryButton() {
     document.getElementById("categoriesBtn").appendChild(div);
 }
 
-//FUNÇÕES QUE DÃO SWITCH NAS PÁGINAS
+// ----- FUNÇÕES SWITCH -----
 
 $('#navCalls').click(function () {
     $('#showContent').show();
@@ -71,9 +90,12 @@ $('#navCalls').click(function () {
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
+    $('#changePanelTitle').html('ALTERAR');
     $('#fixPanelTitle').html('RESOLVER');
     $('#reportPanelTitle').html('RELATÓRIO');
-    $('#addPanelBody').html(addCallForm);
+    $('#addPanelBody').html(addTicketForm);
+    $('#fixPanelBody').html(fixTicketForm);
+    $('#reportPanelBody').html(reportTicketForm);
     sendServletRefreshCall();
     openCollapsePanels($('#collapseOne'));
 });
@@ -84,7 +106,7 @@ $('#home').click(function () {
     $('#titlePage').html('HOME');
 });
 
-//FUNÇÕES QUE DESENHAM GRÁFICOS
+// ----- CHAMADAS PARA GRÁFICOS -----
 
 function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
 
@@ -116,7 +138,7 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     chart.draw(data, options);
 }
 
-//FUNÇÕES QUE CHAMAM SERVLETS
+// ----- CHAMADAS PARA SERVLETS -----
 
 function sendServletAddCall(client, dat, description) {
     var xhr = new XMLHttpRequest();
@@ -124,9 +146,7 @@ function sendServletAddCall(client, dat, description) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var call = JSON.parse(xhr.responseText);
             createTicket(call.id, call.cliente, call.descricao);
-            document.getElementById('addCall-formClient').value = '';
-            document.getElementById('addCall-formDat').value = '';
-            document.getElementById('addCall-formDescription').value = '';
+            document.getElementById('addCall-form').reset();
             sendServletRefreshCall();
         }
     };
@@ -190,12 +210,33 @@ function sendServletRefreshCall() {
 
             drawSVGCalls(valuesSVG, valuesSVGReady, realDateNow);
 
-            //document.getElementById("ntfCalls").innerHTML = '';
-            //document.getElementById("ntfCalls").innerHTML = count;
-            //$('#ntfCalls').show(400);
         }
     };
     xhr.open("post", "refreshCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+//AINDA NÃO CHAMA NADA
+function sendServletRefreshCategories() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            document.getElementById("navCategories").innerHTML = '';
+            document.getElementById("categories").innerHTML = '';
+
+            //DESENHA AS CATEGORIAS
+            for (var i = 0; i < jsonData.categories.length; i++) {
+                var category = jsonData.categories[i];
+                createCategory(category.id, category.qtd, category.descripion);
+                createNavCategory(category.id, category.qtd, category.descripion);
+            }
+
+        }
+    };
+    xhr.open("post", "refreshCategories", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
 }
@@ -243,10 +284,7 @@ function sendServletReturnCall(choosenCall) {
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
                 if (call.id === choosenCall.id) {
-                    document.getElementById('fixCall-formClient').value = '';
-                    document.getElementById('fixCall-formDat').value = '';
-                    document.getElementById('fixCall-formDescription').value = '';
-                    document.getElementById('fixCall-formselectedCall').innerHTML = '';
+                    document.getElementById('fixCall-form').reset();
                     document.getElementById('fixCall-formClient').value = call.cliente;
                     document.getElementById('fixCall-formDat').value = call.data;
                     document.getElementById('fixCall-formDescription').value = call.descricao;
@@ -272,6 +310,7 @@ function sendServletFixCall() {
             element.parentNode.removeChild(element);
             document.getElementById('fixCall-form').reset();
             closeCollapsePanels($('#collapseTwo'));
+            sendServletRefreshCall();
         }
     };
     xhr.open("post", "fixCall", true);
@@ -370,7 +409,7 @@ function sendServletSaveReportCall(table, divTitle) {
     hiddenResults.innerHTML = '';
 }
 
-//FUNÇÕES AUXILIARES
+// ----- FUNÇÕES AUXILIARES -----
 
 //DATA ATUAL NO MYDAT
 function myDat(dateNow) {
@@ -532,7 +571,7 @@ function closeCollapsePanels(button) {
 
 //EXECUTA AO INICIAR
 function codeAddress() {
-    $('#home').click();
+    $('#navCalls').click();
 
     createCategory();
     createCategory();
@@ -545,19 +584,18 @@ function codeAddress() {
     createCategory();
     createCategory();
     createCategory();
+    createNavCategory();
+    createNavCategory();
+    createNavCategory();
+    createNavCategory();
     createCategoryButton();
-
-    var collection = $(".randomColor");
-    collection.each(function () {
-        colorCategory(this);
-    });
 
 }
 window.onload = codeAddress;
 
-//VARIÁVEIS GLOBAIS
+// ----- VARIÁVEIS GLOBAIS -----
 
-var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
+var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
         '<div class="input-group">' +
         '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
@@ -579,6 +617,55 @@ var addCallForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall
         '<div class="modal-footer">' +
         '<div>' +
         '<button type="submit"  class="btn btn-primary">Adicionar</button>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
+
+var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
+        '<div id="fixCall-formselectedCall" class="hidden"></div>' +
+        '<div class="modal-body">' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
+        '<input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
+        '<input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>' +
+        '<textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>' +
+        '</div>' +
+        '<br>' +
+        '<div id="fixCall-formResult" class="text-center"></div>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<div>' +
+        '<button type="submit" class="btn btn-primary">Resolver</button>' +
+        '</div>' +
+        '</div>' +
+        '</form>';
+
+var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
+        '<div id="reportCall-formselectedCall" class="hidden"></div>' +
+        '<div class="modal-body">' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
+        '<input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
+        '<input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>' +
+        '</div>' +
+        '<div class="input-group">' +
+        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
+        '<input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>' +
+        '</div>' +
+        '<br>' +
+        '</div>' +
+        '<div class="modal-footer">' +
+        '<div>' +
+        '<button type="submit"  class="btn btn-primary">Gerar Relatório</button>' +
         '</div>' +
         '</div>' +
         '</form>';
