@@ -193,11 +193,15 @@ function sendServletRefreshCall() {
                     var call = jsonData.calls[s];
                     var convertedCall = toMyDat(call.data);
                     if (convertedCall.day === dateNow.day) {
-                        if (call.status === 'false') {
-                            countCalls++;
-                        }
-                        if (call.status !== 'false') {
-                            countReadyCalls++;
+                        if (convertedCall.month === dateNow.month) {
+                            if (convertedCall.year === dateNow.year) {
+                                if (call.status === 'false') {
+                                    countCalls++;
+                                }
+                                if (call.status !== 'false') {
+                                    countReadyCalls++;
+                                }
+                            }
                         }
                     }
                 }
@@ -328,7 +332,7 @@ function sendServletReportCall() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
-            document.getElementById("reportCall-formResult").innerHTML = '';
+            $('#reportCall-formResult').val();
             //Criação da Tabela
             var divTitle = document.createElement('div');
             var title = document.createElement('p');
@@ -376,7 +380,7 @@ function sendServletReportCall() {
                 sendServletSaveReportCall(table, divTitle);
                 document.getElementById('reportCall-formCloseBtn').click();
             } else {
-
+                $("#reportCall-formResult").css("visibility", "visible");
             }
 
             client = '';
@@ -397,7 +401,6 @@ function sendServletSaveReportCall(table, divTitle) {
     hiddenResults.innerHTML = '';
     hiddenResults.appendChild(divTitle);
     hiddenResults.appendChild(table);
-    console.log(hiddenResults);
     html2canvas(document.getElementById('hiddenResults'), {
         onrendered: function (canvas) {
             var imgData = canvas.toDataURL("image/jpeg", 1.0);
@@ -571,6 +574,7 @@ function closeCollapsePanels(button) {
 
 //EXECUTA AO INICIAR
 function codeAddress() {
+    
     $('#navCalls').click();
 
     createCategory();
@@ -589,6 +593,8 @@ function codeAddress() {
     createNavCategory();
     createNavCategory();
     createCategoryButton();
+
+    $("#reportCall-formResult").css("visibility", "hidden");
 
 }
 window.onload = codeAddress;
