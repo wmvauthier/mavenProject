@@ -1,364 +1,234 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
     <head>
-        <title>LinkC NE</title>
+        
+        <title>GerLinkCNE</title>
         <link rel="shortcut icon" type="image/png" href="favicon.png"/>
         <meta charset="utf-8">
         <meta name="author" content="Wesley Matheus">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="country" content="Brazil" />
-        <meta http-equiv="cache-control" content="public">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-        <script type="text/javascript" src="index.js"></script>
-        <link rel="stylesheet" href="index.css">
-        <link rel="stylesheet" href="newcss.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="Sistema de Gerência da LinkC - Filial NE.">
+        <meta name="viewport" content="width=device-width, initial-scale=0.75, minimum-scale=0.6">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&lang=en">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {packages: ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+        </script>
+
     </head>
 
     <body>
-        <header id="topo">
 
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>                        
-            </button>
+        <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 
-            <div class="bgBranco centralizando">
-                <div class="logo"><a href="#banner"><img src="imagens/logo-link.png" width="130" height="53" alt="Logo"></a></div>
-                <nav class="menu">
-                    <ul>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfCalls" class="notify-bubble">0</span>
-                                <a href="#secChamados" class="linkMenu">CHAMADOS</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfProg" class="notify-bubble">0</span>
-                                <a href="#serv" class="linkMenu">PROGRAMAÇÕES</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfCell" class="notify-bubble">0</span>
-                                <a href="produtos.html" class="linkMenu">LIGAÇÕES</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfPieces" class="notify-bubble">0</span>
-                                <a href="produtos-atm-auto-servico.html" class="linkMenu">PEÇAS</a>
-                        </li>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfStock" class="notify-bubble">0</span>
-                                <a href="acessorios.html" class="linkMenu">ESTOQUE</a>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="notify-container">
-                                <span id="ntfAdd" class="notify-bubble">0</span>
-                                <a href="contato.html" class="linkMenu">Contato</a>
-                            </div>
-                        </li>
-                    </ul>    
+            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+                <div class="mdl-layout__header-row">
+                    <span id="titlePage" class="mdl-layout-title"></span>
+                    <div class="mdl-layout-spacer"></div>
+                </div>
+            </header>
+
+            <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+                <header class="demo-drawer-header">
+                    <img src="https://image.ibb.co/mGn5np/user.jpg" class="demo-avatar">
+                    <div class="demo-avatar-dropdown">
+                        <span>hello@example.com</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                            <i class="material-icons" role="presentation">arrow_drop_down</i>
+                            <span class="visuallyhidden">Accounts</span>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                            <li class="mdl-menu__item">hello@example.com</li>
+                            <li class="mdl-menu__item">info@example.com</li>
+                            <li class="mdl-menu__item"><i class="material-icons">add</i>Add another account...</li>
+                        </ul>
+                    </div>
+                </header>
+                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                    <a class="mdl-navigation__link" id="home" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Home</a>
+                    <a class="mdl-navigation__link" id="navCalls" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">feedback</i>Chamados</a>
+                    <div id="navCategories"></div>
+                    <a class="mdl-navigation__link" id="navClients" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervised_user_circle</i>Clientes</a>
+                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">contacts</i>Técnicos</a>
+                    <div class="mdl-layout-spacer"></div>
                 </nav>
             </div>
 
-            <div class="topo-obj">
-                <picture>
-                    <source srcset="imagens/topo-obj-cel.png" media="(max-width: 745px)">
-                    <source srcset="imagens/topo-obj.png">
-                    <img  src="imagens/topo-obj.png" alt=""/>
-                </picture>
-            </div>
+            <main id="mainContent" class="mdl-layout__content mdl-color--grey-100">
 
-        </header>
+                <!--DASHBOARD TICKETS-->
+                <div id="showContent" class="mdl-grid demo-content">
 
-        <div class="bnr-home" id="banner" >
-            <div class="video">
-                <img style="width:100%;" src="imagens/banner.jpg" alt="1">
-            </div> 
-            <div class="video-obj"><img src="imagens/topo-video-baixo.png"  alt=""/></div>
-        </div>
+                    <!--TICKETS-->
+                    <div class="contentX demo-chart mdl-shadow--2dp mdl-color-white container overflowBar row"></div>
 
-        <div id="hiddenResults"></div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-5">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading" id="accordion">
-                            <span class="glyphicon glyphicon-comment"></span> Chat
-                            <div class="btn-group pull-right">
-                                <a type="button" class="btn btn-default btn-xs" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="panel-collapse collapse" id="collapseOne">
-                            <div class="panel-body">
-                                
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                    <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-warning btn-sm" id="btn-chat">
-                                            Send</button>
-                                    </span>
+                    <!--GRÁFICOS-->
+                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col"><div id="graphs"></div></div>
+
+                    <!--LISTA DE PANELS-->
+                    <div class="chat demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+
+                        <!--PANEL PARA ADICIONAR-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="addPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="addPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');">
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseOne">
+                                    <div id="addPanelBody" class="panel-bodyForm"></div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!--CHAMADOS-->
-        <section class="sobre produtos-fundoP " id="secChamados">
-            <article class="emp">
-                <div class="centerButton">
-                    <h2>CHAMADOS</h2>
-                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
-                </div>
-            </article>
-            <div id="pendingCalls" class="container overflowBar"></div>
-            <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
-        </section>
-
-        <!-- PROGRAMAÇÕES -->
-        <section class="sobre produtos-fundoP " id="secProgramacoes">
-            <article class="emp">
-                <div class="centerButton">
-                    <h2>CHAMADOS</h2>
-                    <a data-toggle="modal" data-target="#addProg-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#findProg-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#reportProg-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
-                </div>
-            </article>
-            <div id="pendingProg" class="container overflowBar"></div>
-            <div class="video-obj"><img src="imagens/topo-video-baixo.png"  alt=""/></div>
-        </section>
-
-        <!-- LIGAÇÕES -->
-        <section class="sobre produtos-fundoP " id="secChamados">
-            <article class="emp">
-                <div class="centerButton">
-                    <h2>CHAMADOS</h2>
-                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
-                </div>
-            </article>
-            <div id="pendingCalls" class="container overflowBar"></div>
-            <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
-        </section>
-
-        <!-- PEÇAS -->
-        <section class="sobre produtos-fundoP " id="secProgramacoes">
-            <article class="emp">
-                <div class="centerButton">
-                    <h2>CHAMADOS</h2>
-                    <a data-toggle="modal" data-target="#addProg-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#findProg-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#reportProg-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
-                </div>
-            </article>
-            <div id="pendingCalls" class="container overflowBar"></div>
-            <div class="video-obj"><img src="imagens/topo-video-baixo.png"  alt=""/></div>
-        </section>
-
-        <!-- ESTOQUE -->
-        <section class="sobre produtos-fundoP " id="secChamados">
-            <article class="emp">
-                <div class="centerButton">
-                    <h2>CHAMADOS</h2>
-                    <a data-toggle="modal" data-target="#addCall-modal" class="botaoEmp">ADICIONAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#findCall-modal" class="botaoEmp">PESQUISAR</a><br><br><br>
-                    <a data-toggle="modal" data-target="#reportCall-modal" class="botaoEmp">RELATÓRIO</a><br><br><br>
-                </div>
-            </article>
-            <div id="pendingCalls" class="container overflowBar"></div>
-            <div class="prodTopo"><img src="imagens/integra-topo.png"  alt=""/></div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="container-fluid bg-4 text-center">
-            <p>Sistema de Gerência LinkC NE - Wesley, 2018</p>
-        </footer>
-
-        <!-- BEGIN # ADD CALL MODAL -->
-        <div class="modal fade" id="addCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <button id="addCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div id="div-login-msg">
-                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+                        <!--PANEL PARA ALTERAR-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="changePanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="changePanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" <!--onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');"-->>
+                                                <i class="material-icons">create</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseOne">
+                                    <div id="changePanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!--PANEL PARA RESOLVER-->
+                        <div id="fixPanel" class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="fixPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="fixPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseThree');">
+                                            <i class="material-icons">done</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseTwo">
+                                    <div id="fixPanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--PANEL PARA RELATÓRIOS-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="reportPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="reportPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo');">
+                                            <i class="material-icons">assignment</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseThree">
+                                    <div id="reportPanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
 
-                    <!-- Begin # Login Form -->
-                    <form id="addCall-form" action="JavaScript:sendServletAddCall(document.getElementById('addCall-formClient'),document.getElementById('addCall-formDat'),document.getElementById('addCall-formDescription'));">
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="addCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente" required>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="addCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado" required />
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                <input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block">Abrir Chamado</button>
-                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
+                    <!--RESULTADOS-->
+                    <div id="reportCall-formResult" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col"></div>
 
                 </div>
-            </div>
-        </div>
 
-        <!-- BEGIN # FIND CALL MODAL -->
-        <div class="modal fade" id="findCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <button id="findCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div id="div-login-msg">
-                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
+                <!--DASHBOARD CARDS-->
+                <div id="showHome">
+                    <div id="categories"></div>
+                    <div id="categoriesBtn"></div>
+                </div>
+
+                <!--DASHBOARD CLIENTS-->
+                <div id="showClients">
+
+                    <!-- TABELA DE CLIENTES-->
+                    <div id="tableClients" class="row centered-form demo-chart mdl-shadow--2dp mdl-color-white container overflowBar"></div>
+
+                    <!-- FORMS DE CLIENTES  -->
+                    <div class="row centered-form demo-chart mdl-shadow--2dp mdl-color-white container overflowBar">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Please sign up for Bootsnipp</h3>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="submit" value="Register" class="btn btn-info btn-block">
+
+                                </form>
+                            </div>
                         </div>
                     </div>
 
-                    <form id="findCall-form" action="JavaScript:sendServletFindCall(document.getElementById('findCall-formClient'),document.getElementById('findCall-formDat'));">
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="findCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="findCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
-                            </div>
-                            <br>
-                            <div id="findCall-formResult" class="text-center"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block">Pesquisar Chamado</button>
-                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
-
                 </div>
-            </div>
+
+            </main>
+
+            <div id="hiddenResults"></div>
+
         </div>
 
-        <!-- BEGIN # FIX CALL MODAL -->
-        <div class="modal fade" id="fixCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <button id="fixCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div id="div-login-msg">
-                            <span id="text-login-msg">Preencha abaixo as informações do Chamado:</span><br>
-                        </div>
-                    </div>
-
-                    <form id="fixCall-form" action="JavaScript:sendServletFixCall(document.getElementById('fixCall-formClient'));">
-                        <div id="fixCall-formselectedCall" class="hidden"></div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>
-                                <textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>
-                            </div>
-                            <br>
-                            <div id="fixCall-formResult" class="text-center"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block">Resolver Chamado</button>
-                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- BEGIN # REPORT CALL MODAL -->
-        <div class="modal fade" id="reportCall-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header" align="center">
-                        <button id="reportCall-formCloseBtn" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                        <div id="div-login-msg">
-                            <span id="text-login-msg">Preencha abaixo as informações:</span><br>
-                        </div>
-                    </div>
-
-                    <form id="reportCall-form" action="JavaScript:sendServletReportCall();">
-                        <div id="reportCall-formselectedCall" class="hidden"></div>
-                        <div class="modal-body">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                <input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>
-                            </div>
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                <input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>
-                            </div>
-                            <br>
-                            <div id="reportCall-formResult"></div>
-                        </div>
-                        <div class="modal-footer">
-                            <div>
-                                <button type="submit" class="btn btn-danger btn-lg btn-block">Gerar Relatório</button>
-                                <button class="sbtn btn-default btn-lg btn-block" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-            </div>
-        </div>
+        <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        <script type="text/javascript" src="html2canvas.js"></script>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="index.css">
 
     </body>
 

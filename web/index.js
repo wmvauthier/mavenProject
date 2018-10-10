@@ -100,6 +100,13 @@ $('#navCalls').click(function () {
     openCollapsePanels($('#collapseOne'));
 });
 
+$('#navClients').click(function () {
+    $('#showClients').show();
+    $('#showHome').hide();
+    $('#showContent').hide();
+    $('#titlePage').html('CLIENTES');
+});
+
 $('#home').click(function () {
     $('#showContent').hide();
     $('#showHome').show();
@@ -575,7 +582,7 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
     
-    $('#navCalls').click();
+    $('#navClients').click();
 
     createCategory();
     createCategory();
@@ -597,6 +604,7 @@ function codeAddress() {
     $("#reportCall-formResult").css("visibility", "hidden");
 
 }
+
 window.onload = codeAddress;
 
 // ----- VARIÁVEIS GLOBAIS -----
