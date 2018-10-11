@@ -211,3 +211,27 @@ td, th , tr{
     background-repeat: no-repeat;
     padding: 12px 20px 12px 45px;
 }
+
+.inputCalendar {
+    box-sizing: border-box;
+    background-image: url('icons/calendar.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputTec {
+    box-sizing: border-box;
+    background-image: url('icons/contacts.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputComment {
+    box-sizing: border-box;
+    background-image: url('icons/comment.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}

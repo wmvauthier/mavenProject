@@ -658,22 +658,10 @@ window.onload = codeAddress;
 
 var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
-        '<input id="addCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente" required>' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
-        '<input id="addCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado" required />' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">contacts</i></span>' +
-        '<input id="addCall-formTec" name="tec" type="text" class="form-control" placeholder="Técnico designado" required />' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">mode_comment</i></span>' +
-        '<input id="addCall-formDescription" name="description" class="form-control" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
-        '</div>' +
+        '<input id="addCall-formClient" name="client" type="text" class="form-control inputClient" placeholder="Nome do Cliente" required>' +
+        '<input id="addCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
+        '<input id="addCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
+        '<input id="addCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div>' +
         '<div class="modal-footer">' +
         '<div>' +
