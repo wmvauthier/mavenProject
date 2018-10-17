@@ -1,9 +1,23 @@
-.hidden{
-    visibility:hidden;
-}
+.hidden{ visibility:hidden;}
+
 a { text-decoration: none; }
+
 a:hover{
     text-decoration: none;
+}
+
+.fullCenter {
+    text-align: center;
+    vertical-align: middle;
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+}
+
+#pendingCalls {
+    display: flex;
+    align-items: center;
+    justify-content: center
 }
 
 .margin {margin-bottom: 45px;}
@@ -119,12 +133,6 @@ td, th , tr{
     padding: 8px;
     overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
     min-width: 25mm;
-}
-
-tr:nth-child(even) {
-    background-color: white;
-    text-align: center;
-    overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
 }
 
 #hiddenResults {

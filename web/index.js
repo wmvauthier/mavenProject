@@ -219,8 +219,17 @@ function sendServletRefreshCall() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
-            var jsonData = JSON.parse(response);
-            document.getElementById("pendingCalls").innerHTML = '';
+            
+            //VERIFICAÇÃO PARA JSON NULO
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                $("#pendingCalls").html("<p class='fullCenter'>Não existem Tickets Pendentes!</p>");
+                $("#graphs").html("<div class='fullCenter'>Não existem Gráficos para estes Tickets!</div>");
+                return false;
+            }
+            
+            $("#pendingCalls").html("");
             var dateNow = myDat(new Date);
             var count = 0;
 
