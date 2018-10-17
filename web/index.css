@@ -44,6 +44,11 @@ input{
     height: 100px;
 }
 
+.panel-body-height {
+    padding: 15px;
+    color: #2f2f2f;
+}
+
 .panel-bodyForm {
     color: #2f2f2f;
 }
@@ -137,8 +142,17 @@ tr:nth-child(even) {
     overflow: auto;
 }
 
-/* width */
-::-webkit-scrollbar {
+.overflowBarBigger {
+    width: 100%;
+    max-height: 1000px;
+    overflow: auto;
+}
+
+::-webkit-scrollbar:horizontal {
+    width: 10px;
+}
+
+::-webkit-scrollbar:vertical {
     width: 10px;
 }
 

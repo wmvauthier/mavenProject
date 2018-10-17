@@ -1,3 +1,6 @@
+// ----- ANOTAÇÕES -----
+//$("#showHome").delay(500).animate({"opacity": "1"}, 500); e opacity:0 no CSS
+
 // ----- FUNÇÕES QUE CRIAM DOCUMENTOS HTML -----
 
 function createTicket(id, title, description) {
@@ -82,10 +85,58 @@ function createCategoryButton() {
     document.getElementById("categoriesBtn").appendChild(div);
 }
 
+// ----- FUNÇÕES TABELA -----
+
+$(document).ready(function () {
+    var activeSystemClass = $('.list-group-item.active');
+
+    //something is entered in search form
+    $('#system-search').keyup(function () {
+        var that = this;
+        // affect all table rows on in systems table
+        var tableBody = $('.table-list-search tbody');
+        var tableRowsClass = $('.table-list-search tbody tr');
+        $('.search-sf').remove();
+        tableRowsClass.each(function (i, val) {
+
+            //Lower text for case insensitive
+            var rowText = $(val).text().toLowerCase();
+            var inputText = $(that).val().toLowerCase();
+            if (inputText != '')
+            {
+                $('.search-query-sf').remove();
+                tableBody.prepend('<tr class="search-query-sf"><td colspan="6"><strong>Resultados: "'
+                        + $(that).val()
+                        + '"</strong></td></tr>');
+            } else
+            {
+                $('.search-query-sf').remove();
+            }
+
+            if (rowText.indexOf(inputText) == -1)
+            {
+                //hide rows
+                tableRowsClass.eq(i).hide();
+
+            } else
+            {
+                $('.search-sf').remove();
+                tableRowsClass.eq(i).show();
+            }
+        });
+        //all tr elements are hidden
+        if (tableRowsClass.children(':visible').length == 0)
+        {
+            tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">No entries found.</td></tr>');
+        }
+    });
+});
+
 // ----- FUNÇÕES SWITCH -----
 
 $('#navCalls').click(function () {
     $('#showContent').show();
+    $('#showClients').hide();
     $('#showHome').hide();
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
@@ -108,8 +159,9 @@ $('#navClients').click(function () {
 });
 
 $('#home').click(function () {
-    $('#showContent').hide();
     $('#showHome').show();
+    $('#showContent').hide();
+    $('#showClients').hide();
     $('#titlePage').html('HOME');
 });
 
@@ -522,6 +574,7 @@ function colorCategory(category) {
 }
 
 //ABRE O PANEL SELECIONADO, SE JÁ NÃO ESTIVER ABERTO
+
 function openCollapsePanels(button) {
     var check = $(button).hasClass('in');
     if (check === false) {
@@ -575,30 +628,16 @@ function closeCollapsePanels(button) {
             $('#reportPanelTitleBtn').click();
             return;
         }
+        console.log($(button).attr('id'));
     }
     return;
 }
 
 //EXECUTA AO INICIAR
 function codeAddress() {
-    
+
     $('#navClients').click();
 
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createCategory();
-    createNavCategory();
-    createNavCategory();
-    createNavCategory();
-    createNavCategory();
     createCategoryButton();
 
     $("#reportCall-formResult").css("visibility", "hidden");
@@ -621,7 +660,7 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '</div>' +
         '<div class="input-group">' +
         '<span class="input-group-addon"><i class="material-icons">contacts</i></span>' +
-        '<input id="addCall-formDat" name="tec" type="text" class="form-control" placeholder="Técnico designado" required />' +
+        '<input id="addCall-formTec" name="tec" type="text" class="form-control" placeholder="Técnico designado" required />' +
         '</div>' +
         '<div class="input-group">' +
         '<span class="input-group-addon"><i class="material-icons">mode_comment</i></span>' +
