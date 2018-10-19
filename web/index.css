@@ -39,13 +39,7 @@ input{
     border-color: #ddd;
 }
 
-.panel-default>.panel-heading {
-    color: #333;
-    background-color: #f5f5f5;
-    border-color: #ddd;
-}
 .panel-heading {
-    background-color: red;
     padding: 10px 15px;
     border-bottom: 1px solid transparent;
     border-top-left-radius: 3px;
@@ -156,6 +150,10 @@ td, th , tr{
     overflow: auto;
 }
 
+::-webkit-scrollbar {
+    width: 10px;
+}
+
 ::-webkit-scrollbar:horizontal {
     width: 10px;
 }
@@ -203,5 +201,13 @@ td, th , tr{
 }
 
 /* #########################################
-   #    CARDS COM CATEGORIAS               #
+   #    CLASSES DE INPUTS                  #
    ######################################### */
+
+.inputClient {
+    box-sizing: border-box;
+    background-image: url('icons/user.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}

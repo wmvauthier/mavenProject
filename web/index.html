@@ -174,7 +174,7 @@
                 <div id="showClients"></br>
 
                     <!-- TABELA DE CLIENTES -->
-                    <div id="tableClients" class="demo-chart mdl-shadow--2dp mdl-color-white container overflowBarBigger row">
+                    <div id="tableClients" class="hidden demo-chart mdl-shadow--2dp mdl-color-white container overflowBarBigger row">
 
                         <!--BOTÕES PARA INTERAGIR COM OS CLIENTES-->
                         <div>
@@ -203,7 +203,7 @@
                                                     <th>Entry</th>
                                                     <th>Entry</th>
                                                     <th>Entry</th>
-                                                    <th>Entry</th>
+                                                    <th>Ações</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -213,18 +213,20 @@
                                                     <td>12-11-2011 11:11</td>
                                                     <td>OK</td>
                                                     <td>123</td>
-                                                    <td>Do some other</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                    </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Try</td>
                                                     <td>It</td>
                                                     <td>11-20-2013 08:56</td>
-                                                    <td>ItFASDFG GRFRSTG FWERS ASEFGSA DDD DW</td>
-                                                    <td>Works WITH ANOTHEER GUY</td>
+                                                    <td>ItFASDFG</td>
+                                                    <td>Works WITH</td>
                                                     <td>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">supervised_user_circle</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">supervised_user_circle</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">supervised_user_circle</i></button>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -233,7 +235,43 @@
                                                     <td>%</td>
                                                     <td>&</td>
                                                     <td>/</td>
-                                                    <td>!</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Sample</td>
+                                                    <td>Filter</td>
+                                                    <td>12-11-2011 11:11</td>
+                                                    <td>OK</td>
+                                                    <td>123</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Try</td>
+                                                    <td>It</td>
+                                                    <td>11-20-2013 08:56</td>
+                                                    <td>ItFASDFG</td>
+                                                    <td>Works WITH</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>§</td>
+                                                    <td>$</td>
+                                                    <td>%</td>
+                                                    <td>&</td>
+                                                    <td>/</td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -244,20 +282,22 @@
 
                     </div></br>
 
-                    <!-- FORMS PARA ADICIONAR -->
-                    <div class="demo-chart mdl-shadow--2dp mdl-color-white container overflowBar row">
+                    <!-- FORMS PARA CLIENTES -->
+                    <div class="demo-chart container row">
 
                         <!-- FORMS PARA ADICIONAR CLIENTES -->
-                        <div class="panel panel-default col-xs-12 col-sm-12 col-md-12">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Adicione aqui um novo Cliente</h3>
+                        <div class="panel col-xs-12 col-sm-12 col-md-12">
+                            <div class="panel-heading row">
+                                <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 10px;">
+                                    <img src="https://image.ibb.co/mGn5np/user.jpg" class="demo-BigAvatar">
+                                </div>
                             </div>
                             <div class="panel-body-height">
                                 <form role="form">
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <input type="text" name="first_name" id="first_name" class="form-control input-sm" placeholder="First Name">
+                                                <input type="text" name="first_name" id="first_name" class="form-control inputClient" placeholder="First Name">
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
@@ -266,22 +306,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                     <input type="submit" value="Register" class="btn btn-info btn-block">
 
                                 </form>

@@ -583,7 +583,6 @@ function colorCategory(category) {
 }
 
 //ABRE O PANEL SELECIONADO, SE JÁ NÃO ESTIVER ABERTO
-
 function openCollapsePanels(button) {
     var check = $(button).hasClass('in');
     if (check === false) {
