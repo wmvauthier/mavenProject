@@ -644,7 +644,7 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
 
-    $('#navClients').click();
+    $('#navCalls').click();
 
     createCategoryButton();
 
@@ -662,35 +662,22 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '<input id="addCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
         '<input id="addCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
         '<input id="addCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
-        '</div>' +
-        '<div class="modal-footer">' +
-        '<div>' +
-        '<button type="submit"  class="btn btn-primary">Adicionar</button>' +
-        '</div>' +
-        '</div>' +
-        '</form>';
+        '</div><div class="modal-footer"><div>' +
+        '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
+        '</div></div></form>';
 
 var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
         '<div id="fixCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>' +
-        '<input id="fixCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>' +
-        '<input id="fixCall-formDat" name="date" type="date" class="form-control" placeholder="Data do Chamado"/>' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="glyphicon glyphicon-comment"></i></span>' +
-        '<textarea id="fixCall-formDescription" name="description" class="form-control" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>' +
-        '</div>' +
+        '<input id="fixCall-formClient" name="client" class="form-control inputClient" type="text" placeholder="Nome do Cliente">' +
+        '<input id="fixCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado"/>' +
+        '<textarea id="fixCall-formDescription" name="description" class="form-control inputBigComment" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>' +
         '<br>' +
         '<div id="fixCall-formResult" class="text-center"></div>' +
         '</div>' +
         '<div class="modal-footer">' +
         '<div>' +
-        '<button type="submit" class="btn btn-primary">Resolver</button>' +
+        '<button type="submit" class="btn btn-danger">Resolver</button>' +
         '</div>' +
         '</div>' +
         '</form>';
@@ -698,23 +685,14 @@ var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCa
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">supervised_user_circle</i></span>' +
-        '<input id="reportCall-formClient" name="client" class="form-control" type="text" placeholder="Nome do Cliente">' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
-        '<input id="reportCall-formDatIni" name="dateini" type="date" class="form-control"/>' +
-        '</div>' +
-        '<div class="input-group">' +
-        '<span class="input-group-addon"><i class="material-icons">calendar_today</i></span>' +
-        '<input id="reportCall-formDatFin" name="datefin" type="date" class="form-control"/>' +
-        '</div>' +
+        '<input id="reportCall-formClient" name="client" class="form-control inputClient" type="text" placeholder="Nome do Cliente">' +
+        '<input id="reportCall-formDatIni" name="dateini" class="form-control inputCalendar" type="date"/>' +
+        '<input id="reportCall-formDatFin" name="datefin" class="form-control inputCalendar2" type="date"/>' +
         '<br>' +
         '</div>' +
         '<div class="modal-footer">' +
         '<div>' +
-        '<button type="submit"  class="btn btn-primary">Gerar Relatório</button>' +
+        '<button type="submit"  class="btn btn-danger">Gerar Relatório</button>' +
         '</div>' +
         '</div>' +
         '</form>';
