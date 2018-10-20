@@ -63,7 +63,7 @@ function createNavCategory(id, qtd, description) {
     var div = document.createElement('div');
     div.innerHTML = '' +
             '<a id="nav' + id + '" class="mdl-navigation__link" href="">' +
-            '<i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">' +
+            '<i class="material-icons" role="presentation">' +
             'supervised_user_circle' +
             '</i>' + description + '</a>';
     document.getElementById("navCategories").appendChild(div);
@@ -647,6 +647,8 @@ function codeAddress() {
     $('#navCalls').click();
 
     createCategoryButton();
+    createCategory();
+    createNavCategory();
 
     $("#reportCall-formResult").css("visibility", "hidden");
 

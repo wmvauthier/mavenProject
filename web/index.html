@@ -36,7 +36,7 @@
 
         <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 
-            <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+            <header class="demo-header mdl-layout__header mdl-color--grey-100">
                 <div class="mdl-layout__header-row">
                     <span id="titlePage" class="mdl-layout-title"></span>
                     <div class="mdl-layout-spacer"></div>
@@ -64,12 +64,12 @@
                 </header>
 
                 <!-- RIGHT_NAVBAR -->
-                <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-                    <a class="mdl-navigation__link" id="home" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Home</a>
-                    <a class="mdl-navigation__link" id="navCalls" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">feedback</i>Chamados</a>
+                <nav class="demo-navigation mdl-navigation" style="padding-top: 0px;">
+                    <a class="mdl-navigation__link" id="home" href="#"><i class="material-icons" role="presentation">dashboard</i>Home</a>
+                    <a class="mdl-navigation__link" id="navCalls" href="#"><i class="material-icons" role="presentation">feedback</i>Chamados</a>
                     <div id="navCategories"></div>
-                    <a class="mdl-navigation__link" id="navClients" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">supervised_user_circle</i>Clientes</a>
-                    <a class="mdl-navigation__link" href="#"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">contacts</i>Técnicos</a>
+                    <a class="mdl-navigation__link" id="navClients" href="#"><i class="material-icons" role="presentation">supervised_user_circle</i>Clientes</a>
+                    <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">contacts</i>Técnicos</a>
                     <div class="mdl-layout-spacer"></div>
                 </nav>
 
@@ -174,7 +174,7 @@
                 <div id="showClients"></br>
 
                     <!-- TABELA DE CLIENTES -->
-                    <div id="tableClients" class="hidden demo-chart mdl-shadow--2dp mdl-color-white container overflowBarBigger row">
+                    <div id="tableClients" class="demo-chart mdl-shadow--2dp mdl-color-white container overflowBarBigger row">
 
                         <!--BOTÕES PARA INTERAGIR COM OS CLIENTES-->
                         <div>
@@ -215,7 +215,7 @@
                                                     <td>123</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -226,7 +226,7 @@
                                                     <td>Works WITH</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -237,7 +237,7 @@
                                                     <td>/</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -248,7 +248,7 @@
                                                     <td>123</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -259,7 +259,7 @@
                                                     <td>Works WITH</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -270,7 +270,7 @@
                                                     <td>/</td>
                                                     <td>
                                                         <button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>
-                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">clear</i></button>
+                                                        <button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>
                                                     </td>
                                                 </tr>
                                             </tbody>
