@@ -11,6 +11,16 @@ html, body {
     height: 200px;
     border-radius: 100px;
 }
+
+.material-icons.md-light{
+    color: #f8f5f2;
+}
+
+.hvGre:hover { color: #47be2e; }
+.hvYel:hover { color: yellow; }
+.hvRed:hover { color: #dc3545; }
+
+
 .demo-layout .mdl-layout__header .mdl-layout__drawer-button {
     color: rgba(0, 0, 0, 0.54);
 }

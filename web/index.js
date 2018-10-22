@@ -15,13 +15,13 @@ function createTicket(id, title, description) {
             '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
             '<div class="btn-group pull-right panelTicketBtn">' +
             `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
-            '<i class="material-icons">check_circle</i>' +
+            '<i class="material-icons md-light hvGre">check_circle</i>' +
             '</button>' +
             `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
-            '<i class="material-icons">info</i>' +
+            '<i class="material-icons md-light hvYel">info</i>' +
             '</button>' +
             `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp3}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
-            '<i class="material-icons">cancel</i>' +
+            '<i class="material-icons md-light hvRed">cancel</i>' +
             '</button>' +
             '</div>' +
             '</div>' +
@@ -83,6 +83,35 @@ function createCategoryButton() {
             '</div>' +
             '</div>';
     document.getElementById("categoriesBtn").appendChild(div);
+}
+
+function createClient() {
+
+    var table = document.getElementById('clientTableBody');
+    var tr = document.createElement('tr');
+
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    var td4 = document.createElement('td');
+    var td5 = document.createElement('td');
+    var td6 = document.createElement('td');
+
+    td1.innerHTML = 'DATA';
+    td2.innerHTML = 'CLIENTE';
+    td3.innerHTML = 'DESCRICAO';
+    td4.innerHTML = 'TECNICO';
+    td5.innerHTML = 'DESCRICAO';
+    td6.innerHTML = '<button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>&nbsp' +
+                    '<button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>';
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    table.appendChild(tr);
+
 }
 
 // ----- FUNÇÕES TABELA -----
@@ -219,7 +248,7 @@ function sendServletRefreshCall() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
-            
+
             //VERIFICAÇÃO PARA JSON NULO
             try {
                 var jsonData = JSON.parse(response);
@@ -228,7 +257,7 @@ function sendServletRefreshCall() {
                 $("#graphs").html("<div class='fullCenter'>Não existem Gráficos para estes Tickets!</div>");
                 return false;
             }
-            
+
             $("#pendingCalls").html("");
             var dateNow = myDat(new Date);
             var count = 0;
@@ -649,6 +678,8 @@ function codeAddress() {
     createCategoryButton();
     createCategory();
     createNavCategory();
+
+    createClient();
 
     $("#reportCall-formResult").css("visibility", "hidden");
 
