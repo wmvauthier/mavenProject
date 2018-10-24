@@ -644,7 +644,7 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
 
-    $('#navCalls').click();
+    $('#navClients').click();
 
     createCategoryButton();
     createCategory();
