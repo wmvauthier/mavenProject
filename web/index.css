@@ -18,6 +18,10 @@ a:active {
     text-decoration: none;
 }
 
+fieldset {
+    text-align: left;
+}
+
 .fullCenter {
     text-align: center;
     vertical-align: middle;
@@ -268,6 +272,22 @@ td, th , tr{
     box-sizing: border-box;
     background-image: url('icons/comment.png');
     background-position: 2px 31px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputNumber {
+    box-sizing: border-box;
+    background-image: url('icons/number.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputPlace {
+    box-sizing: border-box;
+    background-image: url('icons/place.png');
+    background-position: 2px 1px; 
     background-repeat: no-repeat;
     padding: 12px 20px 12px 45px;
 }
