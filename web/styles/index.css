@@ -291,3 +291,75 @@ td, th , tr{
     background-repeat: no-repeat;
     padding: 12px 20px 12px 45px;
 }
+
+.inputCity {
+    box-sizing: border-box;
+    background-image: url('icons/city.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputZIP {
+    box-sizing: border-box;
+    background-image: url('icons/zip.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputLocation {
+    box-sizing: border-box;
+    background-image: url('icons/location.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputState {
+    box-sizing: border-box;
+    background-image: url('icons/map.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputLogin {
+    box-sizing: border-box;
+    background-image: url('icons/login.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputPassword {
+    box-sizing: border-box;
+    background-image: url('icons/password.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputCPF {
+    box-sizing: border-box;
+    background-image: url('icons/cpf.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputContact {
+    box-sizing: border-box;
+    background-image: url('icons/contact.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}
+
+.inputEmail {
+    box-sizing: border-box;
+    background-image: url('icons/email.png');
+    background-position: 2px 1px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 45px;
+}

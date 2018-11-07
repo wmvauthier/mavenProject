@@ -4,7 +4,7 @@
     <head>
 
         <title>GerLinkCNE</title>
-        <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+        <link rel="shortcut icon" type="image/png" href="styles/favicon.png"/>
         <meta charset="utf-8">
         <meta name="author" content="Wesley Matheus">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -218,71 +218,106 @@
                     <!-- FORMS PARA CLIENTES -->
                     <div class="demo-chart container row">
 
-                        <!-- FORMS PARA ADICIONAR CLIENTES -->
                         <div class="panel col-xs-12 col-sm-12 col-md-12">
                             <div class="panel-heading row">
                                 <div class="col-xs-12 col-sm-12 col-md-12" style="margin-bottom: 10px;">
-                                    <img src="https://image.ibb.co/mGn5np/user.jpg" class="demo-BigAvatar">
+                                    <h3>ÁREA DO CLIENTE</h3>
                                 </div>
                             </div>
                             <div class="panel-body-height">
                                 <form role="form">
-                                    <div class="row">
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="first_name" id="first_name" class="form-control inputClient" placeholder="First Name">
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
-                                            </div>
-                                        </div>
-                                    </div>
                                     <fieldset>
-                                        <legend>Endereço</legend>
+                                        <legend>Informações Pessoais</legend>
                                         <div class="row">
-                                            <div class="col-xs-10 col-sm-10 col-md-10">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" name="place" id="firsat_name" class="form-control inputPlace" placeholder="Logradouro">
-                                                </div>
-                                            </div>
-                                            <div class="col-xs-2 col-sm-2 col-md-2">
-                                                <div class="form-group">
-                                                    <input type="text" name="number" id="firsaat_name" class="form-control inputNumber" placeholder="Número">
+                                                    <input type="text" name="first_name" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="city" id="firsaatx_name" class="form-control inputNumber" placeholder="Cidade">
+                                                    <input type="text" name="last_name" id="cAreaFormLogin" class="form-control inputLogin" placeholder="Login">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="firsaatc_name" class="form-control inputNumber" placeholder="Bairro">
+                                                    <input type="password" name="last_name" id="cAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
                                                 </div>
                                             </div>
-                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="firsaatv_name" class="form-control inputNumber" placeholder="CEP">
+                                                    <input type="text" name="last_name" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="password" name="last_name" id="cAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
-                                    <!--Nome
-                                    Endereço
-                                            Bairro
-                                            Cidade
-                                            Estado
-                                            CEP
-                                    CPF / CNPJ
-                                    Contato
-                                    Email-->
-
-
-                                    <input type="submit" value="Register" class="btn btn-info btn-block">
+                                    </br>
+                                    <fieldset>
+                                        <legend>Endereço</legend>
+                                        <div class="row">
+                                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                                <div class="form-group">
+                                                    <input type="text" name="place" id="cAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormNumber" class="form-control inputNumber" placeholder="Número">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="city" id="cAreaFormCity" class="form-control inputCity" placeholder="Cidade">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-2 col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-2 col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormState" class="form-control inputState" placeholder="Estado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+                                    <fieldset>
+                                        <legend>Contatos</legend>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormContact" class="form-control inputContact" placeholder="Telefone">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="cAreaFormEmail" class="form-control inputEmail" placeholder="Email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+                                    
+                                    <input type="submit" value="Register" id="cAreaBtnAction" class="btn btn-danger">
+                                    <input type="button" value="Limpar" id="cAreaBtnClear" class="btn btn-primary">
 
                                 </form>
                             </div>
@@ -299,10 +334,11 @@
         <div id="hiddenResults"></div>
 
         <script src="https://code.getmdl.io/1.3.0/material.min.js"></script>
-        <script type="text/javascript" src="index.js"></script>
-        <script type="text/javascript" src="html2canvas.js"></script>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="stylesheet" href="index.css">
+        <script type="text/javascript" src="scripts/index.js"></script>
+        <script type="text/javascript" src="scripts/html2canvas.js"></script>
+        <script type="text/javascript" src="scripts/validator.js"></script>
+        <link rel="stylesheet" href="styles/styles.css">
+        <link rel="stylesheet" href="styles/index.css">
 
     </body>
 
