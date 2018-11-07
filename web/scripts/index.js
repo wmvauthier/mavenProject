@@ -95,21 +95,18 @@ function createClient() {
     var td3 = document.createElement('td');
     var td4 = document.createElement('td');
     var td5 = document.createElement('td');
-    var td6 = document.createElement('td');
 
     td1.innerHTML = 'DATA';
     td2.innerHTML = 'CLIENTE';
     td3.innerHTML = 'DESCRICAO';
     td4.innerHTML = 'TECNICO';
-    td5.innerHTML = 'DESCRICAO';
-    td6.innerHTML = '<button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>&nbsp' +
+    td5.innerHTML = '<button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>&nbsp' +
                     '<button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
-    tr.appendChild(td6);
     table.appendChild(tr);
 
 }

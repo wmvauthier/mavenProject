@@ -27,7 +27,7 @@
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
             google.charts.load('current', {packages: ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
+            google.charts.setOnLoadCallback();
         </script>
 
     </head>
@@ -198,12 +198,11 @@
                                         <table class="table table-list-search">
                                             <thead>
                                                 <tr>
-                                                    <th>Entry</th>
-                                                    <th>Entry</th>
-                                                    <th>Entry</th>
-                                                    <th>Entry</th>
-                                                    <th>Entry</th>
-                                                    <th>Ações</th>
+                                                    <th>NOME</th>
+                                                    <th>CPF</th>
+                                                    <th>CONTATO</th>
+                                                    <th>EMAIL</th>
+                                                    <th>AÇÕES</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="clientTableBody"></tbody>
@@ -231,31 +230,31 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" name="first_name" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
+                                                    <input type="text" name="cAreaFormClient" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="last_name" id="cAreaFormLogin" class="form-control inputLogin" placeholder="Login">
+                                                    <input type="text" name="cAreaFormLogin" id="cAreaFormLogin" class="form-control inputLogin" placeholder="Login">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="password" name="last_name" id="cAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
+                                                    <input type="password" name="cAreaFormPassword" id="cAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="last_name" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
+                                                    <input type="text" name="cAreaFormCPF" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="password" name="last_name" id="cAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
+                                                    <input type="password" name="cAreaFormCheckPassword" id="cAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
                                                 </div>
                                             </div>
                                         </div>
@@ -266,34 +265,34 @@
                                         <div class="row">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
                                                 <div class="form-group">
-                                                    <input type="text" name="place" id="cAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
+                                                    <input type="text" name="cAreaFormAddress" id="cAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormNumber" class="form-control inputNumber" placeholder="Número">
+                                                    <input type="text" name="cAreaFormNumber" id="cAreaFormNumber" class="form-control inputNumber" placeholder="Número">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="city" id="cAreaFormCity" class="form-control inputCity" placeholder="Cidade">
+                                                    <input type="text" name="cAreaFormCity" id="cAreaFormCity" class="form-control inputCity" placeholder="Cidade">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
+                                                    <input type="text" name="cAreaFormNeigh" id="cAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
                                                 </div>
                                             </div>
                                             <div class="col-xs-8 col-sm-2 col-md-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
+                                                    <input type="text" name="cAreaFormCEP" id="cAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-sm-2 col-md-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormState" class="form-control inputState" placeholder="Estado">
+                                                    <input type="text" name="cAreaFormState" id="cAreaFormState" class="form-control inputState" placeholder="Estado">
                                                 </div>
                                             </div>
                                         </div>
@@ -304,12 +303,12 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormContact" class="form-control inputContact" placeholder="Telefone">
+                                                    <input type="text" name="cAreaFormContact" id="cAreaFormContact" class="form-control inputContact" placeholder="Telefone">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="number" id="cAreaFormEmail" class="form-control inputEmail" placeholder="Email">
+                                                    <input type="text" name="cAreaFormEmail" id="cAreaFormEmail" class="form-control inputEmail" placeholder="Email">
                                                 </div>
                                             </div>
                                         </div>
