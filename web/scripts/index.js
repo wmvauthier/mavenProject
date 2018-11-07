@@ -100,8 +100,8 @@ function createClient() {
     td2.innerHTML = 'CLIENTE';
     td3.innerHTML = 'DESCRICAO';
     td4.innerHTML = 'TECNICO';
-    td5.innerHTML = '<button class="btn btn-sm btn-warning"><i class="material-icons">create</i></button>&nbsp' +
-                    '<button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>';
+    td5.innerHTML = '<button class="btn btn-sm btn-warning" onclick="formClientsUp()"><i class="material-icons">create</i></button>&nbsp' +
+            '<button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -153,7 +153,7 @@ $(document).ready(function () {
         //all tr elements are hidden
         if (tableRowsClass.children(':visible').length == 0)
         {
-            tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">No entries found.</td></tr>');
+            tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">Nenhum Cliente foi encontrado.</td></tr>');
         }
     });
 });
@@ -161,9 +161,12 @@ $(document).ready(function () {
 // ----- FUNÇÕES SWITCH -----
 
 $('#navCalls').click(function () {
-    $('#showContent').show();
+    $('#showClients').animate({"opacity": "0"}, 500);
     $('#showClients').hide();
+    $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
+    $('#showContent').animate({"opacity": "1"}, 500);
+    $('#showContent').show();
     $('#titlePage').html('CHAMADOS');
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
@@ -178,16 +181,47 @@ $('#navCalls').click(function () {
 });
 
 $('#navClients').click(function () {
-    $('#showClients').show();
+    $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
+    $('#showContent').animate({"opacity": "0"}, 500);
     $('#showContent').hide();
+    $('#formClients').animate({"opacity": "0"}, 500);
+    $('#formClients').hide();
+    $('#showClients').animate({"opacity": "1"}, 500);
+    $('#showClients').show();
+    $('#tableClients').animate({"opacity": "1"}, 500);
+    $('#tableClients').show();
     $('#titlePage').html('CLIENTES');
 });
 
+$('#formClientsBack').click(function () {
+    $('#formClients').animate({"opacity": "0"}, 500);
+    $('#formClients').hide();
+    $('#tableClients').animate({"opacity": "1"}, 500);
+    $('#tableClients').show();
+});
+
+$('.formClientsUp').click(function () {
+    $('#tableClients').animate({"opacity": "0"}, 500);
+    $('#tableClients').hide();
+    $('#formClients').animate({"opacity": "1"}, 500);
+    $('#formClients').show();
+});
+
+function formClientsUp() {
+    $('#tableClients').animate({"opacity": "0"}, 500);
+    $('#tableClients').hide();
+    $('#formClients').animate({"opacity": "1"}, 500);
+    $('#formClients').show();
+}
+
 $('#home').click(function () {
-    $('#showHome').show();
+    $('#showContent').animate({"opacity": "0"}, 500);
     $('#showContent').hide();
+    $('#showClients').animate({"opacity": "0"}, 500);
     $('#showClients').hide();
+    $('#showHome').animate({"opacity": "1"}, 500);
+    $('#showHome').show();
     $('#titlePage').html('HOME');
 });
 
@@ -676,6 +710,8 @@ function codeAddress() {
     createCategory();
     createNavCategory();
 
+    createClient();
+    createClient();
     createClient();
 
     $("#reportCall-formResult").css("visibility", "hidden");

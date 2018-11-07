@@ -1,3 +1,5 @@
+#showHome, #showClients, #showContent { opacity: 0; }
+
 .hidden{ visibility:hidden;}
 
 a { text-decoration: none; }
@@ -151,6 +153,38 @@ td, th , tr{
     padding: 8px;
     overflow: hidden; text-align: center; valign: top; whitespace: nowrap;
     min-width: 25mm;
+}
+
+.custab{
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5% 0;
+    box-shadow: 3px 3px 2px #ccc;
+    transition: 0.5s;
+}
+
+.custab:hover{
+    box-shadow: 3px 3px 0px transparent;
+    transition: 0.5s;
+}
+
+.tag {
+    top: 0px;
+    right: 0px;
+    min-height: 0px;
+    float:right;
+    z-index:3;
+    display:block;
+    position:relative;
+}
+
+.box {
+    display:inline-block;
+    /*position:absolute;*/
+}
+
+.bWhite {
+    background-color: #fff;
 }
 
 #hiddenResults {
