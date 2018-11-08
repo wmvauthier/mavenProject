@@ -139,6 +139,10 @@ table {
     text-align: center;
 }
 
+.table-responsive {
+    border: none;
+}
+
 th {
     border: 1px solid #dddddd;
     text-align: center;

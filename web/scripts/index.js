@@ -8,19 +8,20 @@ function createTicket(id, title, description) {
     var cp1 = "\#collapseOne";
     var cp2 = "\#collapseTwo";
     var cp3 = "\#collapseThree";
+    title = delimiteLength(title, 2);
     div.id = id;
     div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
     div.innerHTML = '' +
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
             '<div class="btn-group pull-right panelTicketBtn">' +
-            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\''+cp2+'\');" id="'+id+'" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvGre">check_circle</i>' +
             '</button>' +
-            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp2}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels('+cp2+');" id="'+id+'" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvYel">info</i>' +
             '</button>' +
-            `<button onclick= "sendServletReturnCall(this); openCollapsePanels('${cp3}');" id="${id}" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">` +
+            '< button onclick = "sendServletReturnCall(this); openCollapsePanels('+cp3+');" id="'+id+'" class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvRed">cancel</i>' +
             '</button>' +
             '</div>' +
@@ -51,12 +52,10 @@ function createCategory(id, qtd, description) {
             '</div>' +
             '</div>';
     document.getElementById("categories").appendChild(div);
-
     var collection = $(".randomColor");
     collection.each(function () {
         colorCategory(this);
     });
-
 }
 
 function createNavCategory(id, qtd, description) {
@@ -89,13 +88,11 @@ function createClient() {
 
     var table = document.getElementById('clientTableBody');
     var tr = document.createElement('tr');
-
     var td1 = document.createElement('td');
     var td2 = document.createElement('td');
     var td3 = document.createElement('td');
     var td4 = document.createElement('td');
     var td5 = document.createElement('td');
-
     td1.innerHTML = 'DATA';
     td2.innerHTML = 'CLIENTE';
     td3.innerHTML = 'DESCRICAO';
@@ -108,14 +105,12 @@ function createClient() {
     tr.appendChild(td4);
     tr.appendChild(td5);
     table.appendChild(tr);
-
 }
 
 // ----- FUNÇÕES TABELA -----
 
 $(document).ready(function () {
     var activeSystemClass = $('.list-group-item.active');
-
     //something is entered in search form
     $('#system-search').keyup(function () {
         var that = this;
@@ -143,7 +138,6 @@ $(document).ready(function () {
             {
                 //hide rows
                 tableRowsClass.eq(i).hide();
-
             } else
             {
                 $('.search-sf').remove();
@@ -157,7 +151,6 @@ $(document).ready(function () {
         }
     });
 });
-
 // ----- FUNÇÕES SWITCH -----
 
 $('#navCalls').click(function () {
@@ -179,7 +172,6 @@ $('#navCalls').click(function () {
     sendServletRefreshCall();
     openCollapsePanels($('#collapseOne'));
 });
-
 $('#navClients').click(function () {
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
@@ -193,21 +185,18 @@ $('#navClients').click(function () {
     $('#tableClients').show();
     $('#titlePage').html('CLIENTES');
 });
-
 $('#formClientsBack').click(function () {
     $('#formClients').animate({"opacity": "0"}, 500);
     $('#formClients').hide();
     $('#tableClients').animate({"opacity": "1"}, 500);
     $('#tableClients').show();
 });
-
 $('.formClientsUp').click(function () {
     $('#tableClients').animate({"opacity": "0"}, 500);
     $('#tableClients').hide();
     $('#formClients').animate({"opacity": "1"}, 500);
     $('#formClients').show();
 });
-
 function formClientsUp() {
     $('#tableClients').animate({"opacity": "0"}, 500);
     $('#tableClients').hide();
@@ -224,35 +213,32 @@ $('#home').click(function () {
     $('#showHome').show();
     $('#titlePage').html('HOME');
 });
-
 // ----- CHAMADAS PARA GRÁFICOS -----
 
 function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
 
     var realDateNow = new Object();
     equalDat(dateNow, realDateNow);
-
     var data = google.visualization.arrayToDataTable([
-        ['Dia', 'Concluídos', 'Pendentes'],
-        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+    ['Dia', 'Concluídos', 'Pendentes'],
+    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-    var options = {
-        title: 'Chamados dos Últimos 7 Dias',
-        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0},
-        animation: {
-            duration: 1000,
-            easing: 'out',
-        },
-    };
-
+            var options = {
+                title: 'Chamados dos Últimos 7 Dias',
+                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0},
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+            };
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
 }
@@ -279,7 +265,6 @@ function sendServletRefreshCall() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
-
             //VERIFICAÇÃO PARA JSON NULO
             try {
                 var jsonData = JSON.parse(response);
@@ -292,7 +277,6 @@ function sendServletRefreshCall() {
             $("#pendingCalls").html("");
             var dateNow = myDat(new Date);
             var count = 0;
-
             //DESENHA OS CHAMADOS ABERTOS
             for (var i = 0; i < jsonData.calls.length; i++) {
                 var call = jsonData.calls[i];
@@ -305,18 +289,15 @@ function sendServletRefreshCall() {
             //MANTENDO A MESMA DATA ATUAL
             var realDateNow = new Object();
             equalDat(dateNow, realDateNow);
-
             //DESENHA O  GRÁFICO DE CHAMADOS ABERTOS
 
             //VETORES QUE RECEBEM OS CHAMADOS
             var valuesSVG = [];
             var valuesSVGReady = [];
-
             for (var o = 0; o < 21; o++) {
 
                 var countCalls = 0;
                 var countReadyCalls = 0;
-
                 for (var s = 0; s < jsonData.calls.length; s++) {
                     var call = jsonData.calls[s];
                     var convertedCall = toMyDat(call.data);
@@ -337,11 +318,9 @@ function sendServletRefreshCall() {
                 minusDat(dateNow, 1);
                 valuesSVG[o] = countCalls;
                 valuesSVGReady[o] = countReadyCalls;
-
             }
 
             drawSVGCalls(valuesSVG, valuesSVGReady, realDateNow);
-
         }
     };
     xhr.open("post", "refreshCall", true);
@@ -358,7 +337,6 @@ function sendServletRefreshCategories() {
             var jsonData = JSON.parse(response);
             document.getElementById("navCategories").innerHTML = '';
             document.getElementById("categories").innerHTML = '';
-
             //DESENHA AS CATEGORIAS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
@@ -552,9 +530,7 @@ function myDat(dateNow) {
     myDat.year = dateNow.getFullYear();
     myDat.month = okMonth;
     myDat.day = dateNow.getDate();
-
     return myDat;
-
 }
 
 //CONVERTE PARA MYDAT O QUE VEM DO SERVLET
@@ -562,7 +538,6 @@ function toMyDat(dateNow) {
     var times = 0;
     var myDat = new Object();
     var concat = '';
-
     for (i = 0; i < dateNow.length; i++) {
         if (dateNow[i] === '-') {
             if (times === 0 && concat !== '') {
@@ -590,7 +565,7 @@ function toMyDat(dateNow) {
 function minusDat(dateNow, times, back) {
 
     for (var i = 0; i < times; i++) {
-        //VERIFICA VIRADAS DE MÊS E DE ANO
+//VERIFICA VIRADAS DE MÊS E DE ANO
         if ((dateNow.day === 1) && (dateNow.month === 1)) {
             dateNow.day = 31;
             dateNow.month = 12;
@@ -616,7 +591,6 @@ function minusDat(dateNow, times, back) {
     }
 
     return dateNow;
-
 }
 
 //IGUALA DOIS DIAS EM MYDAT
@@ -640,6 +614,16 @@ function colorCategory(category) {
     $(category).css('background-color', colors[choosed]);
     $(category).css('color', textColors[choosed]);
     $(category).css('cursor', 'pointer');
+}
+
+//DELIMITA O TAMANHO DAS STRINGS
+function delimiteLength(str, num) {
+    var newstr = "";
+    for (var i = 0; i < num; i++) {
+        var c = str.charAt(i);
+        newstr += c;
+    }
+    return newstr;
 }
 
 //ABRE O PANEL SELECIONADO, SE JÁ NÃO ESTIVER ABERTO
@@ -705,21 +689,16 @@ function closeCollapsePanels(button) {
 function codeAddress() {
 
     $('#navClients').click();
-
     createCategoryButton();
     createCategory();
     createNavCategory();
-
     createClient();
     createClient();
     createClient();
-
     $("#reportCall-formResult").css("visibility", "hidden");
-
 }
 
 window.onload = codeAddress;
-
 // ----- VARIÁVEIS GLOBAIS -----
 
 var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
@@ -731,7 +710,6 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
-
 var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
         '<div id="fixCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
@@ -747,7 +725,6 @@ var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCa
         '</div>' +
         '</div>' +
         '</form>';
-
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
