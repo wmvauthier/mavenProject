@@ -1,7 +1,7 @@
 // ----- ANOTAÇÕES -----
 //$("#showHome").delay(500).animate({"opacity": "1"}, 500); e opacity:0 no CSS
 
-// ----- FUNÇÕES QUE CRIAM DOCUMENTOS HTML -----
+// ----- FUNÇÕES QUE CRIAM ELEMENTOS HTML -----
 
 function createTicket(id, title, description) {
     var div = document.createElement('div');
@@ -15,13 +15,13 @@ function createTicket(id, title, description) {
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
             '<div class="btn-group pull-right panelTicketBtn">' +
-            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\''+cp2+'\');" id="'+id+'" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\'' + cp2 + '\');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvGre">check_circle</i>' +
             '</button>' +
-            '<button onclick= "sendServletReturnCall(this); openCollapsePanels('+cp2+');" id="'+id+'" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(' + cp2 + ');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvYel">info</i>' +
             '</button>' +
-            '< button onclick = "sendServletReturnCall(this); openCollapsePanels('+cp3+');" id="'+id+'" class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '< button onclick = "sendServletReturnCall(this); openCollapsePanels(' + cp3 + ');" id="' + id + '" class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvRed">cancel</i>' +
             '</button>' +
             '</div>' +
@@ -38,13 +38,13 @@ function createCategory(id, qtd, description) {
             '<div class="col mdl-shadow--2dp randomColor">' +
             '<div class="row">' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a><i id="catEdit' + id + '" class="material-icons">create</i></a>' +
+            '<a onclick="formCategoriesUp()"><i id="catEdit' + id + '" class="material-icons">create</i></a>' +
             '</div>' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a><i id="catDelete' + id + '" class="material-icons">clear</i></a>' +
+            '<a onclick="alert()"><i id="catDelete' + id + '" class="material-icons">clear</i></a>' +
             '</div>' +
             '</div>' +
-            '<div class="row">' +
+            '<div onclick="alert(a)" class="row">' +
             '<div class="col col-sm-12">' +
             '<h1><b>' + qtd + '</b></h1><br>' +
             '<p><b>' + description + '</b></p><br>' +
@@ -151,6 +151,7 @@ $(document).ready(function () {
         }
     });
 });
+
 // ----- FUNÇÕES SWITCH -----
 
 $('#navCalls').click(function () {
@@ -172,6 +173,7 @@ $('#navCalls').click(function () {
     sendServletRefreshCall();
     openCollapsePanels($('#collapseOne'));
 });
+
 $('#navClients').click(function () {
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
@@ -185,23 +187,53 @@ $('#navClients').click(function () {
     $('#tableClients').show();
     $('#titlePage').html('CLIENTES');
 });
+
 $('#formClientsBack').click(function () {
     $('#formClients').animate({"opacity": "0"}, 500);
     $('#formClients').hide();
     $('#tableClients').animate({"opacity": "1"}, 500);
     $('#tableClients').show();
 });
+
 $('.formClientsUp').click(function () {
     $('#tableClients').animate({"opacity": "0"}, 500);
     $('#tableClients').hide();
     $('#formClients').animate({"opacity": "1"}, 500);
     $('#formClients').show();
 });
+
 function formClientsUp() {
     $('#tableClients').animate({"opacity": "0"}, 500);
     $('#tableClients').hide();
     $('#formClients').animate({"opacity": "1"}, 500);
     $('#formClients').show();
+}
+
+$('#formCategoriesBack').click(function () {
+    $('#formCategories').animate({"opacity": "0"}, 500);
+    $('#formCategories').hide();
+    $('#categories').animate({"opacity": "1"}, 500);
+    $('#categories').show();
+    $('#categoriesBtn').animate({"opacity": "1"}, 500);
+    $('#categoriesBtn').show();
+});
+
+$('.formCategoriesUp').click(function () {
+    $('#categories').animate({"opacity": "0"}, 500);
+    $('#categories').hide();
+    $('#categoriesBtn').animate({"opacity": "0"}, 500);
+    $('#categoriesBtn').hide();
+    $('#formCategories').animate({"opacity": "1"}, 500);
+    $('#formCategories').show();
+});
+
+function formCategoriesUp() {
+    $('#categories').animate({"opacity": "0"}, 500);
+    $('#categories').hide();
+    $('#categoriesBtn').animate({"opacity": "0"}, 500);
+    $('#categoriesBtn').hide();
+    $('#formCategories').animate({"opacity": "1"}, 500);
+    $('#formCategories').show();
 }
 
 $('#home').click(function () {
@@ -211,8 +243,15 @@ $('#home').click(function () {
     $('#showClients').hide();
     $('#showHome').animate({"opacity": "1"}, 500);
     $('#showHome').show();
+    $('#formCategories').animate({"opacity": "0"}, 500);
+    $('#formCategories').hide();
+    $('#categories').animate({"opacity": "1"}, 500);
+    $('#categories').show();
+    $('#categoriesBtn').animate({"opacity": "1"}, 500);
+    $('#categoriesBtn').show();
     $('#titlePage').html('HOME');
 });
+
 // ----- CHAMADAS PARA GRÁFICOS -----
 
 function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
@@ -220,25 +259,25 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     var realDateNow = new Object();
     equalDat(dateNow, realDateNow);
     var data = google.visualization.arrayToDataTable([
-    ['Dia', 'Concluídos', 'Pendentes'],
-    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+        ['Dia', 'Concluídos', 'Pendentes'],
+        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-            var options = {
-                title: 'Chamados dos Últimos 7 Dias',
-                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0},
-                animation: {
-                    duration: 1000,
-                    easing: 'out',
-                },
-            };
+    var options = {
+        title: 'Chamados dos Últimos 7 Dias',
+        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        animation: {
+            duration: 1000,
+            easing: 'out',
+        },
+    };
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
 }
@@ -688,7 +727,7 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
 
-    $('#navClients').click();
+    $('#home').click();
     createCategoryButton();
     createCategory();
     createNavCategory();
@@ -710,6 +749,7 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
+
 var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
         '<div id="fixCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
@@ -725,6 +765,7 @@ var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCa
         '</div>' +
         '</div>' +
         '</form>';
+
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +

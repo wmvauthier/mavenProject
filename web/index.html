@@ -167,7 +167,35 @@
                 <!-- DASHBOARD CARDS | (showHome - Categorias)--> 
                 <div id="showHome">
                     <div id="categories"></div>
-                    <div id="categoriesBtn"></div>
+                    <div id="categoriesBtn" class="formCategoriesUp"></div></br>
+                    <div id="formCategories" class="demo-chart mdl-shadow--2dp bWhite container row">
+                        <div class="panel col-xs-12 col-sm-12 col-md-12">
+                            <div class="panel-heading row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
+                                    <h3>INSIRA AS INFORMAÇÕES DA CATEGORIA<button id="formCategoriesBack" class="btn btn-sm btn-primary tag"><i class="material-icons">backspace</i></button></h3>
+                                </div>
+                            </div>
+                            <div class="panel-body-height">
+                                <form id="catAreaForm" role="form">
+                                    <fieldset>
+                                        <legend>Dados da Categoria</legend>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="text" name="description" id="formCategoriesDescription" class="form-control inputComment" placeholder="Descrição da Categoria">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+
+                                    <input type="submit" value="Registrar" id="catAreaBtnAction" class="btn btn-danger">
+                                    <input type="button" value="Limpar" onclick="$('#formCategories').trigger('reset')" class="btn btn-primary">
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- DASHBOARD CLIENTS | (showClients - Aba de Clientes)-->
@@ -175,7 +203,7 @@
 
                     <!-- TABELA DE CLIENTES -->
                     <div id="tableClients" class="demo-chart mdl-shadow--2dp bWhite container overflowBarBigger row">
-                        
+
                         <!--TABELA DE CLIENTES -->
                         <div class="container">
                             <div class="panel-heading row">
@@ -318,7 +346,7 @@
                                     </fieldset>
                                     </br>
 
-                                    <input type="submit" value="Register" id="cAreaBtnAction" class="btn btn-danger">
+                                    <input type="submit" value="Registrar" id="cAreaBtnAction" class="btn btn-danger">
                                     <input type="button" value="Limpar" onclick="$('#cAreaForm').trigger('reset')" class="btn btn-primary">
 
                                 </form>

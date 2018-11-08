@@ -1,4 +1,4 @@
-#showHome, #showClients, #showContent { opacity: 0; }
+#showHome, #showClients, #showContent, #categories, #categoriesBtn , #formCategories{ opacity: 0; }
 
 .hidden{ visibility:hidden;}
 
