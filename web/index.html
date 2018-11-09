@@ -58,7 +58,7 @@
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
                             <li class="mdl-menu__item">hello@example.com</li>
                             <li class="mdl-menu__item">info@example.com</li>
-                            <li class="mdl-menu__item"><i class="material-icons md-dark">add</i>Add another account...</li>
+                            <li class="mdl-menu__item">Sair</li>
                         </ul>
                     </div>
                 </header>
@@ -95,7 +95,7 @@
                                 <div class="panel-heading" id="accordion">
                                     <b><span id="addPanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button id="addPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');">
+                                        <button id="addPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree'); closeCollapsePanels('#collapseFour');">
                                             <i class="material-icons">add</i>
                                         </button>
                                     </div>
@@ -112,12 +112,12 @@
                                 <div class="panel-heading" id="accordion">
                                     <b><span id="changePanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button id="changePanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" <!--onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');"-->>
+                                        <button id="changePanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');">
                                                 <i class="material-icons">create</i>
                                         </button>
                                     </div>
                                 </div>
-                                <div class="panel-collapse collapse" id="collapseOne">
+                                <div class="panel-collapse collapse" id="collapseFour">
                                     <div id="changePanelBody" class="panel-bodyForm"></div>
                                 </div>
                             </div>
@@ -129,7 +129,7 @@
                                 <div class="panel-heading" id="accordion">
                                     <b><span id="fixPanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button id="fixPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseThree');">
+                                        <button id="fixPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseThree'); closeCollapsePanels('#collapseFour');">
                                             <i class="material-icons">done</i>
                                         </button>
                                     </div>
@@ -146,7 +146,7 @@
                                 <div class="panel-heading" id="accordion">
                                     <b><span id="reportPanelTitle"></span></b>
                                     <div class="btn-group pull-right">
-                                        <button id="reportPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo');">
+                                        <button id="reportPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseFour');">
                                             <i class="material-icons">assignment</i>
                                         </button>
                                     </div>
@@ -201,7 +201,7 @@
                 <!-- DASHBOARD CLIENTS | (showClients - Aba de Clientes)-->
                 <div id="showClients"></br>
 
-                    <!-- TABELA DE CLIENTES -->
+                    <!-- ÁREA DA TABELA DE CLIENTES -->
                     <div id="tableClients" class="demo-chart mdl-shadow--2dp bWhite container overflowBarBigger row">
 
                         <!--TABELA DE CLIENTES -->
@@ -261,31 +261,31 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormClient" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
+                                                    <input type="text" name="client" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormLogin" id="cAreaFormLogin" class="form-control inputLogin" placeholder="Login">
+                                                    <input type="text" name="login" id="cAreaFormLogin" class="form-control inputLogin" placeholder="Login">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="password" name="cAreaFormPassword" id="cAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
+                                                    <input type="password" name="password" id="cAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormCPF" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
+                                                    <input type="text" name="cpf" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="password" name="cAreaFormCheckPassword" id="cAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
+                                                    <input type="password" name="checkPassword" id="cAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
                                                 </div>
                                             </div>
                                         </div>
@@ -296,34 +296,34 @@
                                         <div class="row">
                                             <div class="col-xs-8 col-sm-8 col-md-8">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormAddress" id="cAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
+                                                    <input type="text" name="address" id="cAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormNumber" id="cAreaFormNumber" class="form-control inputNumber" placeholder="Número">
+                                                    <input type="text" name="number" id="cAreaFormNumber" class="form-control inputNumber" placeholder="Número">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormCity" id="cAreaFormCity" class="form-control inputCity" placeholder="Cidade">
+                                                    <input type="text" name="city" id="cAreaFormCity" class="form-control inputCity" placeholder="Cidade">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-4 col-md-4">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormNeigh" id="cAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
+                                                    <input type="text" name="neigh" id="cAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
                                                 </div>
                                             </div>
                                             <div class="col-xs-8 col-sm-2 col-md-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormCEP" id="cAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
+                                                    <input type="text" name="cep" id="cAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
                                                 </div>
                                             </div>
                                             <div class="col-xs-4 col-sm-2 col-md-2">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormState" id="cAreaFormState" class="form-control inputState" placeholder="Estado">
+                                                    <input type="text" name="state" id="cAreaFormState" class="form-control inputState" placeholder="Estado">
                                                 </div>
                                             </div>
                                         </div>
@@ -334,12 +334,12 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormContact" id="cAreaFormContact" class="form-control inputContact" placeholder="Telefone">
+                                                    <input type="text" name="contact" id="cAreaFormContact" class="form-control inputContact" placeholder="Telefone">
                                                 </div>
                                             </div>
                                             <div class="col-xs-12 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="cAreaFormEmail" id="cAreaFormEmail" class="form-control inputEmail" placeholder="Email">
+                                                    <input type="email" name="email" id="cAreaFormEmail" class="form-control inputEmail" placeholder="Email">
                                                 </div>
                                             </div>
                                         </div>

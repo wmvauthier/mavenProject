@@ -98,7 +98,7 @@ function createClient() {
     td3.innerHTML = 'DESCRICAO';
     td4.innerHTML = 'TECNICO';
     td5.innerHTML = '<button class="btn btn-sm btn-warning" onclick="formClientsUp()"><i class="material-icons">create</i></button>&nbsp' +
-            '<button class="btn btn-sm btn-danger"><i class="material-icons">delete</i></button>';
+            '<button class="btn btn-sm btn-danger" onclick="alert()"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -170,6 +170,7 @@ $('#navCalls').click(function () {
     $('#addPanelBody').html(addTicketForm);
     $('#fixPanelBody').html(fixTicketForm);
     $('#reportPanelBody').html(reportTicketForm);
+    $('#changePanelBody').html(changeTicketForm);
     sendServletRefreshCall();
     openCollapsePanels($('#collapseOne'));
 });
@@ -297,6 +298,131 @@ function sendServletAddCall(client, dat, description) {
     xhr.open("post", "registerCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "");
+}
+
+//AINDA NÃO CHAMA NADA
+function sendServletChangeCall(client, dat, description) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var call = JSON.parse(xhr.responseText);
+            //createTicket(call.id, call.cliente, call.descricao);
+            document.getElementById('changeCall-form').reset();
+            sendServletRefreshCall();
+        }
+    };
+    xhr.open("post", "changeCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "");
+}
+
+function sendServletFixCall() {
+
+    var callToFind = document.getElementById('fixCall-formselectedCall');
+    var description = document.getElementById('fixCall-formDescription').value;
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var element = document.getElementById(callToFind.innerHTML);
+            element.parentNode.removeChild(element);
+            document.getElementById('fixCall-form').reset();
+            closeCollapsePanels($('#collapseTwo'));
+            sendServletRefreshCall();
+        }
+    };
+    xhr.open("post", "fixCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("id=" + callToFind.innerHTML + "&description=" + description + "");
+}
+
+function sendServletReportCall() {
+
+    var xhr = new XMLHttpRequest();
+    var client = document.getElementById('reportCall-formClient').value;
+    var datIni = document.getElementById('reportCall-formDatIni').value;
+    var datFin = document.getElementById('reportCall-formDatFin').value;
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            $('#reportCall-formResult').val();
+            //Criação da Tabela
+            var divTitle = document.createElement('div');
+            var title = document.createElement('p');
+            title.innerHTML = '<center><b>Relatorio de Chamados do Cliente</b></center>';
+            divTitle.appendChild(title);
+            var table = document.createElement('table');
+            var tr1 = document.createElement('tr');
+            var tdData1 = document.createElement('td');
+            var tdCliente1 = document.createElement('td');
+            var tdTecnico1 = document.createElement('td');
+            var tdDescricao1 = document.createElement('td');
+            tdData1.innerHTML = '<b>DATA</b>';
+            tdCliente1.innerHTML = '<b>CLIENTE</b>';
+            tdDescricao1.innerHTML = '<b>DESCRICAO</b>';
+            tdTecnico1.innerHTML = '<b>TECNICO</b>';
+            tr1.appendChild(tdData1);
+            tr1.appendChild(tdCliente1);
+            tr1.appendChild(tdTecnico1);
+            tr1.appendChild(tdDescricao1);
+            table.appendChild(tr1);
+            for (var i = 0; i < jsonData.calls.length; i++) {
+                var call = jsonData.calls[i];
+                if ((call.data >= datIni && call.data <= datFin) || (call.cliente == client)) {
+                    var tr = document.createElement('tr');
+                    var tdData = document.createElement('td');
+                    var tdCliente = document.createElement('td');
+                    var tdTecnico = document.createElement('td');
+                    var tdDescricao = document.createElement('td');
+                    tdData.innerHTML = call.data;
+                    tdCliente.innerHTML = call.cliente;
+                    tdDescricao.innerHTML = call.descricao;
+                    tdTecnico.innerHTML = call.tecnico;
+                    tr.appendChild(tdData);
+                    tr.appendChild(tdCliente);
+                    tr.appendChild(tdTecnico);
+                    tr.appendChild(tdDescricao);
+                    table.appendChild(tr);
+                }
+            }
+
+            var formResults = document.getElementById('reportCall-formResult');
+            formResults.appendChild(divTitle);
+            formResults.appendChild(table);
+            if (confirm('Relatório Completo! Deseja salvá-lo em um arquivo?')) {
+                sendServletSaveReportCall(table, divTitle);
+                document.getElementById('reportCall-formCloseBtn').click();
+            } else {
+                $("#reportCall-formResult").css("visibility", "visible");
+            }
+
+            client = '';
+            datIni = '';
+            datFin = '';
+        }
+    };
+    xhr.open("post", "refreshCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletSaveReportCall(table, divTitle) {
+
+    var hiddenResults = document.getElementById('hiddenResults');
+    var formResults = document.getElementById('reportCall-formResult');
+    formResults.innerHTML = '';
+    hiddenResults.innerHTML = '';
+    hiddenResults.appendChild(divTitle);
+    hiddenResults.appendChild(table);
+    html2canvas(document.getElementById('hiddenResults'), {
+        onrendered: function (canvas) {
+            var imgData = canvas.toDataURL("image/jpeg", 1.0);
+            var pdf = new jsPDF();
+            pdf.addImage(imgData, 'JPEG', 0, 0);
+            pdf.save("download.pdf");
+        }
+    });
+    hiddenResults.innerHTML = '';
 }
 
 function sendServletRefreshCall() {
@@ -446,115 +572,6 @@ function sendServletReturnCall(choosenCall) {
     xhr.open("post", "refreshCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
-}
-
-function sendServletFixCall() {
-
-    var callToFind = document.getElementById('fixCall-formselectedCall');
-    var description = document.getElementById('fixCall-formDescription').value;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var element = document.getElementById(callToFind.innerHTML);
-            element.parentNode.removeChild(element);
-            document.getElementById('fixCall-form').reset();
-            closeCollapsePanels($('#collapseTwo'));
-            sendServletRefreshCall();
-        }
-    };
-    xhr.open("post", "fixCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("id=" + callToFind.innerHTML + "&description=" + description + "");
-}
-
-function sendServletReportCall() {
-
-    var xhr = new XMLHttpRequest();
-    var client = document.getElementById('reportCall-formClient').value;
-    var datIni = document.getElementById('reportCall-formDatIni').value;
-    var datFin = document.getElementById('reportCall-formDatFin').value;
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.responseText;
-            var jsonData = JSON.parse(response);
-            $('#reportCall-formResult').val();
-            //Criação da Tabela
-            var divTitle = document.createElement('div');
-            var title = document.createElement('p');
-            title.innerHTML = '<center><b>Relatorio de Chamados do Cliente</b></center>';
-            divTitle.appendChild(title);
-            var table = document.createElement('table');
-            var tr1 = document.createElement('tr');
-            var tdData1 = document.createElement('td');
-            var tdCliente1 = document.createElement('td');
-            var tdTecnico1 = document.createElement('td');
-            var tdDescricao1 = document.createElement('td');
-            tdData1.innerHTML = '<b>DATA</b>';
-            tdCliente1.innerHTML = '<b>CLIENTE</b>';
-            tdDescricao1.innerHTML = '<b>DESCRICAO</b>';
-            tdTecnico1.innerHTML = '<b>TECNICO</b>';
-            tr1.appendChild(tdData1);
-            tr1.appendChild(tdCliente1);
-            tr1.appendChild(tdTecnico1);
-            tr1.appendChild(tdDescricao1);
-            table.appendChild(tr1);
-            for (var i = 0; i < jsonData.calls.length; i++) {
-                var call = jsonData.calls[i];
-                if ((call.data >= datIni && call.data <= datFin) || (call.cliente == client)) {
-                    var tr = document.createElement('tr');
-                    var tdData = document.createElement('td');
-                    var tdCliente = document.createElement('td');
-                    var tdTecnico = document.createElement('td');
-                    var tdDescricao = document.createElement('td');
-                    tdData.innerHTML = call.data;
-                    tdCliente.innerHTML = call.cliente;
-                    tdDescricao.innerHTML = call.descricao;
-                    tdTecnico.innerHTML = call.tecnico;
-                    tr.appendChild(tdData);
-                    tr.appendChild(tdCliente);
-                    tr.appendChild(tdTecnico);
-                    tr.appendChild(tdDescricao);
-                    table.appendChild(tr);
-                }
-            }
-
-            var formResults = document.getElementById('reportCall-formResult');
-            formResults.appendChild(divTitle);
-            formResults.appendChild(table);
-            if (confirm('Relatório Completo! Deseja salvá-lo em um arquivo?')) {
-                sendServletSaveReportCall(table, divTitle);
-                document.getElementById('reportCall-formCloseBtn').click();
-            } else {
-                $("#reportCall-formResult").css("visibility", "visible");
-            }
-
-            client = '';
-            datIni = '';
-            datFin = '';
-        }
-    };
-    xhr.open("post", "refreshCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
-
-function sendServletSaveReportCall(table, divTitle) {
-
-    var hiddenResults = document.getElementById('hiddenResults');
-    var formResults = document.getElementById('reportCall-formResult');
-    formResults.innerHTML = '';
-    hiddenResults.innerHTML = '';
-    hiddenResults.appendChild(divTitle);
-    hiddenResults.appendChild(table);
-    html2canvas(document.getElementById('hiddenResults'), {
-        onrendered: function (canvas) {
-            var imgData = canvas.toDataURL("image/jpeg", 1.0);
-            var pdf = new jsPDF();
-            pdf.addImage(imgData, 'JPEG', 0, 0);
-            pdf.save("download.pdf");
-        }
-    });
-    hiddenResults.innerHTML = '';
 }
 
 // ----- FUNÇÕES AUXILIARES -----
@@ -709,14 +726,17 @@ function closeCollapsePanels(button) {
     if (check === false) {
         return;
     } else if (check === true) {
-        if ($(button).attr('id') == 'collapseOne') {
+        if ($(button).attr('id') === 'collapseOne') {
             $('#addPanelTitleBtn').click();
             return;
-        } else if ($(button).attr('id') == 'collapseTwo') {
+        } else if ($(button).attr('id') === 'collapseTwo') {
             $('#fixPanelTitleBtn').click();
             return;
-        } else if ($(button).attr('id') == 'collapseThree') {
+        } else if ($(button).attr('id') === 'collapseThree') {
             $('#reportPanelTitleBtn').click();
+            return;
+        } else if ($(button).attr('id') === 'collapseFour') {
+            $('#changePanelTitleBtn').click();
             return;
         }
         console.log($(button).attr('id'));
@@ -746,6 +766,16 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '<input id="addCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
         '<input id="addCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
         '<input id="addCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
+        '</div><div class="modal-footer"><div>' +
+        '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
+        '</div></div></form>';
+
+var changeTicketForm = '<form id="changeCall-form" action="JavaScript:sendServletChangeCall($(\'#changeCall-formClient\')[0],$(\'#changeCall-formDat\')[0],$(\'#changeCall-formDescription\')[0]);">' +
+        '<div class="modal-body">' +
+        '<input id="changeCall-formClient" name="client" type="text" class="form-control inputClient" placeholder="Nome do Cliente" required>' +
+        '<input id="changeCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
+        '<input id="changeCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
+        '<input id="changeCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
