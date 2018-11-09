@@ -1,6 +1,42 @@
-#showHome, #showClients, #showContent, #categories, #categoriesBtn , #formCategories{ opacity: 0; }
+#showHome, #showClients, #showContent, #showEmployees, #categories, #categoriesBtn , #formCategories { opacity: 0; }
 
 .hidden{ visibility:hidden;}
+
+.bkImgTec {
+    background-image: url("imagens/imgTec.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bkImgCli {
+    background-image: url("imagens/imgCli.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bkImgCat {
+    background-image: url("imagens/imgCat.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bkImgTic {
+    background-image: url("imagens/imgTic.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bkNone {
+    background-color: transparent !important;
+}
 
 a { text-decoration: none; }
 
@@ -130,6 +166,106 @@ input{
    #    TABELAS                            #
    ######################################### */
 
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables td:before { content: attr(data-title); }
+}
+
+@media only screen and (max-width: 800px) {
+    
+    /* Force table to not be like tables anymore */
+	#no-more-tables2 table, 
+	#no-more-tables2 thead, 
+	#no-more-tables2 tbody, 
+	#no-more-tables2 th, 
+	#no-more-tables2 td, 
+	#no-more-tables2 tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables2 thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables2 tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables2 td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables2 td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables2 td:before { content: attr(data-title); }
+}
+
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -137,10 +273,6 @@ table {
     width: 100%;
     max-width: 209mm;
     text-align: center;
-}
-
-.table-responsive {
-    border: none;
 }
 
 th {
@@ -163,13 +295,6 @@ td, th , tr{
     border: 1px solid #ccc;
     padding: 5px;
     margin: 5% 0;
-    box-shadow: 3px 3px 2px #ccc;
-    transition: 0.5s;
-}
-
-.custab:hover{
-    box-shadow: 3px 3px 0px transparent;
-    transition: 0.5s;
 }
 
 .tag {

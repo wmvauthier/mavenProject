@@ -42,7 +42,8 @@
                     <div class="mdl-layout-spacer"></div>
                 </div>
             </header>
-
+            
+            <!-- ÁREA DAS NAVBARS -->
             <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 
                 <!-- USER_NAVBAR -->
@@ -69,7 +70,7 @@
                     <a class="mdl-navigation__link" id="navCalls" href="#"><i class="material-icons" role="presentation">feedback</i>Chamados</a>
                     <div id="navCategories"></div>
                     <a class="mdl-navigation__link" id="navClients" href="#"><i class="material-icons" role="presentation">supervised_user_circle</i>Clientes</a>
-                    <a class="mdl-navigation__link" href="#"><i class="material-icons" role="presentation">contacts</i>Técnicos</a>
+                    <a class="mdl-navigation__link" id="navEmployees" href="#"><i class="material-icons" role="presentation">contacts</i>Técnicos</a>
                     <div class="mdl-layout-spacer"></div>
                 </nav>
 
@@ -113,7 +114,7 @@
                                     <b><span id="changePanelTitle"></span></b>
                                     <div class="btn-group pull-right">
                                         <button id="changePanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');">
-                                                <i class="material-icons">create</i>
+                                            <i class="material-icons">create</i>
                                         </button>
                                     </div>
                                 </div>
@@ -168,8 +169,8 @@
                 <div id="showHome">
                     <div id="categories"></div>
                     <div id="categoriesBtn" class="formCategoriesUp"></div></br>
-                    <div id="formCategories" class="demo-chart mdl-shadow--2dp bWhite container row">
-                        <div class="panel col-xs-12 col-sm-12 col-md-12">
+                    <div id="formCategories" class="demo-chart bkNone container row">
+                        <div class="panel bkNone col-xs-12 col-sm-12 col-md-12">
                             <div class="panel-heading row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
                                     <h3>INSIRA AS INFORMAÇÕES DA CATEGORIA<button id="formCategoriesBack" class="btn btn-sm btn-primary tag"><i class="material-icons">backspace</i></button></h3>
@@ -199,10 +200,10 @@
                 </div>
 
                 <!-- DASHBOARD CLIENTS | (showClients - Aba de Clientes)-->
-                <div id="showClients"></br>
+                <div id="showClients" class="bkNone"></br>
 
                     <!-- ÁREA DA TABELA DE CLIENTES -->
-                    <div id="tableClients" class="demo-chart mdl-shadow--2dp bWhite container overflowBarBigger row">
+                    <div id="tableClients" class="demo-chart bkNone container overflowBarBigger row">
 
                         <!--TABELA DE CLIENTES -->
                         <div class="container">
@@ -225,9 +226,9 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-list-search table-striped custab">
-                                            <thead>
+                                    <div id="no-more-tables">
+                                        <table class="table bWhite table-list-search table-bordered table-condensed cf custab">
+                                            <thead class="cf">
                                                 <tr>
                                                     <th>NOME</th>
                                                     <th>CPF</th>
@@ -246,9 +247,9 @@
                     </div>
 
                     <!-- FORMS PARA CLIENTES -->
-                    <div id="formClients" class="demo-chart mdl-shadow--2dp bWhite container row">
+                    <div id="formClients" class="demo-chart bkNone container row">
 
-                        <div class="panel col-xs-12 col-sm-12 col-md-12">
+                        <div class="panel bkNone col-xs-12 col-sm-12 col-md-12">
                             <div class="panel-heading row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
                                     <h3>INSIRA AS INFORMAÇÕES DO CLIENTE<button id="formClientsBack" class="btn btn-sm btn-primary tag"><i class="material-icons">backspace</i></button></h3>
@@ -348,6 +349,164 @@
 
                                     <input type="submit" value="Registrar" id="cAreaBtnAction" class="btn btn-danger">
                                     <input type="button" value="Limpar" onclick="$('#cAreaForm').trigger('reset')" class="btn btn-primary">
+
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- DASHBOARD EMPLOYESS | (showEmployees - Aba de Técnicos)-->
+                <div id="showEmployees"></br>
+
+                    <!-- ÁREA DA TABELA DE TÉCNICOS -->
+                    <div id="tableEmployees" class="demo-chart bkNone container overflowBarBigger row">
+
+                        <!--TABELA DE TÉCNICOS -->
+                        <div class="container">
+                            <div class="panel-heading row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
+                                    <h3>TÉCNICOS CADASTRADOS<button class="btn btn-sm btn-success tag formEmployeesUp"><i class="material-icons">add</i></button></h3>
+                                </div>
+                            </div>
+                            <fieldset>
+                                <legend>Lista de Técnicos</legend>
+                            </fieldset>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form action="#" method="get">
+                                        <div class="input-group">
+                                            <input class="form-control" id="system-searchTec" name="q" placeholder="Pesquisar Técnicos" required>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div id="no-more-tables2">
+                                        <table class="table bWhite table-list-search table-bordered table-condensed cf custab">
+                                            <thead class="cf">
+                                                <tr>
+                                                    <th>NOME</th>
+                                                    <th>CPF</th>
+                                                    <th>ATRIBUIÇÕES</th>
+                                                    <th>AÇÕES</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="employeeTableBody"></tbody>
+                                        </table>
+                                    </div>  
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FORMS PARA TÉCNICOS -->
+                    <div id="formEmployees" class="demo-chart bkNone container row">
+
+                        <div class="bkNone panel col-xs-12 col-sm-12 col-md-12">
+                            <div class="panel-heading row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
+                                    <h3>INSIRA AS INFORMAÇÕES DO TÉCNICO<button id="formEmployeesBack" class="btn btn-sm btn-primary tag"><i class="material-icons">backspace</i></button></h3>
+                                </div>
+                            </div>
+                            <div class="panel-body-height">
+                                <form id="eAreaForm" role="form">
+                                    <fieldset>
+                                        <legend>Informações Pessoais</legend>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                                <div class="form-group">
+                                                    <input type="text" name="client" id="eAreaFormClient" class="form-control inputClient" placeholder="Nome">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="login" id="eAreaFormLogin" class="form-control inputLogin" placeholder="Login">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="password" name="password" id="eAreaFormPassword" class="form-control inputPassword" placeholder="Senha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="cpf" id="eAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="password" name="checkPassword" id="eAreaFormCheckPassword" class="form-control inputPassword" placeholder="Confirmar Senha">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+                                    <fieldset>
+                                        <legend>Endereço</legend>
+                                        <div class="row">
+                                            <div class="col-xs-8 col-sm-8 col-md-8">
+                                                <div class="form-group">
+                                                    <input type="text" name="address" id="eAreaFormAddress" class="form-control inputPlace" placeholder="Logradouro">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="number" id="eAreaFormNumber" class="form-control inputNumber" placeholder="Número">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="city" id="eAreaFormCity" class="form-control inputCity" placeholder="Cidade">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-4 col-md-4">
+                                                <div class="form-group">
+                                                    <input type="text" name="neigh" id="eAreaFormNeigh" class="form-control inputLocation" placeholder="Bairro">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-8 col-sm-2 col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="cep" id="eAreaFormCEP" class="form-control inputZIP" placeholder="CEP">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4 col-sm-2 col-md-2">
+                                                <div class="form-group">
+                                                    <input type="text" name="state" id="eAreaFormState" class="form-control inputState" placeholder="Estado">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+                                    <fieldset>
+                                        <legend>Contatos</legend>
+                                        <div class="row">
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="contact" id="eAreaFormContact" class="form-control inputContact" placeholder="Telefone">
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <input type="email" name="email" id="eAreaFormEmail" class="form-control inputEmail" placeholder="Email">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    </br>
+
+                                    <input type="submit" value="Registrar" id="eAreaBtnAction" class="btn btn-danger">
+                                    <input type="button" value="Limpar" onclick="$('#eAreaForm').trigger('reset')" class="btn btn-primary">
 
                                 </form>
                             </div>

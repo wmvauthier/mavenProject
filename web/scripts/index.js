@@ -93,6 +93,11 @@ function createClient() {
     var td3 = document.createElement('td');
     var td4 = document.createElement('td');
     var td5 = document.createElement('td');
+    $(td1).attr("data-title", "NOME");
+    $(td2).attr("data-title", "CPF");
+    $(td3).attr("data-title", "CONTATO");
+    $(td4).attr("data-title", "EMAIL");
+    $(td5).attr("data-title", "AÇÕES");
     td1.innerHTML = 'DATA';
     td2.innerHTML = 'CLIENTE';
     td3.innerHTML = 'DESCRICAO';
@@ -150,15 +155,82 @@ $(document).ready(function () {
             tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">Nenhum Cliente foi encontrado.</td></tr>');
         }
     });
+
+    $('#system-searchTec').keyup(function () {
+        var that = this;
+        // affect all table rows on in systems table
+        var tableBody = $('.table-list-search tbody');
+        var tableRowsClass = $('.table-list-search tbody tr');
+        $('.search-sf').remove();
+        tableRowsClass.each(function (i, val) {
+
+            //Lower text for case insensitive
+            var rowText = $(val).text().toLowerCase();
+            var inputText = $(that).val().toLowerCase();
+            if (inputText != '')
+            {
+                $('.search-query-sf').remove();
+                tableBody.prepend('<tr class="search-query-sf"><td colspan="4"><strong>Resultados: "'
+                        + $(that).val()
+                        + '"</strong></td></tr>');
+            } else
+            {
+                $('.search-query-sf').remove();
+            }
+
+            if (rowText.indexOf(inputText) == -1)
+            {
+                //hide rows
+                tableRowsClass.eq(i).hide();
+            } else
+            {
+                $('.search-sf').remove();
+                tableRowsClass.eq(i).show();
+            }
+        });
+        //all tr elements are hidden
+        if (tableRowsClass.children(':visible').length == 0)
+        {
+            tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">Nenhum Técnico foi encontrado.</td></tr>');
+        }
+    });
 });
 
 // ----- FUNÇÕES SWITCH -----
+
+$('#home').click(function () {
+    $('#showContent').animate({"opacity": "0"}, 500);
+    $('#showContent').hide();
+    $('#showClients').animate({"opacity": "0"}, 500);
+    $('#showClients').hide();
+    $('#showEmployees').animate({"opacity": "0"}, 500);
+    $('#showEmployees').hide();
+    $('#formCategories').animate({"opacity": "0"}, 500);
+    $('#formCategories').hide();
+    $("#mainContent").removeClass("bkImgTec");
+    $("#mainContent").removeClass("bkImgCli");
+    $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").addClass("bkImgCat");
+    $('#showHome').animate({"opacity": "1"}, 500);
+    $('#showHome').show();
+    $('#categories').animate({"opacity": "1"}, 500);
+    $('#categories').show();
+    $('#categoriesBtn').animate({"opacity": "1"}, 500);
+    $('#categoriesBtn').show();
+    $('#titlePage').html('HOME');
+});
 
 $('#navCalls').click(function () {
     $('#showClients').animate({"opacity": "0"}, 500);
     $('#showClients').hide();
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
+    $('#showEmployees').animate({"opacity": "0"}, 500);
+    $('#showEmployees').hide();
+    $("#mainContent").removeClass("bkImgTec");
+    $("#mainContent").removeClass("bkImgCli");
+    $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").addClass("bkImgTic");
     $('#showContent').animate({"opacity": "1"}, 500);
     $('#showContent').show();
     $('#titlePage').html('CHAMADOS');
@@ -182,11 +254,37 @@ $('#navClients').click(function () {
     $('#showContent').hide();
     $('#formClients').animate({"opacity": "0"}, 500);
     $('#formClients').hide();
+    $('#showEmployees').animate({"opacity": "0"}, 500);
+    $('#showEmployees').hide();
+    $("#mainContent").removeClass("bkImgTec");
+    $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").addClass("bkImgCli");
     $('#showClients').animate({"opacity": "1"}, 500);
     $('#showClients').show();
     $('#tableClients').animate({"opacity": "1"}, 500);
     $('#tableClients').show();
     $('#titlePage').html('CLIENTES');
+});
+
+$('#navEmployees').click(function () {
+    $('#showHome').animate({"opacity": "0"}, 500);
+    $('#showHome').hide();
+    $('#showContent').animate({"opacity": "0"}, 500);
+    $('#showContent').hide();
+    $('#showClients').animate({"opacity": "0"}, 500);
+    $('#showClients').hide();
+    $('#formEmployees').animate({"opacity": "0"}, 500);
+    $('#formEmployees').hide();
+    $("#mainContent").removeClass("bkImgCli");
+    $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").addClass("bkImgTec");
+    $('#showEmployees').animate({"opacity": "1"}, 500);
+    $('#showEmployees').show();
+    $('#tableEmployees').animate({"opacity": "1"}, 500);
+    $('#tableEmployees').show();
+    $('#titlePage').html('TÉCNICOS');
 });
 
 $('#formClientsBack').click(function () {
@@ -208,6 +306,27 @@ function formClientsUp() {
     $('#tableClients').hide();
     $('#formClients').animate({"opacity": "1"}, 500);
     $('#formClients').show();
+}
+
+$('#formEmployeesBack').click(function () {
+    $('#formEmployees').animate({"opacity": "0"}, 500);
+    $('#formEmployees').hide();
+    $('#tableEmployees').animate({"opacity": "1"}, 500);
+    $('#tableEmployees').show();
+});
+
+$('.formEmployeesUp').click(function () {
+    $('#tableEmployees').animate({"opacity": "0"}, 500);
+    $('#tableEmployees').hide();
+    $('#formEmployees').animate({"opacity": "1"}, 500);
+    $('#formEmployees').show();
+});
+
+function formEmployeesUp() {
+    $('#tableEmployees').animate({"opacity": "0"}, 500);
+    $('#tableEmployees').hide();
+    $('#formEmployees').animate({"opacity": "1"}, 500);
+    $('#formEmployees').show();
 }
 
 $('#formCategoriesBack').click(function () {
@@ -236,22 +355,6 @@ function formCategoriesUp() {
     $('#formCategories').animate({"opacity": "1"}, 500);
     $('#formCategories').show();
 }
-
-$('#home').click(function () {
-    $('#showContent').animate({"opacity": "0"}, 500);
-    $('#showContent').hide();
-    $('#showClients').animate({"opacity": "0"}, 500);
-    $('#showClients').hide();
-    $('#showHome').animate({"opacity": "1"}, 500);
-    $('#showHome').show();
-    $('#formCategories').animate({"opacity": "0"}, 500);
-    $('#formCategories').hide();
-    $('#categories').animate({"opacity": "1"}, 500);
-    $('#categories').show();
-    $('#categoriesBtn').animate({"opacity": "1"}, 500);
-    $('#categoriesBtn').show();
-    $('#titlePage').html('HOME');
-});
 
 // ----- CHAMADAS PARA GRÁFICOS -----
 
