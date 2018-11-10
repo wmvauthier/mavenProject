@@ -73,7 +73,7 @@ function createCategoryButton() {
     div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
     div.style = 'cursor:pointer; ';
     div.innerHTML = '' +
-            '<div class="col mdl-shadow--2dp">' +
+            '<div class="col mdl-shadow--2dp bWhite">' +
             '<div class="row">' +
             '<div class="col col-sm-12">' +
             '<h1><b><i class="material-icons" style="font-size: 72px;">add_circle</i></b></h1><br>' +
@@ -218,6 +218,7 @@ $('#home').click(function () {
     $('#categoriesBtn').animate({"opacity": "1"}, 500);
     $('#categoriesBtn').show();
     $('#titlePage').html('HOME');
+    sendServletRefreshCategories();
 });
 
 $('#navCalls').click(function () {
@@ -602,9 +603,19 @@ function sendServletRefreshCategories() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
+
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                $("#showClients").html("");
+                createCategoryBtn();
+                return false;
+            }
+
             var jsonData = JSON.parse(response);
-            document.getElementById("navCategories").innerHTML = '';
-            document.getElementById("categories").innerHTML = '';
+            $("#navCategories").html("");
+            $("#categories").html("");
+            
             //DESENHA AS CATEGORIAS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
