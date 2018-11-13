@@ -8,9 +8,9 @@ function createTicket(id, title, description) {
     var cp1 = "\#collapseOne";
     var cp2 = "\#collapseTwo";
     var cp3 = "\#collapseThree";
-    title = delimiteLength(title, 2);
+    title = delimiteLength(title, 9);
     div.id = id;
-    div.className = 'col-xs-12 col-sm-12 col-md-6 col-lg-4';
+    div.className = 'col-xs-6 col-sm-6 col-md-6 col-lg-3';
     div.innerHTML = '' +
             '<div class = "panel panel-default demo-chart mdl-shadow--2dp mdl-color-white">' +
             '<div class = "panel-heading panel-heading-danger-fd panelTicketBtnArea"><b class="panel-title-fd">' + title + '</b>' +
@@ -18,10 +18,10 @@ function createTicket(id, title, description) {
             '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\'' + cp2 + '\');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvGre">check_circle</i>' +
             '</button>' +
-            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(' + cp2 + ');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\'' + cp2 + '\');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvYel">info</i>' +
             '</button>' +
-            '< button onclick = "sendServletReturnCall(this); openCollapsePanels(' + cp3 + ');" id="' + id + '" class = "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
+            '<button onclick= "sendServletReturnCall(this); openCollapsePanels(\'' + cp2 + '\');" id="' + id + '" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">' +
             '<i class="material-icons md-light hvRed">cancel</i>' +
             '</button>' +
             '</div>' +
@@ -364,32 +364,32 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     var realDateNow = new Object();
     equalDat(dateNow, realDateNow);
     var data = google.visualization.arrayToDataTable([
-        ['Dia', 'Concluídos', 'Pendentes'],
-        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+    ['Dia', 'Concluídos', 'Pendentes'],
+    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-    var options = {
-        title: 'Chamados dos Últimos 7 Dias',
-        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0},
-        animation: {
-            duration: 1000,
-            easing: 'out',
-        },
-    };
+            var options = {
+                title: 'Chamados dos Últimos 7 Dias',
+                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+                vAxis: {minValue: 0},
+                animation: {
+                    duration: 1000,
+                    easing: 'out',
+                },
+            };
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
 }
 
 // ----- CHAMADAS PARA SERVLETS -----
 
-function sendServletAddCall(client, dat, description) {
+function sendServletAddCall(client, dat, description, priority, category) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -401,7 +401,7 @@ function sendServletAddCall(client, dat, description) {
     };
     xhr.open("post", "registerCall", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "");
+    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "&priority=" + priority.value + "&category=" + category.value);
 }
 
 //AINDA NÃO CHAMA NADA
@@ -422,7 +422,7 @@ function sendServletChangeCall(client, dat, description) {
 
 function sendServletFixCall() {
 
-    var callToFind = document.getElementById('fixCall-formselectedCall');
+    var callToFind = $('#fixCall-formselectedCall')[0];
     var description = document.getElementById('fixCall-formDescription').value;
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -597,39 +597,6 @@ function sendServletRefreshCall() {
     xhr.send();
 }
 
-//AINDA NÃO CHAMA NADA
-function sendServletRefreshCategories() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.responseText;
-
-            try {
-                var jsonData = JSON.parse(response);
-            } catch (err) {
-                $("#showClients").html("");
-                createCategoryBtn();
-                return false;
-            }
-
-            var jsonData = JSON.parse(response);
-            $("#navCategories").html("");
-            $("#categories").html("");
-            
-            //DESENHA AS CATEGORIAS
-            for (var i = 0; i < jsonData.categories.length; i++) {
-                var category = jsonData.categories[i];
-                createCategory(category.id, category.qtd, category.descripion);
-                createNavCategory(category.id, category.qtd, category.descripion);
-            }
-
-        }
-    };
-    xhr.open("post", "refreshCategories", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
-
 function sendServletFindCall() {
 
     var clientToFind = document.getElementById('findCall-formClient').value;
@@ -684,6 +651,70 @@ function sendServletReturnCall(choosenCall) {
         }
     };
     xhr.open("post", "refreshCall", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletAddClient() {
+    
+    var name = $('#cAreaFormClient').val();
+    var login = $('#cAreaFormLogin').val();
+    var password = $('#cAreaFormPassword').val();
+    var checkPassword = $('#cAreaFormCheckPassword').val();
+    var cpf = $('#cAreaFormCPF').val();
+    var address = $('#cAreaFormAddress').val();
+    var number = $('#cAreaFormNumber').val();
+    var city = $('#cAreaFormCity').val();
+    var neigh = $('#cAreaFormNeigh').val();
+    var state = $('#cAreaFormState').val();
+    var cep = $('#cAreaFormCEP').val();
+    var contact = $('#cAreaFormContact').val();
+    var email = $('#cAreaFormEmail').val();    
+    
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            //var call = JSON.parse(xhr.responseText);
+            //createClient(call.id, call.cliente, call.descricao);
+            //document.getElementById('cAreaform').reset();
+            //sendServletRefreshCall();
+            alert();
+        }
+    };
+    xhr.open("post", "clientRegister", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("name="+name+"&login="+login+"&password="+password+"&cpf="+cpf+"&address="+address+"&number="+number+"&city="+city+"&state="+state+"&neigh="+neigh+"&cep="+cep+"&contact="+contact+"&email="+email);
+}
+
+//AINDA NÃO CHAMA NADA
+function sendServletRefreshCategories() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                $("#showClients").html("");
+                createCategoryBtn();
+                return false;
+            }
+
+            var jsonData = JSON.parse(response);
+            $("#navCategories").html("");
+            $("#categories").html("");
+
+            //DESENHA AS CATEGORIAS
+            for (var i = 0; i < jsonData.categories.length; i++) {
+                var category = jsonData.categories[i];
+                createCategory(category.id, category.qtd, category.descripion);
+                createNavCategory(category.id, category.qtd, category.descripion);
+            }
+
+        }
+    };
+    xhr.open("post", "refreshCategories", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
 }
