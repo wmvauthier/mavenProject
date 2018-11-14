@@ -289,6 +289,7 @@ $('#navEmployees').click(function () {
 });
 
 $('#formClientsBack').click(function () {
+    sendServletRefreshClients();
     $('#formClients').animate({"opacity": "0"}, 500);
     $('#formClients').hide();
     $('#tableClients').animate({"opacity": "1"}, 500);
@@ -364,25 +365,25 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     var realDateNow = new Object();
     equalDat(dateNow, realDateNow);
     var data = google.visualization.arrayToDataTable([
-    ['Dia', 'Concluídos', 'Pendentes'],
-    [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-    [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-    [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-    [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-    [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-    [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-    [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-    [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+        ['Dia', 'Concluídos', 'Pendentes'],
+        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
     ]);
-            var options = {
-                title: 'Chamados dos Últimos 7 Dias',
-                hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0},
-                animation: {
-                    duration: 1000,
-                    easing: 'out',
-                },
-            };
+    var options = {
+        title: 'Chamados dos Últimos 7 Dias',
+        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        animation: {
+            duration: 1000,
+            easing: 'out',
+        },
+    };
     var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
     chart.draw(data, options);
 }
@@ -656,7 +657,7 @@ function sendServletReturnCall(choosenCall) {
 }
 
 function sendServletAddClient() {
-    
+
     var name = $('#cAreaFormClient').val();
     var login = $('#cAreaFormLogin').val();
     var password = $('#cAreaFormPassword').val();
@@ -670,7 +671,7 @@ function sendServletAddClient() {
     var cep = $('#cAreaFormCEP').val();
     var contact = $('#cAreaFormContact').val();
     var email = $('#cAreaFormEmail').val();
-    
+
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -683,7 +684,36 @@ function sendServletAddClient() {
     };
     xhr.open("post", "clientRegister", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("name="+name+"&login="+login+"&password="+password+"&cpf="+cpf+"&address="+address+"&number="+number+"&city="+city+"&state="+state+"&neigh="+neigh+"&cep="+cep+"&contact="+contact+"&email="+email);
+    xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email);
+}
+
+function sendServletRefreshClients() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                $("#clientTableBody").html("");
+                $("#clientTableBody").html("Nãõ existem Clientes cadastrados.");
+                return false;
+            }
+
+            var jsonData = JSON.parse(response);
+            $("#clientTableBody").html("");
+            //DESENHA AS CATEGORIAS
+            for (var i = 0; i < jsonData.clients.length; i++) {
+                var client = jsonData.clients[i];
+                createClient(client.id, client.name, client.cpf, client.contact, client.email);
+            }
+
+        }
+    };
+    xhr.open("post", "clientRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
 }
 
 //AINDA NÃO CHAMA NADA
@@ -896,9 +926,7 @@ function codeAddress() {
     createCategoryButton();
     createCategory();
     createNavCategory();
-    createClient();
-    createClient();
-    createClient();
+    sendServletRefreshClients();
     $("#reportCall-formResult").css("visibility", "hidden");
 }
 
