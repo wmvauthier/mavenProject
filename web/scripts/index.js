@@ -84,7 +84,7 @@ function createCategoryButton() {
     document.getElementById("categoriesBtn").appendChild(div);
 }
 
-function createClient() {
+function createClient(id, nome, cpf, contato, email) {
 
     var table = document.getElementById('clientTableBody');
     var tr = document.createElement('tr');
@@ -98,10 +98,10 @@ function createClient() {
     $(td3).attr("data-title", "CONTATO");
     $(td4).attr("data-title", "EMAIL");
     $(td5).attr("data-title", "AÇÕES");
-    td1.innerHTML = 'DATA';
-    td2.innerHTML = 'CLIENTE';
-    td3.innerHTML = 'DESCRICAO';
-    td4.innerHTML = 'TECNICO';
+    td1.innerHTML = nome;
+    td2.innerHTML = cpf;
+    td3.innerHTML = contato;
+    td4.innerHTML = email;
     td5.innerHTML = '<button class="btn btn-sm btn-warning" onclick="formClientsUp()"><i class="material-icons">create</i></button>&nbsp' +
             '<button class="btn btn-sm btn-danger" onclick="alert()"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
@@ -669,16 +669,16 @@ function sendServletAddClient() {
     var state = $('#cAreaFormState').val();
     var cep = $('#cAreaFormCEP').val();
     var contact = $('#cAreaFormContact').val();
-    var email = $('#cAreaFormEmail').val();    
+    var email = $('#cAreaFormEmail').val();
     
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            //var call = JSON.parse(xhr.responseText);
-            //createClient(call.id, call.cliente, call.descricao);
-            //document.getElementById('cAreaform').reset();
+            var call = JSON.parse(xhr.responseText);
+            createClient(call.id, call.name, call.cpf, call.contact, call.email);
+            $('#cAreaForm')[0].reset();
+            $('#formClientsBack').click();
             //sendServletRefreshCall();
-            alert();
         }
     };
     xhr.open("post", "clientRegister", true);

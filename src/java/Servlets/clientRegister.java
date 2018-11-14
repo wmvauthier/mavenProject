@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Servlets;
 
+import Itens.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -21,10 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
-/**
- *
- * @author root
- */
 @WebServlet(name = "clientRegister", urlPatterns = {"/clientRegister"})
 public class clientRegister extends HttpServlet {
 
@@ -40,37 +32,28 @@ public class clientRegister extends HttpServlet {
         String login = request.getParameter("login");
         String password = request.getParameter("password");
         String address = request.getParameter("address");
-        String number = request.getParameter("number");
+        String number = request.getParameter("number");	
         String city = request.getParameter("city");
         String neigh = request.getParameter("neigh");
-        String zip = request.getParameter("zip");
+        String zip = request.getParameter("cep");
         String state = request.getParameter("state");
         String contact = request.getParameter("contact");
         String email = request.getParameter("email");
-        
-        System.out.println(neigh);
-        System.out.println(zip);
-        System.out.println(state);
-        System.out.println(contact);
-        System.out.println(email);
-        System.out.println(number);
-        System.out.println(city);
-        
 
         try (PrintWriter out = response.getWriter()) {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
             String id = name + date;
-            String query = "INSERT INTO client values ('"+id+"','"+cpf+"','"+login+"','"+password+"','"+name+"','"+email+"','"+date+"','"+contact+"','"+address+"')";
+            String query = "INSERT INTO client values ('"+id+"','"+cpf+"','"+login+"','"+password+"','"+name+"','"+email+"','"+date+"','"+contact+"','"+address+"','"+neigh+"','"+number+"','"+zip+"','"+city+"','"+state+"')";
             System.out.println(query);
             try {
                 PreparedStatement ps = null;
                 ps = con.prepareStatement(query);
                 ps.executeUpdate();
-                //Chamado call = new Chamado(id, client, date, description,"none", "false");
-                //JSONObject json = new JSONObject(call);
-                //out.println(json);
+                Client client = new Client(id,cpf,login,password,name,email,date,contact,address,neigh,number,zip,city,state);
+                JSONObject json = new JSONObject(client);
+                out.println(json);
             } catch (SQLException e) {
                 System.out.println(e);
             } finally {
