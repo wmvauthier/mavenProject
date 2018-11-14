@@ -93,6 +93,7 @@ function createClient(id, nome, cpf, contato, email) {
     var td3 = document.createElement('td');
     var td4 = document.createElement('td');
     var td5 = document.createElement('td');
+    $(tr).attr("id", id);
     $(td1).attr("data-title", "NOME");
     $(td2).attr("data-title", "CPF");
     $(td3).attr("data-title", "CONTATO");
@@ -102,8 +103,8 @@ function createClient(id, nome, cpf, contato, email) {
     td2.innerHTML = cpf;
     td3.innerHTML = contato;
     td4.innerHTML = email;
-    td5.innerHTML = '<button class="btn btn-sm btn-warning" onclick="formClientsUp()"><i class="material-icons">create</i></button>&nbsp' +
-            '<button class="btn btn-sm btn-danger" onclick="alert()"><i class="material-icons">delete</i></button>';
+    td5.innerHTML = '<button id="' + id + '" class="btn btn-sm btn-warning" onclick="sendServletReturnClient(this); formClientsUp();"><i class="material-icons">create</i></button>&nbsp' +
+            '<button id="' + id + '" class="btn btn-sm btn-danger" onclick="sendServletDropClient(this);"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
@@ -155,7 +156,6 @@ $(document).ready(function () {
             tableBody.append('<tr class="search-sf"><td class="text-muted" colspan="6">Nenhum Cliente foi encontrado.</td></tr>');
         }
     });
-
     $('#system-searchTec').keyup(function () {
         var that = this;
         // affect all table rows on in systems table
@@ -195,7 +195,6 @@ $(document).ready(function () {
         }
     });
 });
-
 // ----- FUNÇÕES SWITCH -----
 
 $('#home').click(function () {
@@ -249,6 +248,7 @@ $('#navCalls').click(function () {
 });
 
 $('#navClients').click(function () {
+    sendServletRefreshClients();
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
     $('#showContent').animate({"opacity": "0"}, 500);
@@ -656,6 +656,8 @@ function sendServletReturnCall(choosenCall) {
     xhr.send();
 }
 
+// ----- CHAMADAS PARA SERVLETS DE CLIENTES -----
+
 function sendServletAddClient() {
 
     var name = $('#cAreaFormClient').val();
@@ -671,7 +673,6 @@ function sendServletAddClient() {
     var cep = $('#cAreaFormCEP').val();
     var contact = $('#cAreaFormContact').val();
     var email = $('#cAreaFormEmail').val();
-
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
@@ -687,17 +688,69 @@ function sendServletAddClient() {
     xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email);
 }
 
+function sendServletReturnClient(choosenClient) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            for (var i = 0; i < jsonData.clients.length; i++) {
+                var client = jsonData.clients[i];
+                if (choosenClient.id === client.id) {
+                    $('#cAreaFormClient').val(client.name);
+                    $('#cAreaFormLogin').val(client.login);
+                    $('#cAreaFormPassword').val(client.password);
+                    $('#cAreaFormCheckPassword').val(client.password);
+                    $('#cAreaFormCPF').val(client.cpf);
+                    $('#cAreaFormAddress').val(client.log);
+                    $('#cAreaFormNumber').val(client.number);
+                    $('#cAreaFormCity').val(client.city);
+                    $('#cAreaFormNeigh').val(client.neigh);
+                    $('#cAreaFormState').val(client.state);
+                    $('#cAreaFormCEP').val(client.cep);
+                    $('#cAreaFormContact').val(client.contact);
+                    $('#cAreaFormEmail').val(client.email);
+                }
+            }
+        }
+    };
+    xhr.open("post", "clientRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletDropClient(choosenClient) {
+
+    var r = confirm("Deseja mesmo excluir este Cliente?");
+    if (r === true) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                $('#' + choosenClient.id).remove();
+            }
+        };
+
+        xhr.open("post", "clientDrop", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("id=" + choosenClient.id);
+
+    } else {
+
+    }
+
+}
+
 function sendServletRefreshClients() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
-
             try {
                 var jsonData = JSON.parse(response);
             } catch (err) {
                 $("#clientTableBody").html("");
-                $("#clientTableBody").html("Nãõ existem Clientes cadastrados.");
+                $("#clientTableBody").html("Não existem Clientes cadastrados.");
                 return false;
             }
 
@@ -716,13 +769,14 @@ function sendServletRefreshClients() {
     xhr.send();
 }
 
+// ----- CHAMADAS PARA SERVLETS DE CATEGORIAS -----
+
 //AINDA NÃO CHAMA NADA
 function sendServletRefreshCategories() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
-
             try {
                 var jsonData = JSON.parse(response);
             } catch (err) {
@@ -734,7 +788,6 @@ function sendServletRefreshCategories() {
             var jsonData = JSON.parse(response);
             $("#navCategories").html("");
             $("#categories").html("");
-
             //DESENHA AS CATEGORIAS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
@@ -926,7 +979,6 @@ function codeAddress() {
     createCategoryButton();
     createCategory();
     createNavCategory();
-    sendServletRefreshClients();
     $("#reportCall-formResult").css("visibility", "hidden");
 }
 
@@ -942,7 +994,6 @@ var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCa
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
-
 var changeTicketForm = '<form id="changeCall-form" action="JavaScript:sendServletChangeCall($(\'#changeCall-formClient\')[0],$(\'#changeCall-formDat\')[0],$(\'#changeCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
         '<input id="changeCall-formClient" name="client" type="text" class="form-control inputClient" placeholder="Nome do Cliente" required>' +
@@ -952,7 +1003,6 @@ var changeTicketForm = '<form id="changeCall-form" action="JavaScript:sendServle
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
-
 var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
         '<div id="fixCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
@@ -968,7 +1018,6 @@ var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCa
         '</div>' +
         '</div>' +
         '</form>';
-
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
