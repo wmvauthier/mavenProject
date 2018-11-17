@@ -63,7 +63,7 @@ function createNavCategory(id, qtd, description) {
     div.innerHTML = '' +
             '<a id="nav' + id + '" class="mdl-navigation__link" href="">' +
             '<i class="material-icons" role="presentation">' +
-            'supervised_user_circle' +
+            'navigate_next' +
             '</i>' + description + '</a>';
     document.getElementById("navCategories").appendChild(div);
 }
@@ -110,6 +110,31 @@ function createClient(id, nome, cpf, contato, email) {
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
+    table.appendChild(tr);
+}
+
+function createEmployee(id, nome, cpf, attr) {
+
+    var table = document.getElementById('employeeTableBody');
+    var tr = document.createElement('tr');
+    var td1 = document.createElement('td');
+    var td2 = document.createElement('td');
+    var td3 = document.createElement('td');
+    var td4 = document.createElement('td');
+    $(tr).attr("id", id);
+    $(td1).attr("data-title", "NOME");
+    $(td2).attr("data-title", "CPF");
+    $(td3).attr("data-title", "ATRIBUIÇÕES");
+    $(td4).attr("data-title", "AÇÕES");
+    td1.innerHTML = nome;
+    td2.innerHTML = cpf;
+    td3.innerHTML = attr;
+    td4.innerHTML = '<button id="' + id + '" class="btn btn-sm btn-warning" onclick="sendServletReturnEmployee(this); formEmployeesUp(); localStorage.setItem(\'selectedEmployee\', this.id); $(\'#eAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterEmployee();\');"><i class="material-icons">create</i></button>&nbsp' +
+            '<button id="' + id + '" class="btn btn-sm btn-danger" onclick="sendServletDropEmployee(this);"><i class="material-icons">delete</i></button>';
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
     table.appendChild(tr);
 }
 
@@ -195,6 +220,7 @@ $(document).ready(function () {
         }
     });
 });
+
 // ----- FUNÇÕES SWITCH -----
 
 $('#home').click(function () {
@@ -244,6 +270,8 @@ $('#navCalls').click(function () {
     $('#reportPanelBody').html(reportTicketForm);
     $('#changePanelBody').html(changeTicketForm);
     sendServletRefreshCall();
+    sendServletRefreshClients();
+    sendServletRefreshEmployees();
     openCollapsePanels($('#collapseOne'));
 });
 
@@ -774,6 +802,7 @@ function sendServletRefreshClients() {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
+
             var response = xhr.responseText;
             try {
                 var jsonData = JSON.parse(response);
@@ -785,15 +814,167 @@ function sendServletRefreshClients() {
 
             var jsonData = JSON.parse(response);
             $("#clientTableBody").html("");
-            //DESENHA AS CATEGORIAS
+            //DESENHA OS CLIENTES
             for (var i = 0; i < jsonData.clients.length; i++) {
                 var client = jsonData.clients[i];
                 createClient(client.id, client.name, client.cpf, client.contact, client.email);
+                $("#addCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
+                $("#changeCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
+                $("#fixCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
+                $("#reportCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
             }
 
         }
     };
     xhr.open("post", "clientRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+// ----- CHAMADAS PARA SERVLETS DE TÉCNICOS -----
+
+function sendServletAddEmployee() {
+
+    var name = $('#eAreaFormClient').val();
+    var login = $('#eAreaFormLogin').val();
+    var password = $('#eAreaFormPassword').val();
+    var checkPassword = $('#eAreaFormCheckPassword').val();
+    var cpf = $('#eAreaFormCPF').val();
+    var address = $('#eAreaFormAddress').val();
+    var number = $('#eAreaFormNumber').val();
+    var city = $('#eAreaFormCity').val();
+    var neigh = $('#eAreaFormNeigh').val();
+    var state = $('#eAreaFormState').val();
+    var cep = $('#eAreaFormCEP').val();
+    var contact = $('#eAreaFormContact').val();
+    var email = $('#eAreaFormEmail').val();
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            var call = JSON.parse(xhr.responseText);
+            createEmployee(call.id, call.name, call.cpf, call.contact, call.email);
+            $('#eAreaForm')[0].reset();
+            $('#formEmployeesBack').click();
+            sendServletRefreshCall();
+        }
+    };
+    xhr.open("post", "employeeRegister", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email);
+}
+
+function sendServletAlterEmployee() {
+
+    var id = localStorage.getItem("selectedEmployee");
+    var name = $('#eAreaFormClient').val();
+    var login = $('#eAreaFormLogin').val();
+    var password = $('#eAreaFormPassword').val();
+    var checkPassword = $('#eAreaFormCheckPassword').val();
+    var cpf = $('#eAreaFormCPF').val();
+    var address = $('#eAreaFormAddress').val();
+    var number = $('#eAreaFormNumber').val();
+    var city = $('#eAreaFormCity').val();
+    var neigh = $('#eAreaFormNeigh').val();
+    var state = $('#eAreaFormState').val();
+    var cep = $('#eAreaFormCEP').val();
+    var contact = $('#eAreaFormContact').val();
+    var email = $('#eAreaFormEmail').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            sendServletRefreshEmployees();
+            $('#formEmployeesBack').click();
+        }
+    };
+    xhr.open("post", "employeeAlter", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email + "&id=" + id);
+}
+
+function sendServletReturnEmployee(choosenEmployee) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            for (var i = 0; i < jsonData.employees.length; i++) {
+                var employee = jsonData.employees[i];
+                if (choosenEmployee.id === employee.id) {
+                    $('#eAreaFormClient').val(employee.name);
+                    $('#eAreaFormLogin').val(employee.login);
+                    $('#eAreaFormPassword').val(employee.password);
+                    $('#eAreaFormCheckPassword').val(employee.password);
+                    $('#eAreaFormCPF').val(employee.cpf);
+                    $('#eAreaFormAddress').val(employee.log);
+                    $('#eAreaFormNumber').val(employee.number);
+                    $('#eAreaFormCity').val(employee.city);
+                    $('#eAreaFormNeigh').val(employee.neigh);
+                    $('#eAreaFormState').val(employee.state);
+                    $('#eAreaFormCEP').val(employee.zip);
+                    $('#eAreaFormContact').val(employee.contact);
+                    $('#eAreaFormEmail').val(employee.email);
+                }
+            }
+        }
+    };
+    xhr.open("post", "employeeRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletDropEmployee(choosenEmployee) {
+
+    var r = confirm("Deseja mesmo excluir este Técnico?");
+    if (r === true) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                $('#' + choosenEmployee.id).remove();
+            }
+        };
+
+        xhr.open("post", "employeeDrop", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("id=" + choosenEmployee.id);
+
+    } else {
+
+    }
+
+}
+
+function sendServletRefreshEmployees() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            var response = xhr.responseText;
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                $("#employeeTableBody").html("");
+                $("#employeeTableBody").html("Não existem Técnicos cadastrados.");
+                return false;
+            }
+
+            var jsonData = JSON.parse(response);
+            $("#employeeTableBody").html("");
+            //DESENHA OS TÉCNICOS
+            for (var i = 0; i < jsonData.employees.length; i++) {
+                var employee = jsonData.employees[i];
+                createEmployee(employee.id, employee.name, employee.cpf, employee.attr);
+                $("#addCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
+                $("#changeCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
+                $("#fixCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
+                $("#reportCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
+            }
+
+        }
+    };
+    xhr.open("post", "employeeRefresh", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
 }
@@ -1004,7 +1185,7 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
 
-    $('#home').click();
+    $('#navCalls').click();
     createCategoryButton();
     createCategory();
     createNavCategory();
@@ -1016,18 +1197,26 @@ window.onload = codeAddress;
 
 var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
-        '<input id="addCall-formClient" name="client" type="text" class="form-control inputClient" placeholder="Nome do Cliente" required>' +
+        '<select id="addCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<option value="" disabled selected>Nome do Cliente</option>' +
+        '</select>' +
         '<input id="addCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
-        '<input id="addCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
+        '<select id="addCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<option value="" disabled selected>Nome do Técnico</option>' +
+        '</select>' +
         '<input id="addCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
 var changeTicketForm = '<form id="changeCall-form" action="JavaScript:sendServletChangeCall($(\'#changeCall-formClient\')[0],$(\'#changeCall-formDat\')[0],$(\'#changeCall-formDescription\')[0]);">' +
         '<div class="modal-body">' +
-        '<input id="changeCall-formClient" name="client" type="text" class="form-control inputClient" placeholder="Nome do Cliente" required>' +
+        '<select id="changeCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<option value="" disabled selected>Nome do Cliente</option>' +
+        '</select>' +
         '<input id="changeCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
-        '<input id="changeCall-formTec" name="tec" type="text" class="form-control inputTec" placeholder="Técnico designado" required />' +
+        '<select id="changeCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<option value="" disabled selected>Nome do Técnico</option>' +
+        '</select>' +
         '<input id="changeCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
@@ -1035,8 +1224,13 @@ var changeTicketForm = '<form id="changeCall-form" action="JavaScript:sendServle
 var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCall($(\'#fix_Call-formClient\')[0]);">' +
         '<div id="fixCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
-        '<input id="fixCall-formClient" name="client" class="form-control inputClient" type="text" placeholder="Nome do Cliente">' +
+        '<select id="fixCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<option value="" disabled selected>Nome do Cliente</option>' +
+        '</select>' +
         '<input id="fixCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado"/>' +
+        '<select id="fixCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<option value="" disabled selected>Nome do Técnico</option>' +
+        '</select>' +
         '<textarea id="fixCall-formDescription" name="description" class="form-control inputBigComment" placeholder="Insira aqui os procedimentos realizados" rows="4" cols="50" name="comment" form="usrform"></textarea>' +
         '<br>' +
         '<div id="fixCall-formResult" class="text-center"></div>' +
@@ -1050,7 +1244,12 @@ var fixTicketForm = '<form id="fixCall-form" action="JavaScript:sendServletFixCa
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
-        '<input id="reportCall-formClient" name="client" class="form-control inputClient" type="text" placeholder="Nome do Cliente">' +
+        '<select id="reportCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<option value="" disabled selected>Nome do Cliente</option>' +
+        '</select>' +
+        '<select id="reportCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<option value="" disabled selected>Nome do Técnico</option>' +
+        '</select>' +
         '<input id="reportCall-formDatIni" name="dateini" class="form-control inputCalendar" type="date"/>' +
         '<input id="reportCall-formDatFin" name="datefin" class="form-control inputCalendar2" type="date"/>' +
         '<br>' +

@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets;
+package Servlets.Employee;
 
+import Servlets.Client.clientAlter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -22,12 +23,12 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Vauthier
+ * @author ALUNO
  */
-@WebServlet(name = "clientAlter", urlPatterns = {"/clientAlter"})
-public class clientAlter extends HttpServlet {
+@WebServlet(name = "employeeAlter", urlPatterns = {"/employeeAlter"})
+public class employeeAlter extends HttpServlet {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -50,15 +51,15 @@ public class clientAlter extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String query = "UPDATE CLIENT SET "
-                    + "CLIENT_CPF = '"+cpf+"', CLIENT_LOGIN= '"+login+"',"
-                    + "CLIENT_PASSWORD = '"+password+"', CLIENT_NAME= '"+name+"',"
-                    + "CLIENT_EMAIL = '"+email+"', CLIENT_DATE= '"+date+"',\n"
-                    + "CLIENT_CONTACT = '"+contact+"', CLIENT_LOG= '"+address+"',"
-                    + "CLIENT_NEIGH = '"+neigh+"', CLIENT_NUMBER= '"+number+"',"
-                    + "CLIENT_ZIP = '"+zip+"', CLIENT_CITY= '"+city+"',"
-                    + "CLIENT_STATE = '"+state+"' "
-                    + "WHERE CLIENT_ID = '"+id+"'";
+            String query = "UPDATE EMPLOYEE SET "
+                    + "EMPLOYEE_CPF = '"+cpf+"', EMPLOYEE_LOGIN= '"+login+"',"
+                    + "EMPLOYEE_PASSWORD = '"+password+"', EMPLOYEE_NAME= '"+name+"',"
+                    + "EMPLOYEE_EMAIL = '"+email+"', EMPLOYEE_DATE= '"+date+"',\n"
+                    + "EMPLOYEE_CONTACT = '"+contact+"', EMPLOYEE_LOG= '"+address+"',"
+                    + "EMPLOYEE_NEIGH = '"+neigh+"', EMPLOYEE_NUMBER= '"+number+"',"
+                    + "EMPLOYEE_ZIP = '"+zip+"', EMPLOYEE_CITY= '"+city+"',"
+                    + "EMPLOYEE_STATE = '"+state+"' "
+                    + "WHERE EMPLOYEE_ID = '"+id+"'";
             System.out.println(query);
             try {
                 PreparedStatement ps = null;

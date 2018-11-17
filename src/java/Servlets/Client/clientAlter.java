@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets;
+package Servlets.Client;
 
-import Itens.Client;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -20,28 +19,46 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
 /**
  *
- * @author ALUNO
+ * @author Vauthier
  */
-@WebServlet(name = "clientDrop", urlPatterns = {"/clientDrop"})
-public class clientDrop extends HttpServlet {
+@WebServlet(name = "clientAlter", urlPatterns = {"/clientAlter"})
+public class clientAlter extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
-        response.setContentType("text/html;charset=UTF-8");
-
         String id = request.getParameter("id");
+        String name = request.getParameter("name");
+        String date = request.getParameter("date");
+        String cpf = request.getParameter("cpf");
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        String address = request.getParameter("address");
+        String number = request.getParameter("number");
+        String city = request.getParameter("city");
+        String neigh = request.getParameter("neigh");
+        String zip = request.getParameter("cep");
+        String state = request.getParameter("state");
+        String contact = request.getParameter("contact");
+        String email = request.getParameter("email");
 
         try (PrintWriter out = response.getWriter()) {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String query = "DELETE FROM CLIENT WHERE CLIENT_ID='"+id+"'";
+            String query = "UPDATE CLIENT SET "
+                    + "CLIENT_CPF = '"+cpf+"', CLIENT_LOGIN= '"+login+"',"
+                    + "CLIENT_PASSWORD = '"+password+"', CLIENT_NAME= '"+name+"',"
+                    + "CLIENT_EMAIL = '"+email+"', CLIENT_DATE= '"+date+"',\n"
+                    + "CLIENT_CONTACT = '"+contact+"', CLIENT_LOG= '"+address+"',"
+                    + "CLIENT_NEIGH = '"+neigh+"', CLIENT_NUMBER= '"+number+"',"
+                    + "CLIENT_ZIP = '"+zip+"', CLIENT_CITY= '"+city+"',"
+                    + "CLIENT_STATE = '"+state+"' "
+                    + "WHERE CLIENT_ID = '"+id+"'";
             System.out.println(query);
             try {
                 PreparedStatement ps = null;
@@ -55,9 +72,8 @@ public class clientDrop extends HttpServlet {
                 }
             }
         }
-        
-    }
 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -74,9 +90,9 @@ public class clientDrop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(clientDrop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(clientAlter.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(clientDrop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(clientAlter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -94,9 +110,9 @@ public class clientDrop extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(clientDrop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(clientAlter.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(clientDrop.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(clientAlter.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,6 +1,8 @@
 $(window).load(function()
 {
-   var phones = [{ "mask": "(##) #####-####"}];
+   var phones = [{ "mask": "(##) #####-####"}]; 
+   var CEP = [{ "mask": "#####-###"}];
+   
     $('#cAreaFormContact').inputmask({ 
         mask: phones, 
         greedy: false,
@@ -11,9 +13,24 @@ $(window).load(function()
         greedy: false,
         keepStatic: true,
         definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
-    
-    var CEP = [{ "mask": "#####-###"}];
+
     $('#cAreaFormCEP').inputmask({ 
+        mask: CEP, 
+        greedy: false,
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+    
+    $('#eAreaFormContact').inputmask({ 
+        mask: phones, 
+        greedy: false,
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+    
+    $('#eAreaFormCPF').inputmask({ 
+        mask: ['999.999.999-99', '99.999.999/9999-99'],
+        greedy: false,
+        keepStatic: true,
+        definitions: { '#': { validator: "[0-9]", cardinality: 1}} });
+    
+    $('#eAreaFormCEP').inputmask({ 
         mask: CEP, 
         greedy: false,
         definitions: { '#': { validator: "[0-9]", cardinality: 1}} });

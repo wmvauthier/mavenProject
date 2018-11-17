@@ -1,4 +1,4 @@
-package Servlets;
+package Servlets.Client;
 
 import Itens.Client;
 import java.io.IOException;
