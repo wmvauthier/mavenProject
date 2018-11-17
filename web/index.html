@@ -209,7 +209,7 @@
                         <div class="container">
                             <div class="panel-heading row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 box" style="margin-bottom: 10px;">
-                                    <h3>CLIENTES CADASTRADOS<button onclick="$('#cAreaForm').trigger('reset')" class="btn btn-sm btn-success tag formClientsUp"><i class="material-icons">add</i></button></h3>
+                                    <h3>CLIENTES CADASTRADOS<button onclick="$('#cAreaForm').trigger('reset'); $('#cAreaForm').attr('action', 'JavaScript:sendServletAddClient();');" class="btn btn-sm btn-success tag formClientsUp"><i class="material-icons">add</i></button></h3>
                                 </div>
                             </div>
                             <fieldset>
@@ -231,7 +231,7 @@
                                             <thead class="cf">
                                                 <tr>
                                                     <th>NOME</th>
-                                                    <th>CPF</th>
+                                                    <th>CPF / CNPJ</th>
                                                     <th>CONTATO</th>
                                                     <th>EMAIL</th>
                                                     <th>AÇÕES</th>
@@ -262,6 +262,7 @@
                                         <div class="row">
                                             <div class="col-xs-12 col-sm-12 col-md-12">
                                                 <div class="form-group">
+                                                    <input type="text" name="id" id="cAreaFormId" class="hidden">
                                                     <input type="text" name="client" id="cAreaFormClient" class="form-control inputClient" placeholder="Nome">
                                                 </div>
                                             </div>
@@ -281,7 +282,7 @@
                                         <div class="row">
                                             <div class="col-xs-6 col-sm-6 col-md-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="cpf" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF">
+                                                    <input type="text" name="cpf" id="cAreaFormCPF" class="form-control inputCPF" placeholder="CPF / CNPJ">
                                                 </div>
                                             </div>
                                             <div class="col-xs-6 col-sm-6 col-md-6">

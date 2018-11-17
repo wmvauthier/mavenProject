@@ -103,7 +103,7 @@ function createClient(id, nome, cpf, contato, email) {
     td2.innerHTML = cpf;
     td3.innerHTML = contato;
     td4.innerHTML = email;
-    td5.innerHTML = '<button id="' + id + '" class="btn btn-sm btn-warning" onclick="sendServletReturnClient(this); formClientsUp();"><i class="material-icons">create</i></button>&nbsp' +
+    td5.innerHTML = '<button id="' + id + '" class="btn btn-sm btn-warning" onclick="sendServletReturnClient(this); formClientsUp(); localStorage.setItem(\'selectedClient\', this.id); $(\'#cAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterClient();\');"><i class="material-icons">create</i></button>&nbsp' +
             '<button id="' + id + '" class="btn btn-sm btn-danger" onclick="sendServletDropClient(this);"><i class="material-icons">delete</i></button>';
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -688,6 +688,35 @@ function sendServletAddClient() {
     xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email);
 }
 
+function sendServletAlterClient() {
+
+    var id = localStorage.getItem("selectedClient");
+    var name = $('#cAreaFormClient').val();
+    var login = $('#cAreaFormLogin').val();
+    var password = $('#cAreaFormPassword').val();
+    var checkPassword = $('#cAreaFormCheckPassword').val();
+    var cpf = $('#cAreaFormCPF').val();
+    var address = $('#cAreaFormAddress').val();
+    var number = $('#cAreaFormNumber').val();
+    var city = $('#cAreaFormCity').val();
+    var neigh = $('#cAreaFormNeigh').val();
+    var state = $('#cAreaFormState').val();
+    var cep = $('#cAreaFormCEP').val();
+    var contact = $('#cAreaFormContact').val();
+    var email = $('#cAreaFormEmail').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            sendServletRefreshClients();
+            $('#formClientsBack').click();
+        }
+    };
+    xhr.open("post", "clientAlter", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("name=" + name + "&login=" + login + "&password=" + password + "&cpf=" + cpf + "&address=" + address + "&number=" + number + "&city=" + city + "&state=" + state + "&neigh=" + neigh + "&cep=" + cep + "&contact=" + contact + "&email=" + email + "&id=" + id);
+}
+
 function sendServletReturnClient(choosenClient) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -707,7 +736,7 @@ function sendServletReturnClient(choosenClient) {
                     $('#cAreaFormCity').val(client.city);
                     $('#cAreaFormNeigh').val(client.neigh);
                     $('#cAreaFormState').val(client.state);
-                    $('#cAreaFormCEP').val(client.cep);
+                    $('#cAreaFormCEP').val(client.zip);
                     $('#cAreaFormContact').val(client.contact);
                     $('#cAreaFormEmail').val(client.email);
                 }
