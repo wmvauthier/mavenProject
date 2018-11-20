@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets.Employee;
+package Servlets.Category;
 
-import Itens.Employee;
+import Itens.Category;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -25,43 +25,31 @@ import org.json.JSONObject;
 
 /**
  *
- * @author ALUNO
+ * @author LnkConsertos
  */
-@WebServlet(name = "employeeRegister", urlPatterns = {"/employeeRegister"})
-public class employeeRegister extends HttpServlet {
+@WebServlet(name = "categoryRegister", urlPatterns = {"/categoryRegister"})
+public class categoryRegister extends HttpServlet {
 
-protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String name = request.getParameter("name");
-        String date = request.getParameter("date");
-        String cpf = request.getParameter("cpf");
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String address = request.getParameter("address");
-        String number = request.getParameter("number");	
-        String city = request.getParameter("city");
-        String neigh = request.getParameter("neigh");
-        String zip = request.getParameter("cep");
-        String state = request.getParameter("state");
-        String contact = request.getParameter("contact");
-        String email = request.getParameter("email");
+        String description = request.getParameter("description");
 
         try (PrintWriter out = response.getWriter()) {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
             String id = UUID.randomUUID().toString();
-            String query = "INSERT INTO employee values ('"+id+"','"+cpf+"','"+login+"','"+password+"','"+name+"','"+email+"','"+date+"','"+contact+"','"+address+"','"+neigh+"','"+number+"','"+zip+"','"+city+"','"+state+"')";
+            String query = "INSERT INTO category values ('"+id+"','"+description+"')";
             System.out.println(query);
             try {
                 PreparedStatement ps = null;
                 ps = con.prepareStatement(query);
                 ps.executeUpdate();
-                Employee employee = new Employee(id,cpf,login,password,name,email,date,contact,address,neigh,number,zip,city,state);
-                JSONObject json = new JSONObject(employee);
-                System.out.println(json);
+                Category category = new Category(id,description);
+                JSONObject json = new JSONObject(category);
                 out.println(json);
             } catch (SQLException e) {
                 System.out.println(e);
@@ -86,13 +74,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(employeeRegister.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(employeeRegister.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(categoryRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -106,13 +92,11 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    try {
-        processRequest(request, response);
-    } catch (ClassNotFoundException ex) {
-        Logger.getLogger(employeeRegister.class.getName()).log(Level.SEVERE, null, ex);
-    } catch (SQLException ex) {
-        Logger.getLogger(employeeRegister.class.getName()).log(Level.SEVERE, null, ex);
-    }
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(categoryRegister.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

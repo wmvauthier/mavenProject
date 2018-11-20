@@ -368,6 +368,15 @@ $('#formCategoriesBack').click(function () {
     $('#categoriesBtn').show();
 });
 
+function formCategoriesBack() {
+    $('#formCategories').animate({"opacity": "0"}, 500);
+    $('#formCategories').hide();
+    $('#categories').animate({"opacity": "1"}, 500);
+    $('#categories').show();
+    $('#categoriesBtn').animate({"opacity": "1"}, 500);
+    $('#categoriesBtn').show();
+}
+
 $('.formCategoriesUp').click(function () {
     $('#categories').animate({"opacity": "0"}, 500);
     $('#categories').hide();
@@ -981,33 +990,109 @@ function sendServletRefreshEmployees() {
 
 // ----- CHAMADAS PARA SERVLETS DE CATEGORIAS -----
 
-//AINDA NÃO CHAMA NADA
-function sendServletRefreshCategories() {
+function sendServletAddCategory() {
+
+    var description = $('#formCategoriesDescription').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log(xhr.responseText);
+            var category = JSON.parse(xhr.responseText);
+            createCategory(category.id, qtd, category.description);
+            createNavCategory(category.id, qtd, category.description)
+            formCategoriesBack();
+            sendServletRefreshCategories();
+        }
+    };
+    xhr.open("post", "categoryRegister", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("description=" + description);
+}
+
+function sendServletAlterCategory() {
+
+    var id = localStorage.getItem("selectedCategory");
+    var description = $('#formCategoriesDescription').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            sendServletRefreshCategories();
+            $('#formCategoriesBack').click();
+        }
+    };
+    xhr.open("post", "categoryAlter", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("id=" + id + "&description=" + description);
+    
+}
+
+function sendServletReturnCategory(choosenCategory) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            for (var i = 0; i < jsonData.categories.length; i++) {
+                var category = jsonData.categories[i];
+                if (choosenCategory.id === category.id) {
+                    $('#formCategoriesDescription').val(category.description);
+                }
+            }
+        }
+    };
+    xhr.open("post", "categoryRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletDropCategory(choosenCategory) {
+
+    var r = confirm("Deseja mesmo excluir esta Categoria?");
+    if (r === true) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                $('#' + choosenCategory.id).remove();
+            }
+        };
+
+        xhr.open("post", "categoryDrop", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("id=" + choosenCategory.id);
+
+    } else {
+
+    }
+
+}
+
+function sendServletRefreshCategories() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            var response = xhr.responseText;
             try {
                 var jsonData = JSON.parse(response);
             } catch (err) {
-                $("#showClients").html("");
-                createCategoryBtn();
                 return false;
             }
 
             var jsonData = JSON.parse(response);
-            $("#navCategories").html("");
             $("#categories").html("");
-            //DESENHA AS CATEGORIAS
+            //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
-                createCategory(category.id, category.qtd, category.descripion);
-                createNavCategory(category.id, category.qtd, category.descripion);
+                createCategory(category.id, qtd, category.description);
+                createNavCategory(category.id, qtd, category.description);
             }
 
         }
     };
-    xhr.open("post", "refreshCategories", true);
+    xhr.open("post", "employeeRefresh", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
 }

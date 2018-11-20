@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -42,7 +43,7 @@ public class clientRegister extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String id = name + date;
+            String id = UUID.randomUUID().toString();
             String query = "INSERT INTO client values ('"+id+"','"+cpf+"','"+login+"','"+password+"','"+name+"','"+email+"','"+date+"','"+contact+"','"+address+"','"+neigh+"','"+number+"','"+zip+"','"+city+"','"+state+"')";
             System.out.println(query);
             try {

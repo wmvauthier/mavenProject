@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlets.Client;
+package Servlets.Category;
 
-import Itens.Client;
+import Itens.Category;
+import Servlets.Client.clientRefresh;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -27,46 +28,34 @@ import org.json.JSONObject;
  *
  * @author LnkConsertos
  */
-@WebServlet(name = "clientRefresh", urlPatterns = {"/clientRefresh"})
-public class clientRefresh extends HttpServlet {
+@WebServlet(name = "categoryRefresh", urlPatterns = {"/categoryRefresh"})
+public class categoryRefresh extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            out.println("{\"clients\": " + refreshClients() + "}");
+            out.println("{\"categories\": " + refreshCategories() + "}");
         }
     }
     
-    private ArrayList<JSONObject> refreshClients() throws SQLException, ClassNotFoundException {
+    private ArrayList<JSONObject> refreshCategories() throws SQLException, ClassNotFoundException {
 
         Class.forName("org.apache.derby.jdbc.ClientDriver");
         Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
 
-        ArrayList<JSONObject> list = new ArrayList<JSONObject>();
+        ArrayList<JSONObject> list = new ArrayList<>();
         Statement stmt = null;
-        String query = "SELECT * FROM client ORDER BY CLIENT_NAME DESC";
+        String query = "SELECT * FROM category ORDER BY CATEGORY_DESCRIPTION DESC";
 
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
-                String id = rs.getString("CLIENT_ID");
-                String cpf = rs.getString("CLIENT_CPF");
-                String login = rs.getString("CLIENT_LOGIN");
-                String password = rs.getString("CLIENT_PASSWORD");
-                String name = rs.getString("CLIENT_NAME");
-                String email = rs.getString("CLIENT_EMAIL");
-                String date = rs.getString("CLIENT_DATE");
-                String contact = rs.getString("CLIENT_CONTACT");
-                String address = rs.getString("CLIENT_LOG");
-                String neigh = rs.getString("CLIENT_NEIGH");
-                String number = rs.getString("CLIENT_NUMBER");
-                String zip = rs.getString("CLIENT_ZIP");
-                String city = rs.getString("CLIENT_CITY");
-                String state = rs.getString("CLIENT_STATE");
-                Client client = new Client(id,cpf,login,password,name,email,date,contact,address,neigh,number,zip,city,state);
-                JSONObject json = new JSONObject(client);
+                String id = rs.getString("CATEGORY_ID");
+                String description = rs.getString("CATEGORY_DESCRIPTION");
+                Category category = new Category(id,description);
+                JSONObject json = new JSONObject(category);
                 list.add(json);
             }
         } catch (SQLException e) {
@@ -114,9 +103,7 @@ public class clientRefresh extends HttpServlet {
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(clientRefresh.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(clientRefresh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
