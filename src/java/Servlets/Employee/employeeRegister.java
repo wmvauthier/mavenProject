@@ -52,7 +52,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String id = UUID.randomUUID().toString();
+            String id = "EMP" + UUID.randomUUID().toString();
             String query = "INSERT INTO employee values ('"+id+"','"+cpf+"','"+login+"','"+password+"','"+name+"','"+email+"','"+date+"','"+contact+"','"+address+"','"+neigh+"','"+number+"','"+zip+"','"+city+"','"+state+"')";
             System.out.println(query);
             try {

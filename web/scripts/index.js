@@ -1,5 +1,4 @@
 // ----- ANOTAÇÕES -----
-//$("#showHome").delay(500).animate({"opacity": "1"}, 500); e opacity:0 no CSS
 
 // ----- FUNÇÕES QUE CRIAM ELEMENTOS HTML -----
 
@@ -33,15 +32,16 @@ function createTicket(id, title, description) {
 
 function createCategory(id, qtd, description) {
     var div = document.createElement('div');
+    div.id = id;
     div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
     div.innerHTML = '' +
             '<div class="col mdl-shadow--2dp randomColor">' +
             '<div class="row">' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a onclick="sendServletReturnCategory(this); formCategoriesUp(); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterCategory();\');"><i id="' + id + '" class="material-icons">create</i></a>' +
+            '<a id="' + id + '" onclick="sendServletReturnCategory(this); formCategoriesUp(); localStorage.setItem(\'selectedCategory\', this.id); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterCategory();\');"><i class="material-icons">create</i></a>' +
             '</div>' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a onclick="sendServletDropCategory(this);"><i id="' + id + '" class="material-icons">clear</i></a>' +
+            '<a id="' + id + '" onclick="sendServletDropCategory(this);"><i class="material-icons">clear</i></a>' +
             '</div>' +
             '</div>' +
             '<div onclick="alert(a)" class="row">' +
@@ -60,6 +60,7 @@ function createCategory(id, qtd, description) {
 
 function createNavCategory(id, qtd, description) {
     var div = document.createElement('div');
+    div.id = id;
     div.innerHTML = '' +
             '<a id="nav' + id + '" class="mdl-navigation__link" href="">' +
             '<i class="material-icons" role="presentation">' +
@@ -992,13 +993,14 @@ function sendServletRefreshEmployees() {
 
 function sendServletAddCategory() {
 
-    var description = $('#formCategoriesDescription').val();
+    var description = $('#catAreaDescription').val().toUpperCase();
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             formCategoriesBack();
             sendServletRefreshCategories();
+            return false;
         }
     };
     xhr.open("post", "categoryRegister", true);
@@ -1021,7 +1023,7 @@ function sendServletAlterCategory() {
     xhr.open("post", "categoryAlter", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("id=" + id + "&description=" + description);
-    
+
 }
 
 function sendServletReturnCategory(choosenCategory) {
@@ -1030,11 +1032,10 @@ function sendServletReturnCategory(choosenCategory) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
-            console.log(jsonData);
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
                 if (choosenCategory.id === category.id) {
-                    $('#formCategoriesDescription').val(category.description);
+                    $('#catAreaDescription').val(category.description);
                 }
             }
         }
@@ -1052,6 +1053,7 @@ function sendServletDropCategory(choosenCategory) {
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
+                $('#' + choosenCategory.id).remove();
                 $('#' + choosenCategory.id).remove();
             }
         };
@@ -1079,8 +1081,9 @@ function sendServletRefreshCategories() {
             }
 
             var jsonData = JSON.parse(response);
-            console.log(jsonData);
+
             $("#categories").html("");
+            $("#navCategories").html("");
             //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
@@ -1268,10 +1271,8 @@ function closeCollapsePanels(button) {
 //EXECUTA AO INICIAR
 function codeAddress() {
 
-    $('#navCalls').click();
+    $('#home').click();
     createCategoryButton();
-    createCategory();
-    createNavCategory();
     $("#reportCall-formResult").css("visibility", "hidden");
 }
 

@@ -41,7 +41,7 @@ public class categoryRegister extends HttpServlet {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
-            String id = UUID.randomUUID().toString();
+            String id = "CAT" + UUID.randomUUID().toString();
             String query = "INSERT INTO category values ('"+id+"','"+description+"')";
             System.out.println(query);
             try {
