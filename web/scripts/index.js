@@ -38,10 +38,10 @@ function createCategory(id, qtd, description) {
             '<div class="col mdl-shadow--2dp randomColor">' +
             '<div class="row">' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a onclick="formCategoriesUp()"><i id="catEdit' + id + '" class="material-icons">create</i></a>' +
+            '<a onclick="sendServletReturnCategory(this); formCategoriesUp(); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterCategory();\');"><i id="' + id + '" class="material-icons">create</i></a>' +
             '</div>' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a onclick="alert()"><i id="catDelete' + id + '" class="material-icons">clear</i></a>' +
+            '<a onclick="sendServletDropCategory(this);"><i id="' + id + '" class="material-icons">clear</i></a>' +
             '</div>' +
             '</div>' +
             '<div onclick="alert(a)" class="row">' +
@@ -76,7 +76,7 @@ function createCategoryButton() {
             '<div class="col mdl-shadow--2dp bWhite">' +
             '<div class="row">' +
             '<div class="col col-sm-12">' +
-            '<h1><b><i class="material-icons" style="font-size: 72px;">add_circle</i></b></h1><br>' +
+            '<h1><b><i onclick="$(\'#catAreaForm\').trigger(\'reset\'); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAddCategory();\');" class="material-icons" style="font-size: 72px;">add_circle</i></b></h1><br>' +
             '<p><b>ADICIONAR CATEGORIA</b></p><br>' +
             '</div>' +
             '</div>' +
@@ -997,10 +997,6 @@ function sendServletAddCategory() {
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log(xhr.responseText);
-            var category = JSON.parse(xhr.responseText);
-            createCategory(category.id, qtd, category.description);
-            createNavCategory(category.id, qtd, category.description)
             formCategoriesBack();
             sendServletRefreshCategories();
         }
@@ -1034,6 +1030,7 @@ function sendServletReturnCategory(choosenCategory) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var response = xhr.responseText;
             var jsonData = JSON.parse(response);
+            console.log(jsonData);
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
                 if (choosenCategory.id === category.id) {
@@ -1082,17 +1079,18 @@ function sendServletRefreshCategories() {
             }
 
             var jsonData = JSON.parse(response);
+            console.log(jsonData);
             $("#categories").html("");
             //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
-                createCategory(category.id, qtd, category.description);
-                createNavCategory(category.id, qtd, category.description);
+                createCategory(category.id, 0, category.description);
+                createNavCategory(category.id, 0, category.description);
             }
 
         }
     };
-    xhr.open("post", "employeeRefresh", true);
+    xhr.open("post", "categoryRefresh", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send();
 }
