@@ -38,13 +38,13 @@ function createCategory(id, qtd, description) {
             '<div class="col mdl-shadow--2dp randomColor">' +
             '<div class="row">' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
-            '<a id="' + id + '" onclick="sendServletReturnCategory(this); formCategoriesUp(); localStorage.setItem(\'selectedCategory\', this.id); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterCategory();\');"><i class="material-icons">create</i></a>' +
+            '<a id="' + id + '" onclick="sendServletReturnCategory(this); formCategoriesUp(); $(\'#catAreaForm\').attr(\'action\', \'JavaScript:sendServletAlterCategory();\'); localStorage.setItem(\'selectedCategory\', this.id); "><i class="material-icons">create</i></a>' +
             '</div>' +
             '<div class="col col-sm-6 panelTicketBtnInverter">' +
             '<a id="' + id + '" onclick="sendServletDropCategory(this);"><i class="material-icons">clear</i></a>' +
             '</div>' +
             '</div>' +
-            '<div onclick="alert(a)" class="row">' +
+            '<div id="' + id + '" onclick=" localStorage.setItem(\'selectedCategory\', this.id); localStorage.setItem(\'selectedCategoryDescription\',\''+description+'\'); navTickets();" class="row">' +
             '<div class="col col-sm-12">' +
             '<h1><b>' + qtd + '</b></h1><br>' +
             '<p><b>' + description + '</b></p><br>' +
@@ -61,8 +61,9 @@ function createCategory(id, qtd, description) {
 function createNavCategory(id, qtd, description) {
     var div = document.createElement('div');
     div.id = id;
+    div.className = 'navTickets';
     div.innerHTML = '' +
-            '<a id="nav' + id + '" class="mdl-navigation__link" href="">' +
+            '<a id="' + id + '" class="mdl-navigation__link" onclick="navTickets(); localStorage.setItem(\'selectedCategoryDescription\',\''+description+'\'); localStorage.setItem(\'selectedCategory\', this.id);" href="#">' +
             '<i class="material-icons" role="presentation">' +
             'navigate_next' +
             '</i>' + description + '</a>';
@@ -247,7 +248,7 @@ $('#home').click(function () {
     sendServletRefreshCategories();
 });
 
-$('#navCalls').click(function () {
+$('#navTickets').click(function () {
     $('#showClients').animate({"opacity": "0"}, 500);
     $('#showClients').hide();
     $('#showHome').animate({"opacity": "0"}, 500);
@@ -260,7 +261,7 @@ $('#navCalls').click(function () {
     $("#mainContent").addClass("bkImgTic");
     $('#showContent').animate({"opacity": "1"}, 500);
     $('#showContent').show();
-    $('#titlePage').html('CHAMADOS');
+    $('#titlePage').html(localStorage.getItem('selectedCategoryDescription'));
     $('.contentX').attr('id', 'pendingCalls');
     $('#addPanelTitle').html('ADICIONAR');
     $('#changePanelTitle').html('ALTERAR');
@@ -270,11 +271,42 @@ $('#navCalls').click(function () {
     $('#fixPanelBody').html(fixTicketForm);
     $('#reportPanelBody').html(reportTicketForm);
     $('#changePanelBody').html(changeTicketForm);
+    $('#titlePage').html(localStorage.getItem('selectedCategoryDescription'));
     sendServletRefreshCall();
     sendServletRefreshClients();
     sendServletRefreshEmployees();
     openCollapsePanels($('#collapseOne'));
 });
+
+function navTickets() {
+    $('#showClients').animate({"opacity": "0"}, 500);
+    $('#showClients').hide();
+    $('#showHome').animate({"opacity": "0"}, 500);
+    $('#showHome').hide();
+    $('#showEmployees').animate({"opacity": "0"}, 500);
+    $('#showEmployees').hide();
+    $("#mainContent").removeClass("bkImgTec");
+    $("#mainContent").removeClass("bkImgCli");
+    $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").addClass("bkImgTic");
+    $('#showContent').animate({"opacity": "1"}, 500);
+    $('#showContent').show();
+    $('#titlePage').html(localStorage.getItem('selectedCategoryDescription'));
+    $('.contentX').attr('id', 'pendingCalls');
+    $('#addPanelTitle').html('ADICIONAR');
+    $('#changePanelTitle').html('ALTERAR');
+    $('#fixPanelTitle').html('RESOLVER');
+    $('#reportPanelTitle').html('RELATÓRIO');
+    $('#addPanelBody').html(addTicketForm);
+    $('#fixPanelBody').html(fixTicketForm);
+    $('#reportPanelBody').html(reportTicketForm);
+    $('#changePanelBody').html(changeTicketForm);
+    $('#titlePage').html(localStorage.getItem('selectedCategoryDescription'));
+    sendServletRefreshCall();
+    sendServletRefreshClients();
+    sendServletRefreshEmployees();
+    openCollapsePanels($('#collapseOne'));
+}
 
 $('#navClients').click(function () {
     sendServletRefreshClients();
@@ -298,6 +330,7 @@ $('#navClients').click(function () {
 });
 
 $('#navEmployees').click(function () {
+    sendServletRefreshEmployees();
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
     $('#showContent').animate({"opacity": "0"}, 500);
@@ -971,6 +1004,7 @@ function sendServletRefreshEmployees() {
             }
 
             var jsonData = JSON.parse(response);
+
             $("#employeeTableBody").html("");
             //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.employees.length; i++) {
@@ -993,7 +1027,9 @@ function sendServletRefreshEmployees() {
 
 function sendServletAddCategory() {
 
-    var description = $('#catAreaDescription').val().toUpperCase();
+    var description = $('#catAreaDescription').val();
+    description = description.toLowerCase();
+    description = description.charAt(0).toUpperCase() + description.slice(1);
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
@@ -1011,7 +1047,7 @@ function sendServletAddCategory() {
 function sendServletAlterCategory() {
 
     var id = localStorage.getItem("selectedCategory");
-    var description = $('#formCategoriesDescription').val();
+    var description = $('#catAreaDescription').val();
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
@@ -1272,6 +1308,10 @@ function closeCollapsePanels(button) {
 function codeAddress() {
 
     $('#home').click();
+    localStorage.setItem('selectedClient','');
+    localStorage.setItem('selectedCategory','');
+    localStorage.setItem('selectedEmployee','');
+    localStorage.setItem('selectedCategoryDescription','');
     createCategoryButton();
     $("#reportCall-formResult").css("visibility", "hidden");
 }

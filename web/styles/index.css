@@ -94,6 +94,7 @@ input{
 }
 
 .panel {
+    border: none;
     margin-bottom: 20px;
     background-color: #fff;
     border-radius: 6px;

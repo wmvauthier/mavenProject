@@ -39,7 +39,8 @@ public class categoryAlter extends HttpServlet {
             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/gerlinkcne;create=true", "root", "root");
             Statement stmt = null;
             String query = "UPDATE CATEGORY SET "
-                    + "CATEGORY_ID = '"+id+"', CATEGORY_DESCRIPTION= '"+description+"',";
+                    + "CATEGORY_ID = '"+id+"', CATEGORY_DESCRIPTION= '"+description+"' "
+                    + "WHERE CATEGORY_ID = '"+id+"'";
             System.out.println(query);
             try {
                 PreparedStatement ps = null;
