@@ -467,7 +467,7 @@ function sendServletAddCall(client, dat, description, priority, category) {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var call = JSON.parse(xhr.responseText);
             createTicket(call.id, call.cliente, call.descricao);
-            document.getElementById('addCall-form').reset();
+            document.getElementById('addTicket-form').reset();
             sendServletRefreshCall();
         }
     };
@@ -861,7 +861,7 @@ function sendServletRefreshClients() {
             for (var i = 0; i < jsonData.clients.length; i++) {
                 var client = jsonData.clients[i];
                 createClient(client.id, client.name, client.cpf, client.contact, client.email);
-                $("#addCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
+                $("#addTicket-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
                 $("#changeCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
                 $("#fixCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
                 $("#reportCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
@@ -1010,7 +1010,7 @@ function sendServletRefreshEmployees() {
             for (var i = 0; i < jsonData.employees.length; i++) {
                 var employee = jsonData.employees[i];
                 createEmployee(employee.id, employee.name, employee.cpf, employee.attr);
-                $("#addCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
+                $("#addTicket-formEmployee").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
                 $("#changeCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
                 $("#fixCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
                 $("#reportCall-formTec").append("<option value='" + employee.name + "'>" + employee.name + "</option>");
@@ -1030,6 +1030,120 @@ function sendServletAddCategory() {
     var description = $('#catAreaDescription').val();
     description = description.toLowerCase();
     description = description.charAt(0).toUpperCase() + description.slice(1);
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            formCategoriesBack();
+            sendServletRefreshCategories();
+            return false;
+        }
+    };
+    xhr.open("post", "categoryRegister", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("description=" + description);
+}
+
+function sendServletAlterCategory() {
+
+    var id = localStorage.getItem("selectedCategory");
+    var description = $('#catAreaDescription').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            sendServletRefreshCategories();
+            $('#formCategoriesBack').click();
+        }
+    };
+    xhr.open("post", "categoryAlter", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("id=" + id + "&description=" + description);
+
+}
+
+function sendServletReturnCategory(choosenCategory) {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var response = xhr.responseText;
+            var jsonData = JSON.parse(response);
+            for (var i = 0; i < jsonData.categories.length; i++) {
+                var category = jsonData.categories[i];
+                if (choosenCategory.id === category.id) {
+                    $('#catAreaDescription').val(category.description);
+                }
+            }
+        }
+    };
+    xhr.open("post", "categoryRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+function sendServletDropCategory(choosenCategory) {
+
+    var r = confirm("Deseja mesmo excluir esta Categoria?");
+    if (r === true) {
+
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                $('#' + choosenCategory.id).remove();
+                $('#' + choosenCategory.id).remove();
+            }
+        };
+
+        xhr.open("post", "categoryDrop", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send("id=" + choosenCategory.id);
+
+    } else {
+
+    }
+
+}
+
+function sendServletRefreshCategories() {
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            var response = xhr.responseText;
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                return false;
+            }
+
+            var jsonData = JSON.parse(response);
+
+            $("#categories").html("");
+            $("#navCategories").html("");
+            //DESENHA OS TÉCNICOS
+            for (var i = 0; i < jsonData.categories.length; i++) {
+                var category = jsonData.categories[i];
+                createCategory(category.id, 0, category.description);
+                createNavCategory(category.id, 0, category.description);
+            }
+
+        }
+    };
+    xhr.open("post", "categoryRefresh", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send();
+}
+
+// ----- CHAMADAS PARA SERVLETS DE TICKETS -----
+
+function sendServletAddTicket() {
+
+    var category = localStorage.getItem('selectedCategory');
+    var client = $('#addTicket-formClient').val();
+    var date = $('#addTicket-formDat').val();
+    var employee = $('#addTicket-formEmployee').val();
+    var description = $('#addTicket-formDescription').val();    
+
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {
@@ -1319,16 +1433,16 @@ function codeAddress() {
 window.onload = codeAddress;
 // ----- VARIÁVEIS GLOBAIS -----
 
-var addTicketForm = '<form id="addCall-form" action="JavaScript:sendServletAddCall($(\'#addCall-formClient\')[0],$(\'#addCall-formDat\')[0],$(\'#addCall-formDescription\')[0]);">' +
+var addTicketForm = '<form id="addTicket-form" action="JavaScript:sendServletAddCall($(\'#addTicket-formClient\')[0],$(\'#addTicket-formDat\')[0],$(\'#addTicket-formDescription\')[0]);">' +
         '<div class="modal-body">' +
-        '<select id="addCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<select id="addTicket-formClient" name="client" class="form-control inputClient" required>' +
         '<option value="" disabled selected>Nome do Cliente</option>' +
         '</select>' +
-        '<input id="addCall-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
-        '<select id="addCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<input id="addTicket-formDat" name="date" type="date" class="form-control inputCalendar" placeholder="Data do Chamado" required />' +
+        '<select id="addTicket-formEmployee" name="tec" class="form-control inputTec" required>' +
         '<option value="" disabled selected>Nome do Técnico</option>' +
         '</select>' +
-        '<input id="addCall-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
+        '<input id="addTicket-formDescription" name="description" class="form-control inputComment" type="text" placeholder="Descrição da Solicitação" maxlength="250" required>' +
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
