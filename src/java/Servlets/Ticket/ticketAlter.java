@@ -37,7 +37,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         String employee = request.getParameter("employee");
         String date = request.getParameter("date");
         String description = request.getParameter("description");
-        String status = request.getParameter("status");
         String priority = request.getParameter("priority");
 
         try (PrintWriter out = response.getWriter()) {
@@ -47,8 +46,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
             String query = "UPDATE TICKET SET "
                     + "TICKET_CATEGORY = '"+category+"', TICKET_CLIENT= '"+client+"',"
                     + "TICKET_EMPLOYEE = '"+employee+"', TICKET_DATE= '"+date+"',"
-                    + "TICKET_DESCRIPTION = '"+description+"', TICKET_STATUS= '"+status+"',\n"
-                    + "TICKET_PRIORITY = '"+priority+"' "
+                    + "TICKET_DESCRIPTION = '"+description+"', TICKET_PRIORITY = '"+priority+"'\n"
                     + "WHERE TICKET_ID = '"+id+"'";
             System.out.println(query);
             try {
