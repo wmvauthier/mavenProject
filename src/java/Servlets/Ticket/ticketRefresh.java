@@ -49,8 +49,8 @@ public class ticketRefresh extends HttpServlet {
 
         ArrayList<JSONObject> list = new ArrayList<>();
         Statement stmt = null;
-        String query = "SELECT * FROM ticket ORDER BY TICKET_CATEGORY DESC WHERE TICKET_ID = '"+categoryChoosen+"'";
-
+        String query = "SELECT * FROM ticket WHERE TICKET_CATEGORY = '"+categoryChoosen+"' ORDER BY TICKET_PRIORITY DESC";
+        System.out.println(query);
         try {
             stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(query);
