@@ -84,7 +84,7 @@ function createCategoryButton() {
             '</div>' +
             '</div>' +
             '</div>';
-    document.getElementById("categoriesBtn").appendChild(div);
+    $("#categoriesBtn").append(div);
 }
 
 function createClient(id, nome, cpf, contato, email) {
@@ -866,7 +866,7 @@ function sendServletAddEmployee() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             var call = JSON.parse(xhr.responseText);
-            sendServletRefreshEmployee();
+            sendServletRefreshEmployees();
             $('#eAreaForm')[0].reset();
             $('#formEmployeesBack').click();
         }
@@ -1147,6 +1147,30 @@ function sendServletAlterTicket() {
         }
     };
     xhr.open("post", "ticketAlter", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("id=" + id + "&category=" + category + "&client=" + client + "&employee=" + employee + "&date=" + date + "&description=" + description + "&priority=" + priority);
+
+}
+
+function sendServletFixTicket() {
+
+    var id = localStorage.getItem('selectedTicket');
+    var category = localStorage.getItem('selectedCategory');
+    var client = $('#fixTicket-formClient').val();
+    var employee = $('#fixTicket-formEmployee').val();
+    var date = $('#fixTicket-formDat').val();
+    var description = $('#fixTicket-formDescription').val();
+    var priority = $('#fixTicket-formPriority').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            sendServletRefreshTickets();
+            $('#fixTicket-form').trigger('reset');
+            $('#fixPanelTitleBtn').click();
+        }
+    };
+    xhr.open("post", "ticketFix", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.send("id=" + id + "&category=" + category + "&client=" + client + "&employee=" + employee + "&date=" + date + "&description=" + description + "&priority=" + priority);
 
@@ -1504,6 +1528,7 @@ var addTicketForm = '<form id="addTicket-form" action="JavaScript:sendServletAdd
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Adicionar</button>' +
         '</div></div></form>';
+
 var changeTicketForm = '<form id="alterTicket-form" action="JavaScript:sendServletAlterTicket();">' +
         '<div class="modal-body">' +
         '<select id="alterTicket-formClient" name="client" class="form-control inputClient" required>' +
@@ -1517,6 +1542,7 @@ var changeTicketForm = '<form id="alterTicket-form" action="JavaScript:sendServl
         '</div><div class="modal-footer"><div>' +
         '<button type="submit"  class="btn btn-danger">Alterar</button>' +
         '</div></div></form>';
+
 var fixTicketForm = '<form id="fixTicket-form" action="JavaScript:sendServletFixTicket();">' +
         '<div id="fixTicket-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
@@ -1537,6 +1563,7 @@ var fixTicketForm = '<form id="fixTicket-form" action="JavaScript:sendServletFix
         '</div>' +
         '</div>' +
         '</form>';
+
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +

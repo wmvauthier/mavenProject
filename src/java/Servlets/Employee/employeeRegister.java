@@ -61,7 +61,6 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
                 ps.executeUpdate();
                 Employee employee = new Employee(id,cpf,login,password,name,email,date,contact,address,neigh,number,zip,city,state);
                 JSONObject json = new JSONObject(employee);
-                System.out.println(json);
                 out.println(json);
             } catch (SQLException e) {
                 System.out.println(e);
