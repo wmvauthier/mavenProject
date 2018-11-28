@@ -1092,8 +1092,8 @@ function sendServletRefreshCategories() {
             //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
-                createCategory(category.id, 0, category.description);
-                createNavCategory(category.id, 0, category.description);
+                createCategory(category.id, localStorage.setItem(category+'id'), category.description);
+                createNavCategory(category.id, localStorage.setItem(category+'id'), category.description);
             }
 
         }
@@ -1267,6 +1267,8 @@ function sendServletRefreshTickets() {
                 }
 
             }
+
+            localStorage.setItem(category+'id',count);
 
             //MANTENDO A MESMA DATA ATUAL
             var realDateNow = new Object();
@@ -1503,11 +1505,7 @@ function closeCollapsePanels(button) {
 function codeAddress() {
 
     $('#home').click();
-    localStorage.setItem('selectedClient', '');
-    localStorage.setItem('selectedCategory', '');
-    localStorage.setItem('selectedEmployee', '');
-    localStorage.setItem('selectedTicket', '');
-    localStorage.setItem('selectedCategoryDescription', '');
+    localStorage.clear();
     createCategoryButton();
     $("#reportCall-formResult").css("visibility", "hidden");
 }
