@@ -1004,6 +1004,7 @@ function sendServletAddCategory() {
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             sendServletRefreshCategories();
+            $('#home').click();
             formCategoriesBack();
             return false;
         }
@@ -1092,11 +1093,14 @@ function sendServletRefreshCategories() {
             //DESENHA OS TÉCNICOS
             for (var i = 0; i < jsonData.categories.length; i++) {
                 var category = jsonData.categories[i];
-                createCategory(category.id, localStorage.setItem(category+'id'), category.description);
-                createNavCategory(category.id, localStorage.setItem(category+'id'), category.description);
+                localStorage.setItem('selectedCategory', category.id);
+                sendServletRefreshTickets();
+                createCategory(category.id, checkNull(localStorage.getItem(category.id + 'id')), category.description);
+                createNavCategory(category.id, checkNull(localStorage.getItem(category.id + 'id')), category.description);
             }
 
         }
+
     };
     xhr.open("post", "categoryRefresh", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -1268,7 +1272,8 @@ function sendServletRefreshTickets() {
 
             }
 
-            localStorage.setItem(category+'id',count);
+            localStorage.setItem(category + 'id', count);
+            console.log(category + 'id' + " eh" + count)
 
             //MANTENDO A MESMA DATA ATUAL
             var realDateNow = new Object();
@@ -1501,14 +1506,28 @@ function closeCollapsePanels(button) {
     return;
 }
 
+function checkNull(item) {
+    console.log(item);
+    if (item === "null") {
+        return 0;
+    } else if (item === null) {
+        return 0;
+    } else {
+        return item;
+    }
+}
+
 //EXECUTA AO INICIAR
 function codeAddress() {
-
-    $('#home').click();
     localStorage.clear();
+    $('#home').click();
     createCategoryButton();
     $("#reportCall-formResult").css("visibility", "hidden");
+    $('#home').click();
 }
+$(document).ready(function () {
+    $('#home').click();
+});
 
 window.onload = codeAddress;
 // ----- VARIÁVEIS GLOBAIS -----
