@@ -1273,7 +1273,6 @@ function sendServletRefreshTickets() {
             }
 
             localStorage.setItem(category + 'id', count);
-            console.log(category + 'id' + " eh" + count)
 
             //MANTENDO A MESMA DATA ATUAL
             var realDateNow = new Object();
@@ -1507,7 +1506,7 @@ function closeCollapsePanels(button) {
 }
 
 function checkNull(item) {
-    console.log(item);
+
     if (item === "null") {
         return 0;
     } else if (item === null) {
@@ -1525,7 +1524,8 @@ function codeAddress() {
     $("#reportCall-formResult").css("visibility", "hidden");
     $('#home').click();
 }
-$(doscument).ready(function () {
+
+$(document).ready(function () {
     $('#home').click();
 });
 
