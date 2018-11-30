@@ -45,7 +45,7 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
 
         ArrayList<JSONObject> list = new ArrayList<JSONObject>();
         Statement stmt = null;
-        String query = "SELECT * FROM employee ORDER BY EMPLOYEE_NAME DESC";
+        String query = "SELECT * FROM employee ORDER BY EMPLOYEE_NAME ASC";
 
         try {
             stmt = con.createStatement();

@@ -1525,7 +1525,7 @@ function codeAddress() {
     $("#reportCall-formResult").css("visibility", "hidden");
     $('#home').click();
 }
-$(document).ready(function () {
+$(doscument).ready(function () {
     $('#home').click();
 });
 

@@ -45,7 +45,7 @@ public class clientRefresh extends HttpServlet {
 
         ArrayList<JSONObject> list = new ArrayList<JSONObject>();
         Statement stmt = null;
-        String query = "SELECT * FROM client ORDER BY CLIENT_NAME DESC";
+        String query = "SELECT * FROM client ORDER BY CLIENT_NAME ASC";
 
         try {
             stmt = con.createStatement();
