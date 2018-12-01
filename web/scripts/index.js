@@ -1,3 +1,5 @@
+/* global google */
+
 // ----- ANOTAÇÕES -----
 
 // ----- FUNÇÕES QUE CRIAM ELEMENTOS HTML -----
@@ -428,6 +430,39 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
     chart.draw(data, options);
 }
 
+// ----- CHAMADAS PARA LOGIN E LOGOUT -----
+
+function sendServletLogin() {
+
+    var login = $('#loginScreenUser').val();
+    var password = $('#loginScreenPassWord').val();
+    var xhr = new XMLHttpRequest();
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+
+            var response = xhr.responseText;
+            try {
+                var jsonData = JSON.parse(response);
+            } catch (err) {
+                alert("C");
+                return false;
+            }
+
+            var jsonData = JSON.parse(response);
+            var employee = jsonData.employee[i];
+            localStorage.setItem('selectedEmployee', employee.id);
+            localStorage.setItem('selectedEmployeeName', employee.name);
+
+        }
+    };
+
+    xhr.open("post", "xServletLogin", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("login=" + login + "&password=" + password);
+
+}
+
 // ----- CHAMADAS PARA SERVLETS -----
 
 function sendServletAddCall(client, dat, description, priority, category) {
@@ -445,7 +480,6 @@ function sendServletAddCall(client, dat, description, priority, category) {
     xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "&priority=" + priority.value + "&category=" + category.value);
 }
 
-//AINDA NÃO CHAMA NADA
 function sendServletChangeCall(client, dat, description) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
@@ -1526,6 +1560,8 @@ function codeAddress() {
 }
 
 $(document).ready(function () {
+    $('#loginScreen').animate({"opacity": "1"}, 500);
+    //$('#dashboard').animate({"opacity": "1"}, 500);
     $('#home').click();
 });
 
