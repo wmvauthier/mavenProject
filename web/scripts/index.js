@@ -1,9 +1,8 @@
-/* global google */
+/* #########################################
+   #    FUNÇÕES QUE CRIAM ELEMENTOS HTML   #
+   ######################################### */
 
-// ----- ANOTAÇÕES -----
-
-// ----- FUNÇÕES QUE CRIAM ELEMENTOS HTML -----
-
+// CRIAR TICKETS
 function createTicket(id, title, description) {
     var div = document.createElement('div');
     var cp1 = "\#collapseOne";
@@ -33,6 +32,7 @@ function createTicket(id, title, description) {
     $("#pendingTickets").append(div);
 }
 
+// CRIAR CATEGORIAS
 function createCategory(id, qtd, description) {
     var div = document.createElement('div');
     div.id = id;
@@ -61,6 +61,7 @@ function createCategory(id, qtd, description) {
     });
 }
 
+// CRIAR CATEGORIA NA NAVBAR
 function createNavCategory(id, qtd, description) {
     var div = document.createElement('div');
     div.id = id;
@@ -73,6 +74,7 @@ function createNavCategory(id, qtd, description) {
     $("#navCategories").append(div);
 }
 
+// CRIAR BOTÃO DE ADICIONAR CATEGORIAS
 function createCategoryButton() {
     var div = document.createElement('div');
     div.className = 'col-xs-6 col-sm-4 col-md-3 col-lg-2 container mdl-grid demo-content';
@@ -89,6 +91,7 @@ function createCategoryButton() {
     $("#categoriesBtn").append(div);
 }
 
+// CRIAR CLIENTE
 function createClient(id, nome, cpf, contato, email) {
 
     var table = document.getElementById('clientTableBody');
@@ -118,6 +121,7 @@ function createClient(id, nome, cpf, contato, email) {
     table.appendChild(tr);
 }
 
+// CRIAR EMPREGADO
 function createEmployee(id, nome, cpf, attr) {
 
     var table = document.getElementById('employeeTableBody');
@@ -143,8 +147,11 @@ function createEmployee(id, nome, cpf, attr) {
     table.appendChild(tr);
 }
 
-// ----- FUNÇÕES TABELA -----
+/* #########################################
+   #    FUNÇÕES PARA TABELA                #
+   ######################################### */
 
+// IMPLEMENTAR BUSCA NA TABELA
 $(document).ready(function () {
     var activeSystemClass = $('.list-group-item.active');
     //something is entered in search form
@@ -226,7 +233,46 @@ $(document).ready(function () {
     });
 });
 
-// ----- FUNÇÕES SWITCH -----
+/* #########################################
+   #    FUNÇÕES PARA GRÁFICOS              #
+   ######################################### */
+
+// DESENHAR GRÁFICOS
+function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
+
+    var realDateNow = new Object();
+    equalDat(dateNow, realDateNow);
+    var data = google.visualization.arrayToDataTable([
+        ['Dia', 'Concluídos', 'Pendentes'],
+        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
+        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
+        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
+        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
+        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
+        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
+        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
+        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
+    ]);
+    var options = {
+        title: 'Chamados dos Últimos 7 Dias',
+        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
+        vAxis: {minValue: 0},
+        animation: {
+            duration: 1000,
+            easing: 'out',
+        },
+    };
+    var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
+    chart.draw(data, options);
+}
+
+/* #########################################
+   #    FUNÇÕES QUE ALTERNAM ENTRE TELAS   #
+   #########################################
+   # ESSAS FUNÇÕES ALTERNAM ENTRE AS TELAS #
+   #   DO SOFTWARE SEM NECESSARIAMENTE     #
+   #   RECARREGAR A PÁGINA DO NAVEGADOR    #
+   ######################################### */
 
 $('#home').click(function () {
     $('#showContent').animate({"opacity": "0"}, 500);
@@ -400,37 +446,9 @@ function formCategoriesUp() {
     $('#formCategories').show();
 }
 
-// ----- CHAMADAS PARA GRÁFICOS -----
-
-function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
-
-    var realDateNow = new Object();
-    equalDat(dateNow, realDateNow);
-    var data = google.visualization.arrayToDataTable([
-        ['Dia', 'Concluídos', 'Pendentes'],
-        [`${minusEqualDat(realDateNow, dateNow, 7, 'day')} / ${minusEqualDat(realDateNow, dateNow, 7, 'month')}`, qtdReadyCalls[7], qtdCalls[7]],
-        [`${minusEqualDat(realDateNow, dateNow, 6, 'day')} / ${minusEqualDat(realDateNow, dateNow, 6, 'month')}`, qtdReadyCalls[6], qtdCalls[6]],
-        [`${minusEqualDat(realDateNow, dateNow, 5, 'day')} / ${minusEqualDat(realDateNow, dateNow, 5, 'month')}`, qtdReadyCalls[5], qtdCalls[5]],
-        [`${minusEqualDat(realDateNow, dateNow, 4, 'day')} / ${minusEqualDat(realDateNow, dateNow, 4, 'month')}`, qtdReadyCalls[4], qtdCalls[4]],
-        [`${minusEqualDat(realDateNow, dateNow, 3, 'day')} / ${minusEqualDat(realDateNow, dateNow, 3, 'month')}`, qtdReadyCalls[3], qtdCalls[3]],
-        [`${minusEqualDat(realDateNow, dateNow, 2, 'day')} / ${minusEqualDat(realDateNow, dateNow, 2, 'month')}`, qtdReadyCalls[2], qtdCalls[2]],
-        [`${minusEqualDat(realDateNow, dateNow, 1, 'day')} / ${minusEqualDat(realDateNow, dateNow, 1, 'month')}`, qtdReadyCalls[1], qtdCalls[1]],
-        [`Hoje`, qtdReadyCalls[0], qtdCalls[0]]
-    ]);
-    var options = {
-        title: 'Chamados dos Últimos 7 Dias',
-        hAxis: {title: 'Data', titleTextStyle: {color: '#333'}},
-        vAxis: {minValue: 0},
-        animation: {
-            duration: 1000,
-            easing: 'out',
-        },
-    };
-    var chart = new google.visualization.AreaChart(document.getElementById('graphs'));
-    chart.draw(data, options);
-}
-
-// ----- CHAMADAS PARA LOGIN E LOGOUT -----
+/* #########################################
+   #    FUNÇÕES DE LOGIN E LOGOUT          #
+   ######################################### */
 
 function sendServletLogin() {
 
@@ -445,14 +463,22 @@ function sendServletLogin() {
             try {
                 var jsonData = JSON.parse(response);
             } catch (err) {
-                alert("C");
                 return false;
             }
 
             var jsonData = JSON.parse(response);
-            var employee = jsonData.employee[i];
-            localStorage.setItem('selectedEmployee', employee.id);
-            localStorage.setItem('selectedEmployeeName', employee.name);
+            var employee = jsonData.employee[0];
+
+            if (employee) {
+                $('#formLogin')[0].reset();
+                localStorage.setItem('selectedEmployee', employee.id);
+                localStorage.setItem('selectedEmployeeName', employee.name);
+                $('#userName').html(employee.name.toUpperCase());
+                $('#loginScreen').animate({"opacity": "0"}, 500);
+                $('#dashboard').animate({"opacity": "1"}, 500);
+            } else {
+                alert("Usuário ou Senha incorretos");
+            }
 
         }
     };
@@ -463,56 +489,18 @@ function sendServletLogin() {
 
 }
 
-// ----- CHAMADAS PARA SERVLETS -----
+function sendServletLogout() {
 
-function sendServletAddCall(client, dat, description, priority, category) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var call = JSON.parse(xhr.responseText);
-            createTicket(call.id, call.cliente, call.descricao);
-            document.getElementById('addTicket-form').reset();
-            sendServletRefreshCall();
-        }
-    };
-    xhr.open("post", "registerCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "&priority=" + priority.value + "&category=" + category.value);
+    $('#formLogin')[0].reset();
+    localStorage.clear();
+    $('#loginScreen').animate({"opacity": "1"}, 500);
+    $('#dashboard').animate({"opacity": "0"}, 500);
+
 }
 
-function sendServletChangeCall(client, dat, description) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var call = JSON.parse(xhr.responseText);
-            //createTicket(call.id, call.cliente, call.descricao);
-            document.getElementById('alterTicket-form').reset();
-            sendServletRefreshCall();
-        }
-    };
-    xhr.open("post", "changeCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("client=" + client.value + "&date=" + dat.value + "&description=" + description.value + "");
-}
-
-function sendServletFixCall() {
-
-    var callToFind = $('#fixTicket-formselectedCall')[0];
-    var description = document.getElementById('fixTicket-formDescription').value;
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var element = document.getElementById(callToFind.innerHTML);
-            element.parentNode.removeChild(element);
-            document.getElementById('fixTicket-form').reset();
-            closeCollapsePanels($('#collapseTwo'));
-            sendServletRefreshCall();
-        }
-    };
-    xhr.open("post", "fixCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("id=" + callToFind.innerHTML + "&description=" + description + "");
-}
+/* #########################################
+   #    FUNÇÕES QUE SERÃO SUBSTITUÍDAS     #
+   ######################################### */
 
 function sendServletReportCall() {
 
@@ -604,133 +592,22 @@ function sendServletSaveReportCall(table, divTitle) {
     hiddenResults.innerHTML = '';
 }
 
-function sendServletRefreshCall() {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.responseText;
-            //VERIFICAÇÃO PARA JSON NULO
-            try {
-                var jsonData = JSON.parse(response);
-            } catch (err) {
-                $("#pendingTickets").html("<p class='fullCenter'>Não existem Tickets Pendentes!</p>");
-                $("#graphs").html("<div class='fullCenter'>Não existem Gráficos para estes Tickets!</div>");
-                return false;
-            }
+/* #########################################
+   #         CHAMADAS PARA SERVLETS        #
+   #########################################
+   # ESSAS FUNÇÕES REALIZAM CHAMADAS PARA  #
+   # OS SERVLETS DA APLICAÇÃO, OBECEDENDO  #
+   # O PADRÃO ESTABELECIDO ABAIXO:         #
+   # ADD - ADICIONAR ELEMENTO              #
+   # ALTER - EDITAR ELEMENTO               #
+   # RETURN - RETORNAR UM ELEMENTO         #
+   # DROP - DELETAR UM ELEMENTO            #
+   # REFRESH - RETORNAR TODOS OS ELEMENTOS #
+   ######################################### */
 
-            $("#pendingTickets").html("");
-            var dateNow = myDat(new Date);
-            var count = 0;
-            //DESENHA OS CHAMADOS ABERTOS
-            for (var i = 0; i < jsonData.calls.length; i++) {
-                var call = jsonData.calls[i];
-                if (call.status === 'false') {
-                    createTicket(call.id, call.cliente, call.descricao);
-                    count++;
-                }
-            }
-
-            //MANTENDO A MESMA DATA ATUAL
-            var realDateNow = new Object();
-            equalDat(dateNow, realDateNow);
-            //DESENHA O  GRÁFICO DE CHAMADOS ABERTOS
-
-            //VETORES QUE RECEBEM OS CHAMADOS
-            var valuesSVG = [];
-            var valuesSVGReady = [];
-            for (var o = 0; o < 21; o++) {
-
-                var countCalls = 0;
-                var countReadyCalls = 0;
-                for (var s = 0; s < jsonData.calls.length; s++) {
-                    var call = jsonData.calls[s];
-                    var convertedCall = toMyDat(call.data);
-                    if (convertedCall.day === dateNow.day) {
-                        if (convertedCall.month === dateNow.month) {
-                            if (convertedCall.year === dateNow.year) {
-                                if (call.status === 'false') {
-                                    countCalls++;
-                                }
-                                if (call.status !== 'false') {
-                                    countReadyCalls++;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                minusDat(dateNow, 1);
-                valuesSVG[o] = countCalls;
-                valuesSVGReady[o] = countReadyCalls;
-            }
-
-            drawSVGCalls(valuesSVG, valuesSVGReady, realDateNow);
-        }
-    };
-    xhr.open("post", "refreshCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
-
-function sendServletFindCall() {
-
-    var clientToFind = document.getElementById('findCall-formClient').value;
-    var dateToFind = document.getElementById('findCall-formDat').value;
-    var results = document.getElementById('findCall-formResult');
-    results.innerHTML = '';
-    if (clientToFind === '' && dateToFind === '') {
-        return false;
-    }
-
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.responseText;
-            var jsonData = JSON.parse(response);
-            for (var i = 0; i < jsonData.calls.length; i++) {
-                var call = jsonData.calls[i];
-                if (call.cliente == clientToFind || call.data == dateToFind) {
-                    if (call.status == 'false') {
-                        createUnReadyFoundCall(call.id, call.cliente, call.data, call.descricao);
-                    } else if (call.status == 'true') {
-                        createReadyFoundCall(call.id, call.cliente, call.data, call.descricao, call.tecnico);
-                    }
-                }
-            }
-            clientToFind = '';
-            dateToFind = '';
-        }
-    };
-    xhr.open("post", "refreshCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
-
-function sendServletReturnCall(choosenCall) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            var response = xhr.responseText;
-            var jsonData = JSON.parse(response);
-            for (var i = 0; i < jsonData.calls.length; i++) {
-                var call = jsonData.calls[i];
-                if (call.id === choosenCall.id) {
-                    document.getElementById('fixTicket-form').reset();
-                    document.getElementById('fixTicket-formClient').value = call.cliente;
-                    document.getElementById('fixTicket-formDat').value = call.data;
-                    document.getElementById('fixTicket-formDescription').value = call.descricao;
-                    document.getElementById('fixTicket-formselectedCall').innerHTML = call.id;
-                    openCollapsePanels($('#collapseTwo'));
-                }
-            }
-        }
-    };
-    xhr.open("post", "refreshCall", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send();
-}
-
-// ----- CHAMADAS PARA SERVLETS DE CLIENTES -----
+/* #########################################
+   #    CHAMADAS PARA SERVLETS DE CLIENTES #
+   ######################################### */
 
 function sendServletAddClient() {
 
@@ -879,7 +756,9 @@ function sendServletRefreshClients() {
     xhr.send();
 }
 
-// ----- CHAMADAS PARA SERVLETS DE TÉCNICOS -----
+/* #########################################
+   # CHAMADAS PARA SERVLETS DE EMPREGADOS  #
+   ######################################### */
 
 function sendServletAddEmployee() {
 
@@ -1026,7 +905,9 @@ function sendServletRefreshEmployees() {
     xhr.send();
 }
 
-// ----- CHAMADAS PARA SERVLETS DE CATEGORIAS -----
+/* #########################################
+   #  CHAMADAS PARA SERVLETS DE CATEGORIAS #
+   ######################################### */
 
 function sendServletAddCategory() {
 
@@ -1141,7 +1022,9 @@ function sendServletRefreshCategories() {
     xhr.send();
 }
 
-// ----- CHAMADAS PARA SERVLETS DE TICKETS -----
+/* #########################################
+   #    CHAMADAS PARA SERVLETS DE TICKETS  #
+   ######################################### */
 
 function sendServletAddTicket() {
 
@@ -1352,7 +1235,13 @@ function sendServletRefreshTickets() {
     xhr.send("category=" + category);
 }
 
-// ----- FUNÇÕES AUXILIARES -----
+/* #########################################
+   #     FUNÇÕES E SCRIPTS AUXILIARES        #
+   #########################################
+   # ESSAS FUNÇÕES REALIZAM TAREFAS        #
+   # AUXILIARES ÀS FUNÇÕES PRIMÁRIAS,      #
+   # LIVRANDO RESPONSABILIDADES DAS MESMAS #
+   ######################################### */
 
 //DATA ATUAL NO MYDAT
 function myDat(dateNow) {
@@ -1539,6 +1428,7 @@ function closeCollapsePanels(button) {
     return;
 }
 
+//SE O ITEM FOR NULO, RETORNA ZERO NA QTD DE TICKETS
 function checkNull(item) {
 
     if (item === "null") {
@@ -1566,7 +1456,10 @@ $(document).ready(function () {
 });
 
 window.onload = codeAddress;
-// ----- VARIÁVEIS GLOBAIS -----
+
+/* #########################################
+   #    VARIÁVEIS GLOBAIS                  #
+   ######################################### */
 
 var addTicketForm = '<form id="addTicket-form" action="JavaScript:sendServletAddTicket();">' +
         '<div class="modal-body">' +

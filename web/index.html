@@ -50,16 +50,14 @@
                 <header class="demo-drawer-header">
                     <img src="https://image.ibb.co/mGn5np/user.jpg" class="demo-avatar">
                     <div class="demo-avatar-dropdown">
-                        <span>hello@example.com</span>
+                        <span id="userName"></span>
                         <div class="mdl-layout-spacer"></div>
                         <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
                             <i class="material-icons md-dark" role="presentation">arrow_drop_down</i>
                             <span class="visuallyhidden">Accounts</span>
                         </button>
                         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                            <li class="mdl-menu__item">hello@example.com</li>
-                            <li class="mdl-menu__item">info@example.com</li>
-                            <li class="mdl-menu__item">Sair</li>
+                            <li class="mdl-menu__item" onclick="sendServletLogout()">Sair</li>
                         </ul>
                     </div>
                 </header>
@@ -529,7 +527,7 @@
                             <h3>Sign In</h3>
                         </div>
                         <div class="card-body">
-                            <form  role="form" action="JavaScript:sendServletLogin();">
+                            <form  id="formLogin" role="form" action="JavaScript:sendServletLogin();">
                                 <div class="input-group form-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"></span>
