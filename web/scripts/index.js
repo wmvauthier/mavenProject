@@ -1451,7 +1451,7 @@ function codeAddress() {
 
 $(document).ready(function () {
     $('#loginScreen').animate({"opacity": "1"}, 500);
-    //$('#dashboard').animate({"opacity": "1"}, 500);
+    $('#dashboard').animate({"opacity": "0"}, 500);
     $('#home').click();
 });
 
