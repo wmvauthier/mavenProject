@@ -69,14 +69,15 @@ public class xServletLogin extends HttpServlet {
                 String zip = rs.getString("EMPLOYEE_ZIP");
                 String city = rs.getString("EMPLOYEE_CITY");
                 String state = rs.getString("EMPLOYEE_STATE");
-
+                
                 if ((log.equals(login)) && (pass.equals(password))) {
                     Employee employee = new Employee(id, cpf, login, password, name, email, date, contact, address, neigh, number, zip, city, state);
                     JSONObject json = new JSONObject(employee);
                     list.add(json);
+                    System.out.println(json);
                     return list;
                 } else {
-                    return list;
+                    
                 }
 
             }

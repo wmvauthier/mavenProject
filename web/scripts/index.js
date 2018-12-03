@@ -476,6 +476,7 @@ function sendServletLogin() {
                 $('#userName').html(employee.name.toUpperCase());
                 $('#loginScreen').animate({"opacity": "0"}, 500);
                 $('#dashboard').animate({"opacity": "1"}, 500);
+                $('#home').click();
             } else {
                 alert("Usuário ou Senha incorretos");
             }
@@ -491,7 +492,9 @@ function sendServletLogin() {
 
 function sendServletLogout() {
 
+    $('#home').click();
     $('#formLogin')[0].reset();
+    $('#loginScreenUser').focus();
     localStorage.clear();
     $('#loginScreen').animate({"opacity": "1"}, 500);
     $('#dashboard').animate({"opacity": "0"}, 500);
