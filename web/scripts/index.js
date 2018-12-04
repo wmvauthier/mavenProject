@@ -1516,10 +1516,10 @@ var fixTicketForm = '<form id="fixTicket-form" action="JavaScript:sendServletFix
 var reportTicketForm = '<form id="reportCall-form" action="JavaScript:sendServletReportCall();">' +
         '<div id="reportCall-formselectedCall" class="hidden"></div>' +
         '<div class="modal-body">' +
-        '<select id="reportCall-formClient" name="client" class="form-control inputClient" required>' +
+        '<select id="reportCall-formClient" name="client" class="form-control inputClient">' +
         '<option value="" disabled selected>Nome do Cliente</option>' +
         '</select>' +
-        '<select id="reportCall-formTec" name="tec" class="form-control inputTec" required>' +
+        '<select id="reportCall-formTec" name="tec" class="form-control inputTec">' +
         '<option value="" disabled selected>Nome do Técnico</option>' +
         '</select>' +
         '<input id="reportCall-formDatIni" name="dateini" class="form-control inputCalendar" type="date"/>' +
