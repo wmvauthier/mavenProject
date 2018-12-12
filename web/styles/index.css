@@ -1,4 +1,4 @@
-#showHome, #showClients, #showContent, #showEmployees, #categories, #categoriesBtn , #formCategories, #dashboard { opacity: 0; }
+#showHome, #showClients, #showContent, #showEmployees, #showReady, #categories, #categoriesBtn , #formCategories, #dashboard { opacity: 0; }
 
 /*@import url('https://fonts.googleapis.com/css?family=Numans');*/
 
@@ -34,6 +34,14 @@
 
 .bkImgTic {
     background-image: url("imagens/imgTic.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+.bkImgReady {
+    background-image: url("imagens/imgReady.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

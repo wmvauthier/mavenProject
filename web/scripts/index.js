@@ -1,6 +1,6 @@
 /* #########################################
-   #    FUNÇÕES QUE CRIAM ELEMENTOS HTML   #
-   ######################################### */
+ #    FUNÇÕES QUE CRIAM ELEMENTOS HTML   #
+ ######################################### */
 
 // CRIAR TICKETS
 function createTicket(id, title, description) {
@@ -148,8 +148,8 @@ function createEmployee(id, nome, cpf, attr) {
 }
 
 /* #########################################
-   #    FUNÇÕES PARA TABELA                #
-   ######################################### */
+ #    FUNÇÕES PARA TABELA                #
+ ######################################### */
 
 // IMPLEMENTAR BUSCA NA TABELA
 $(document).ready(function () {
@@ -234,8 +234,8 @@ $(document).ready(function () {
 });
 
 /* #########################################
-   #    FUNÇÕES PARA GRÁFICOS              #
-   ######################################### */
+ #    FUNÇÕES PARA GRÁFICOS              #
+ ######################################### */
 
 // DESENHAR GRÁFICOS
 function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
@@ -267,12 +267,12 @@ function drawSVGCalls(qtdCalls, qtdReadyCalls, dateNow) {
 }
 
 /* #########################################
-   #    FUNÇÕES QUE ALTERNAM ENTRE TELAS   #
-   #########################################
-   # ESSAS FUNÇÕES ALTERNAM ENTRE AS TELAS #
-   #   DO SOFTWARE SEM NECESSARIAMENTE     #
-   #   RECARREGAR A PÁGINA DO NAVEGADOR    #
-   ######################################### */
+ #    FUNÇÕES QUE ALTERNAM ENTRE TELAS   #
+ #########################################
+ # ESSAS FUNÇÕES ALTERNAM ENTRE AS TELAS #
+ #   DO SOFTWARE SEM NECESSARIAMENTE     #
+ #   RECARREGAR A PÁGINA DO NAVEGADOR    #
+ ######################################### */
 
 $('#home').click(function () {
     $('#showContent').animate({"opacity": "0"}, 500);
@@ -283,9 +283,12 @@ $('#home').click(function () {
     $('#showEmployees').hide();
     $('#formCategories').animate({"opacity": "0"}, 500);
     $('#formCategories').hide();
+    $('#showReady').animate({"opacity": "0"}, 500);
+    $('#showReady').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").removeClass("bkImgReady");
     $("#mainContent").addClass("bkImgCat");
     $('#showHome').animate({"opacity": "1"}, 500);
     $('#showHome').show();
@@ -308,9 +311,12 @@ function navTickets() {
     $('#showHome').hide();
     $('#showEmployees').animate({"opacity": "0"}, 500);
     $('#showEmployees').hide();
+    $('#showReady').animate({"opacity": "0"}, 500);
+    $('#showReady').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").removeClass("bkImgReady");
     $("#mainContent").addClass("bkImgTic");
     $('#showContent').animate({"opacity": "1"}, 500);
     $('#showContent').show();
@@ -335,15 +341,42 @@ $('#navClients').click(function () {
     $('#formClients').hide();
     $('#showEmployees').animate({"opacity": "0"}, 500);
     $('#showEmployees').hide();
+    $('#showReady').animate({"opacity": "0"}, 500);
+    $('#showReady').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCat");
     $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").removeClass("bkImgReady");
     $("#mainContent").addClass("bkImgCli");
     $('#showClients').animate({"opacity": "1"}, 500);
     $('#showClients').show();
     $('#tableClients').animate({"opacity": "1"}, 500);
     $('#tableClients').show();
     $('#titlePage').html('CLIENTES');
+});
+
+$('#navReady').click(function () {
+    sendServletRefreshClients();
+    $('#showHome').animate({"opacity": "0"}, 500);
+    $('#showHome').hide();
+    $('#showContent').animate({"opacity": "0"}, 500);
+    $('#showContent').hide();
+    $('#formClients').animate({"opacity": "0"}, 500);
+    $('#formClients').hide();
+    $('#showEmployees').animate({"opacity": "0"}, 500);
+    $('#showEmployees').hide();
+    $('#showClients').animate({"opacity": "0"}, 500);
+    $('#showClients').hide();
+    $('#tableClients').animate({"opacity": "0"}, 500);
+    $('#tableClients').hide();
+    $("#mainContent").removeClass("bkImgTec");
+    $("#mainContent").removeClass("bkImgCat");
+    $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").removeClass("bkImgCli");
+    $("#mainContent").addClass("bkImgReady");
+    $('#showReady').animate({"opacity": "1"}, 500);
+    $('#showReady').show();
+    $('#titlePage').html('RESOLVIDOS');
 });
 
 $('#navEmployees').click(function () {
@@ -356,9 +389,12 @@ $('#navEmployees').click(function () {
     $('#showClients').hide();
     $('#formEmployees').animate({"opacity": "0"}, 500);
     $('#formEmployees').hide();
+    $('#showReady').animate({"opacity": "0"}, 500);
+    $('#showReady').hide();
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgCat");
     $("#mainContent").removeClass("bkImgTic");
+    $("#mainContent").removeClass("bkImgReady");
     $("#mainContent").addClass("bkImgTec");
     $('#showEmployees').animate({"opacity": "1"}, 500);
     $('#showEmployees').show();
@@ -447,8 +483,8 @@ function formCategoriesUp() {
 }
 
 /* #########################################
-   #    FUNÇÕES DE LOGIN E LOGOUT          #
-   ######################################### */
+ #    FUNÇÕES DE LOGIN E LOGOUT          #
+ ######################################### */
 
 function sendServletLogin() {
 
@@ -475,7 +511,9 @@ function sendServletLogin() {
                 localStorage.setItem('selectedEmployeeName', employee.name);
                 $('#userName').html(employee.name.toUpperCase());
                 $('#loginScreen').animate({"opacity": "0"}, 500);
+                $('#loginScreen').hide();
                 $('#dashboard').animate({"opacity": "1"}, 500);
+                $('#dashboard').show();
                 $('#home').click();
             } else {
                 alert("Usuário ou Senha incorretos");
@@ -502,8 +540,8 @@ function sendServletLogout() {
 }
 
 /* #########################################
-   #    FUNÇÕES QUE SERÃO SUBSTITUÍDAS     #
-   ######################################### */
+ #    FUNÇÕES QUE SERÃO SUBSTITUÍDAS     #
+ ######################################### */
 
 function sendServletReportCall() {
 
@@ -596,21 +634,21 @@ function sendServletSaveReportCall(table, divTitle) {
 }
 
 /* #########################################
-   #         CHAMADAS PARA SERVLETS        #
-   #########################################
-   # ESSAS FUNÇÕES REALIZAM CHAMADAS PARA  #
-   # OS SERVLETS DA APLICAÇÃO, OBECEDENDO  #
-   # O PADRÃO ESTABELECIDO ABAIXO:         #
-   # ADD - ADICIONAR ELEMENTO              #
-   # ALTER - EDITAR ELEMENTO               #
-   # RETURN - RETORNAR UM ELEMENTO         #
-   # DROP - DELETAR UM ELEMENTO            #
-   # REFRESH - RETORNAR TODOS OS ELEMENTOS #
-   ######################################### */
+ #         CHAMADAS PARA SERVLETS        #
+ #########################################
+ # ESSAS FUNÇÕES REALIZAM CHAMADAS PARA  #
+ # OS SERVLETS DA APLICAÇÃO, OBECEDENDO  #
+ # O PADRÃO ESTABELECIDO ABAIXO:         #
+ # ADD - ADICIONAR ELEMENTO              #
+ # ALTER - EDITAR ELEMENTO               #
+ # RETURN - RETORNAR UM ELEMENTO         #
+ # DROP - DELETAR UM ELEMENTO            #
+ # REFRESH - RETORNAR TODOS OS ELEMENTOS #
+ ######################################### */
 
 /* #########################################
-   #    CHAMADAS PARA SERVLETS DE CLIENTES #
-   ######################################### */
+ #    CHAMADAS PARA SERVLETS DE CLIENTES #
+ ######################################### */
 
 function sendServletAddClient() {
 
@@ -760,8 +798,8 @@ function sendServletRefreshClients() {
 }
 
 /* #########################################
-   # CHAMADAS PARA SERVLETS DE EMPREGADOS  #
-   ######################################### */
+ # CHAMADAS PARA SERVLETS DE EMPREGADOS  #
+ ######################################### */
 
 function sendServletAddEmployee() {
 
@@ -909,8 +947,8 @@ function sendServletRefreshEmployees() {
 }
 
 /* #########################################
-   #  CHAMADAS PARA SERVLETS DE CATEGORIAS #
-   ######################################### */
+ #  CHAMADAS PARA SERVLETS DE CATEGORIAS #
+ ######################################### */
 
 function sendServletAddCategory() {
 
@@ -1026,8 +1064,8 @@ function sendServletRefreshCategories() {
 }
 
 /* #########################################
-   #    CHAMADAS PARA SERVLETS DE TICKETS  #
-   ######################################### */
+ #    CHAMADAS PARA SERVLETS DE TICKETS  #
+ ######################################### */
 
 function sendServletAddTicket() {
 
@@ -1239,12 +1277,12 @@ function sendServletRefreshTickets() {
 }
 
 /* #########################################
-   #     FUNÇÕES E SCRIPTS AUXILIARES        #
-   #########################################
-   # ESSAS FUNÇÕES REALIZAM TAREFAS        #
-   # AUXILIARES ÀS FUNÇÕES PRIMÁRIAS,      #
-   # LIVRANDO RESPONSABILIDADES DAS MESMAS #
-   ######################################### */
+ #     FUNÇÕES E SCRIPTS AUXILIARES        #
+ #########################################
+ # ESSAS FUNÇÕES REALIZAM TAREFAS        #
+ # AUXILIARES ÀS FUNÇÕES PRIMÁRIAS,      #
+ # LIVRANDO RESPONSABILIDADES DAS MESMAS #
+ ######################################### */
 
 //DATA ATUAL NO MYDAT
 function myDat(dateNow) {
@@ -1445,7 +1483,7 @@ function checkNull(item) {
 
 //EXECUTA AO INICIAR
 function codeAddress() {
-    localStorage.clear();
+    //localStorage.clear();
     $('#home').click();
     createCategoryButton();
     $("#reportCall-formResult").css("visibility", "hidden");
@@ -1454,15 +1492,17 @@ function codeAddress() {
 
 $(document).ready(function () {
     $('#loginScreen').animate({"opacity": "1"}, 500);
+    $('#loginScreen').show();
     $('#dashboard').animate({"opacity": "0"}, 500);
+    $('#dashboard').hide();
     $('#home').click();
 });
 
 window.onload = codeAddress;
 
 /* #########################################
-   #    VARIÁVEIS GLOBAIS                  #
-   ######################################### */
+ #    VARIÁVEIS GLOBAIS                  #
+ ######################################### */
 
 var addTicketForm = '<form id="addTicket-form" action="JavaScript:sendServletAddTicket();">' +
         '<div class="modal-body">' +

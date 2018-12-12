@@ -66,6 +66,7 @@
                 <nav class="demo-navigation mdl-navigation" style="padding-top: 0px;">
                     <a class="mdl-navigation__link" id="home" href="#"><i class="material-icons" role="presentation">dashboard</i>Home</a>
                     <div id="navCategories"></div>
+                    <a class="mdl-navigation__link" id="navReady" href="#"><i class="material-icons" role="presentation">verified_user</i>Resolvidos</a>
                     <a class="mdl-navigation__link" id="navClients" href="#"><i class="material-icons" role="presentation">supervised_user_circle</i>Clientes</a>
                     <a class="mdl-navigation__link" id="navEmployees" href="#"><i class="material-icons" role="presentation">contacts</i>Técnicos</a>
                     <div class="mdl-layout-spacer"></div>
@@ -194,6 +195,92 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <!-- DASHBOARD READY | (showReady - Resolvidos)--> 
+                <div id="showReady" class="mdl-grid demo-content">
+
+                    <!--TICKETS-->
+                    <div id="pendingTickets" class="demo-chart mdl-shadow--2dp mdl-color--white container overflowBar row"></div>
+
+                    <!--GRÁFICOS-->
+                    <div class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col"><div id="graphs"></div></div>
+
+                    <!--LISTA DE PANELS-->
+                    <div class="chat demo-cards mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-grid mdl-grid--no-spacing">
+
+                        <!--PANEL PARA ADICIONAR-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="addPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="addPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree'); closeCollapsePanels('#collapseFour');">
+                                            <i class="material-icons">add</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseOne">
+                                    <div id="addPanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--PANEL PARA ALTERAR-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="changePanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="alterPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseThree');">
+                                            <i class="material-icons">create</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseFour">
+                                    <div id="changePanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--PANEL PARA RESOLVER-->
+                        <div id="fixPanel" class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="fixPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="fixPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseThree'); closeCollapsePanels('#collapseFour');">
+                                            <i class="material-icons">done</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseTwo">
+                                    <div id="fixPanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--PANEL PARA RELATÓRIOS-->
+                        <div class="demo-updates  mdl-shadow--1dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading" id="accordion">
+                                    <b><span id="reportPanelTitle"></span></b>
+                                    <div class="btn-group pull-right">
+                                        <button id="reportPanelTitleBtn" class="panelButtons mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" onclick="closeCollapsePanels('#collapseOne'); closeCollapsePanels('#collapseTwo'); closeCollapsePanels('#collapseFour');">
+                                            <i class="material-icons">assignment</i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse" id="collapseThree">
+                                    <div id="reportPanelBody" class="panel-bodyForm"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!--RESULTADOS-->
+                    <div id="reportCall-formResult" class="demo-graphs mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--12-col"></div>
+
                 </div>
 
                 <!-- DASHBOARD CLIENTS | (showClients - Aba de Clientes)-->
