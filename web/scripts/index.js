@@ -535,7 +535,9 @@ function sendServletLogout() {
     $('#loginScreenUser').focus();
     localStorage.clear();
     $('#loginScreen').animate({"opacity": "1"}, 500);
+    $('#loginScreen').show();
     $('#dashboard').animate({"opacity": "0"}, 500);
+    $('#dashboard').hide();
 
 }
 
