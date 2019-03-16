@@ -32,6 +32,7 @@ public class PieceCRUDTest extends GenericTest {
 //    public void atualizarInvalido() {
 //
 //    }
+    
     @Test
     public void updatePiece() {
         logger.info("Executando updatePiece()");
