@@ -32,7 +32,6 @@ public class PieceCRUDTest extends GenericTest {
 //    public void atualizarInvalido() {
 //
 //    }
-    
     @Test
     public void updatePiece() {
         logger.info("Executando updatePiece()");
@@ -73,5 +72,5 @@ public class PieceCRUDTest extends GenericTest {
         Piece testDBPiece = em.find(Piece.class, new Long(3));
         assertNull(testDBPiece);
     }
-    
+
 }

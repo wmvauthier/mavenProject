@@ -30,8 +30,7 @@ public class Employee extends User implements Serializable{
     @Column(name = "EMPLOYEE_REGISTRY")
     private String registry;
     
-    @OneToMany(mappedBy = "client", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", targetEntity = Ticket.class, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Ticket> tickets;
 
     public List<Ticket> getTickets() {

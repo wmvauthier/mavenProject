@@ -283,12 +283,12 @@ $('#home').click(function () {
     $('#showEmployees').hide();
     $('#formCategories').animate({"opacity": "0"}, 500);
     $('#formCategories').hide();
-    $('#showReady').animate({"opacity": "0"}, 500);
-    $('#showReady').hide();
+    $('#showFinancial').animate({"opacity": "0"}, 500);
+    $('#showFinancial').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgTic");
-    $("#mainContent").removeClass("bkImgReady");
+    $("#mainContent").removeClass("bkImgFinancial");
     $("#mainContent").addClass("bkImgCat");
     $('#showHome').animate({"opacity": "1"}, 500);
     $('#showHome').show();
@@ -311,8 +311,8 @@ function navTickets() {
     $('#showHome').hide();
     $('#showEmployees').animate({"opacity": "0"}, 500);
     $('#showEmployees').hide();
-    $('#showReady').animate({"opacity": "0"}, 500);
-    $('#showReady').hide();
+    $('#showFinancial').animate({"opacity": "0"}, 500);
+    $('#showFinancial').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgCat");
@@ -341,12 +341,12 @@ $('#navClients').click(function () {
     $('#formClients').hide();
     $('#showEmployees').animate({"opacity": "0"}, 500);
     $('#showEmployees').hide();
-    $('#showReady').animate({"opacity": "0"}, 500);
-    $('#showReady').hide();
+    $('#showFinancial').animate({"opacity": "0"}, 500);
+    $('#showFinancial').hide();
     $("#mainContent").removeClass("bkImgTec");
     $("#mainContent").removeClass("bkImgCat");
     $("#mainContent").removeClass("bkImgTic");
-    $("#mainContent").removeClass("bkImgReady");
+    $("#mainContent").removeClass("bkImgFinancial");
     $("#mainContent").addClass("bkImgCli");
     $('#showClients').animate({"opacity": "1"}, 500);
     $('#showClients').show();
@@ -355,7 +355,7 @@ $('#navClients').click(function () {
     $('#titlePage').html('CLIENTES');
 });
 
-$('#navReady').click(function () {
+$('#navFinancial').click(function () {
     sendServletRefreshClients();
     $('#showHome').animate({"opacity": "0"}, 500);
     $('#showHome').hide();
@@ -373,10 +373,12 @@ $('#navReady').click(function () {
     $("#mainContent").removeClass("bkImgCat");
     $("#mainContent").removeClass("bkImgTic");
     $("#mainContent").removeClass("bkImgCli");
-    $("#mainContent").addClass("bkImgReady");
-    $('#showReady').animate({"opacity": "1"}, 500);
-    $('#showReady').show();
-    $('#titlePage').html('RESOLVIDOS');
+    $("#mainContent").addClass("bkImgFin");
+    $('#showFinancial').animate({"opacity": "1"}, 500);
+    $('#showFinancial').show();
+    $('#formBudget').animate({"opacity": "0"}, 500);
+    $('#formBudget').hide();
+    $('#titlePage').html('FINANCEIRO');
 });
 
 $('#navEmployees').click(function () {
@@ -394,7 +396,7 @@ $('#navEmployees').click(function () {
     $("#mainContent").removeClass("bkImgCli");
     $("#mainContent").removeClass("bkImgCat");
     $("#mainContent").removeClass("bkImgTic");
-    $("#mainContent").removeClass("bkImgReady");
+    $("#mainContent").removeClass("bkImgFinancial");
     $("#mainContent").addClass("bkImgTec");
     $('#showEmployees').animate({"opacity": "1"}, 500);
     $('#showEmployees').show();
@@ -424,6 +426,20 @@ function formClientsUp() {
     $('#formClients').animate({"opacity": "1"}, 500);
     $('#formClients').show();
 }
+
+$('.finBudgetUp').click(function () {
+    $('#finButtonArea').animate({"opacity": "0"}, 500);
+    $('#finButtonArea').hide();
+    $('#formBudget').animate({"opacity": "1"}, 500);
+    $('#formBudget').show();
+});
+
+$('.finBudgetBack').click(function () {
+    $('#formBudget').animate({"opacity": "0"}, 500);
+    $('#formBudget').hide();
+    $('#finButtonArea').animate({"opacity": "1"}, 500);
+    $('#finButtonArea').show();
+});
 
 $('#formEmployeesBack').click(function () {
     $('#formEmployees').animate({"opacity": "0"}, 500);
@@ -790,6 +806,7 @@ function sendServletRefreshClients() {
                 $("#alterTicket-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
                 $("#fixTicket-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
                 $("#reportCall-formClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
+                $("#genBudget-formFinancialClient").append("<option value='" + client.name + "'>" + client.name + "</option>");
             }
 
         }
@@ -1490,13 +1507,24 @@ function codeAddress() {
     createCategoryButton();
     $("#reportCall-formResult").css("visibility", "hidden");
     $('#home').click();
+    $('#navFinancial').click();
 }
 
 $(document).ready(function () {
-    $('#loginScreen').animate({"opacity": "1"}, 500);
-    $('#loginScreen').show();
-    $('#dashboard').animate({"opacity": "0"}, 500);
-    $('#dashboard').hide();
+
+    var locStr = localStorage.getItem('selectedEmployee');
+
+    if (locStr) {
+        $('#loginScreen').animate({"opacity": "0"}, 500);
+        $('#loginScreen').hide();
+        $('#dashboard').animate({"opacity": "1"}, 500);
+        $('#dashboard').show();
+    } else {
+        $('#loginScreen').animate({"opacity": "1"}, 500);
+        $('#loginScreen').show();
+        $('#dashboard').animate({"opacity": "0"}, 500);
+        $('#dashboard').hide();
+    }
     $('#home').click();
 });
 

@@ -42,48 +42,45 @@ public class Ticket implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
-    
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "TICKET_PIECE_ID", referencedColumnName = "PIECE_ID")
-    private Piece piece;
-    
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "TICKET_PIECE_ID", referencedColumnName = "ID")
+    private Piece tckPiece;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "CLIENT_ID", referencedColumnName = "USER_ID")
     private Client client;
-    
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = true)
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "EMPLOYEE_ID", referencedColumnName = "USER_ID")
     private Employee employee;
-    
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "TB_TICKET_CATEGORY", joinColumns = {
         @JoinColumn(name = "TICKET_ID", referencedColumnName = "ID")},
             inverseJoinColumns = {
                 @JoinColumn(name = "CATEGORY_ID", referencedColumnName = "ID")})
     private List<Category> categories;
-    
-    @Column(name = "TICKET_DESC", nullable = false)
-    private String description;
-    
+
     @Column(name = "TICKET_STATE", nullable = false)
     private String state;
-    
-    @Temporal(TemporalType.TIMESTAMP)  
-    @Column(name = "TICKET_DATE", nullable = false)
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "TICKET_DATE")
     private Date data;
-    
+
     @Enumerated(EnumType.STRING)
-    @Column(name = "TICKET_PRIORITY", nullable = false)
+    @Column(name = "TICKET_PRIORITY")
     private Priority priority;
-    
-    public Piece getPiece() {
-        return piece;
+
+    public Piece getTckPiece() {
+        return tckPiece;
     }
 
-    public void setPiece(Piece piece) {
-        this.piece = piece;
+    public void setTckPiece(Piece tckPiece) {
+        this.tckPiece = tckPiece;
     }
-    
+
     public Priority getPriority() {
         return priority;
     }
@@ -91,7 +88,7 @@ public class Ticket implements Serializable {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -126,14 +123,6 @@ public class Ticket implements Serializable {
         }
         this.categories.add(category);
         category.setTicket(this);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getState() {

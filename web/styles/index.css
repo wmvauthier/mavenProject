@@ -1,4 +1,4 @@
-#showHome, #showClients, #showContent, #showEmployees, #showReady, #categories, #categoriesBtn , #formCategories, #dashboard { opacity: 0; }
+#showHome, #showClients, #showContent, #showEmployees, #showFinancial, #categories, #categoriesBtn , #formCategories, #dashboard { opacity: 0; }
 
 /*@import url('https://fonts.googleapis.com/css?family=Numans');*/
 
@@ -7,6 +7,14 @@
 /* #########################################
    #    CSS PARA BACKGROUNDS               #
    ######################################### */
+
+.bkImgFin {
+    background-image: url("imagens/imgFin.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
 
 .bkImgTec {
     background-image: url("imagens/imgTec.jpg");
@@ -88,6 +96,13 @@ fieldset {
     margin: 0 auto;
     top: 50%;
     left: 50%;
+}
+
+.colButton {
+    height: 37px;
+    cursor: pointer;
+    text-align: center;
+    display: inline-block;
 }
 
 #pendingCalls {

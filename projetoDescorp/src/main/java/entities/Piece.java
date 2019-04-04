@@ -45,7 +45,7 @@ public class Piece implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long id;
 
-    @SerialValidate
+    //@SerialValidate
     @Column(name = "PIECE_SERIAL_NUMBER", nullable = false)
     private String serialNumber;
 
@@ -63,12 +63,11 @@ public class Piece implements Serializable {
     @Column(name = "PIECE_OUT_DATE")
     private Date outDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "PIECE_CLIENT_ID", referencedColumnName = "USER_ID", nullable = false)
     private Client client;
     
-    @OneToMany(mappedBy = "piece", targetEntity = Ticket.class, fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "tckPiece", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Ticket> tickets;
 
     @Enumerated(EnumType.STRING)
@@ -149,7 +148,7 @@ public class Piece implements Serializable {
             this.tickets = new ArrayList<>();
         }
         this.tickets.add(ticket);
-        ticket.setPiece(this);
+        ticket.setTckPiece(this);
     }
 
     @Override

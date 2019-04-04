@@ -29,12 +29,10 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn(name = "USER_ID", referencedColumnName = "ID")
 public class Client extends User implements Serializable {
 
-    @OneToMany(mappedBy = "client", targetEntity = Ticket.class, fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", targetEntity = Ticket.class, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Ticket> tickets;
 
-    @OneToMany(mappedBy = "client", targetEntity = Piece.class, fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "client", targetEntity = Piece.class, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Piece> pieces;
 
     @Embedded
