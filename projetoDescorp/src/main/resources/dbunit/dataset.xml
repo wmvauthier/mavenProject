@@ -1,135 +1,43 @@
 <?xml version='1.0' encoding='UTF-8'?> 
 <dataset>
     
-    <TB_USER USER_TYPE="C" USER_BIRTH="2017-12-20" USER_CPF="740.707.044-00" USER_EMAIL="ryoakley0@gmail.com" USER_LOGIN="randino0" USER_NAME="Rochette" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="1" />           
-
-    <TB_USER USER_TYPE="E" USER_BIRTH="2000-05-06" USER_CPF="097.382.344-50" USER_EMAIL="kwitchell3@linkedin.com" USER_LOGIN="kmartlew3" USER_NAME="Kingston" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="2" EMPLOYEE_REGISTRY="71-1036935"/>    
+    <tipo_usuario idtipo_usuario="1" nome_tipo="ADMIN"/>
+    <tipo_usuario idtipo_usuario="2" nome_tipo="GESTOR"/>
+    <tipo_usuario idtipo_usuario="3" nome_tipo="CLIENTE"/>
+    <tipo_usuario idtipo_usuario="4" nome_tipo="GUEST"/>
     
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-06-07" USER_CPF="808.257.284-10" USER_EMAIL="vcasford4@biglobe.ne.jp" USER_LOGIN="vlainton4" USER_NAME="Valentine" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="3" /> 
-   
-    <TB_USER USER_TYPE="E" USER_BIRTH="2018-10-03" USER_CPF="097.382.344-50" USER_EMAIL="ssawter5@ed.gov" USER_LOGIN="slautie5" USER_NAME="Sandye" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="4" EMPLOYEE_REGISTRY="65-7279434"/> 
-      
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-04-06" USER_CPF="097.382.344-50" USER_EMAIL="ssawter5@ed.gov" USER_LOGIN="jchoudhury6" USER_NAME="Jerry" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="5" /> 
+    <usuario idusuario="1" tipo_usuario_idtipo_usuario="1" usuario_ativo_contrato="T" username_usuario="admin01" password_usuario="123" nome_usuario="Tiago Cintura" email_usuario="a@a.com"/>
+    <usuario idusuario="2" tipo_usuario_idtipo_usuario="2" usuario_ativo_contrato="T" username_usuario="admin02" password_usuario="123" nome_usuario="Paulo Paulada" email_usuario="b@a.com"/>
+    <usuario idusuario="3" tipo_usuario_idtipo_usuario="3" usuario_ativo_contrato="T" username_usuario="admin03" password_usuario="123" nome_usuario="Rafael o Grão Mestre" email_usuario="c@a.com"/>
+    <usuario idusuario="4" tipo_usuario_idtipo_usuario="4" usuario_ativo_contrato="T" username_usuario="admin04" password_usuario="123" nome_usuario="Felipe o Conquistador" email_usuario="d@a.com"/>
     
-    <TB_USER USER_TYPE="E" USER_BIRTH="2018-03-12" USER_CPF="097.382.344-50" USER_EMAIL="sfoxall7@free.fr" USER_LOGIN="sjorioz7" USER_NAME="Stern" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="6" EMPLOYEE_REGISTRY="07-0893804"/> 
-  
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-02-16" USER_CPF="097.382.344-50" USER_EMAIL="fqueyeiro8@usda.gov" USER_LOGIN="fsandwick8" USER_NAME="Filide" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="7" /> 
-
-    <TB_USER USER_TYPE="E" USER_BIRTH="2017-10-29" USER_CPF="097.382.344-50" USER_EMAIL="hpendrick9@behance.net" USER_LOGIN="hdeme9" USER_NAME="Hattie" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="8" EMPLOYEE_REGISTRY="48-1151846"/> 
+    <planos idPlanos="1" cod_plano="01" valor_plano="19.90"/>
+    <planos idPlanos="2" cod_plano="02" valor_plano="29.90"/>
+    <planos idPlanos="3" cod_plano="03" valor_plano="39.90"/>
+    <planos idPlanos="4" cod_plano="04" valor_plano="49.90"/>
     
-    <TB_USER USER_TYPE="C" USER_BIRTH="2017-11-29" USER_CPF="097.382.344-50" USER_EMAIL="dbulliona@google.cn" USER_LOGIN="djellya" USER_NAME="Diann" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="9" /> 
+    <patios idpatios="1" nome_patio="Supermercado BoaCompra" preco_base="6.00" preco_fracao="1.50" responsavel_patio_idusuario="1"/>
+    <patios idpatios="2" nome_patio="Mercadinho LeveTudo" preco_base="7.00" preco_fracao="1.50" responsavel_patio_idusuario="1"/>
+    <patios idpatios="3" nome_patio="Sam's Club" preco_base="8.00" preco_fracao="1.50" responsavel_patio_idusuario="2"/>
+    <patios idpatios="4" nome_patio="Ferreira Costa" preco_base="0.00" preco_fracao="0.00" responsavel_patio_idusuario="3"/>
+    <patios idpatios="5" nome_patio="Super Shopping" preco_base="16.00" preco_fracao="11.50" responsavel_patio_idusuario="2"/>
     
-    <TB_USER USER_TYPE="E" USER_BIRTH="2018-06-30" USER_CPF="097.382.344-50" USER_EMAIL="kgomersalb@flickr.com" USER_LOGIN="kamesb" USER_NAME="Kassi" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="10" EMPLOYEE_REGISTRY="63-2697640"/> 
-      
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-08-20" USER_CPF="097.382.344-50" USER_EMAIL="civanishevc@hc360.com" USER_LOGIN="cdavittc" USER_NAME="Conni" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="11" /> 
-
-    <TB_USER USER_TYPE="E" USER_BIRTH="2018-08-09" USER_CPF="097.382.344-50" USER_EMAIL="iangroved@earthlink.net" USER_LOGIN="icircuitd" USER_NAME="Immanuel" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="12" EMPLOYEE_REGISTRY="29-7868305"/> 
+    <terminal idterminal="1" cod_terminal="01" modelo_terminal="Alpha" patios_idpatios="1"/>
+    <terminal idterminal="2" cod_terminal="02" modelo_terminal="Beta" patios_idpatios="1"/>
+    <terminal idterminal="3" cod_terminal="03" modelo_terminal="Gama" patios_idpatios="2"/>
+    <terminal idterminal="4" cod_terminal="04" modelo_terminal="Omega" patios_idpatios="2"/>
+    <terminal idterminal="5" cod_terminal="05" modelo_terminal="Sigma" patios_idpatios="2"/>
     
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-06-04" USER_CPF="097.382.344-50" USER_EMAIL="jcarberye@ft.com" USER_LOGIN="jherreroe" USER_NAME="Jeramie" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="13" /> 
- 
-    <TB_USER USER_TYPE="E" USER_BIRTH="2017-12-23" USER_CPF="097.382.344-50" USER_EMAIL="nvakhrushinf@huffingtonpost.com" USER_LOGIN="nwitchallsf" USER_NAME="Nelie" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="14" EMPLOYEE_REGISTRY="26-9655904"/> 
-  
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-08-25" USER_CPF="097.382.344-50" USER_EMAIL="dkreutzerg@cbc.ca" USER_LOGIN="dcruzg" USER_NAME="Darb" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="15" />    
+    <documento iddocumento="1" entrada_documento="" saida_documento="" placa_veiculo="ABC1234" terminal_idterminal="1" status_documento="0"/>
+    <documento iddocumento="2" entrada_documento="" saida_documento="" placa_veiculo="ABC1235" terminal_idterminal="1" status_documento="1"/>
+    <documento iddocumento="3" entrada_documento="" saida_documento="" placa_veiculo="ABC1236" terminal_idterminal="2" status_documento="0"/>
+    <documento iddocumento="4" entrada_documento="" saida_documento="" placa_veiculo="ABC1237" terminal_idterminal="3" status_documento="1"/>
+    <documento iddocumento="5" entrada_documento="" saida_documento="" placa_veiculo="ABC1238" terminal_idterminal="4" status_documento="0"/>
     
-    <TB_USER USER_TYPE="E" USER_BIRTH="2017-10-15" USER_CPF="097.382.344-50" USER_EMAIL="nambergh@dion.ne.jp" USER_LOGIN="nstowellh" USER_NAME="Nobie" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="16" EMPLOYEE_REGISTRY="95-9490834"/> 
-      
-    <TB_USER USER_TYPE="C" USER_BIRTH="2018-06-06" USER_CPF="097.382.344-50" USER_EMAIL="pbustardi@free.fr" USER_LOGIN="pmckernoni" USER_NAME="Penelopa" USER_PASSWORD="aA1234567"/> 
-    <TB_CLIENT USER_ID="17" />
-    
-    <TB_USER USER_TYPE="E" USER_BIRTH="2017-10-01" USER_CPF="097.382.344-50" USER_EMAIL="mcolebournej@pcworld.com" USER_LOGIN="mhateleyj" USER_NAME="Mallory" USER_PASSWORD="aA1234567"/> 
-    <TB_EMPLOYEE USER_ID="18" EMPLOYEE_REGISTRY="77-1090004"/> 
-    
-    <TB_CATEGORY CATEGORY_DESC="Chamados"/> 
-    <TB_CATEGORY CATEGORY_DESC="Programações"/> 
-    <TB_CATEGORY CATEGORY_DESC="Peças"/> 
-    <TB_CATEGORY CATEGORY_DESC="Estoque"/> 
-        
-    <TB_PIECE PIECE_TYPE="risus" PIECE_DESCRIPTION="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur" PIECE_ENTER_DATE="2018-03-19"
-              PIECE_SERIAL_NUMBER="JF8238" 
-              PIECE_CLIENT_ID="17"
-              PIECE_STATUS="BROKEN"
-    />
-    
-    <TB_PIECE PIECE_TYPE="risus" PIECE_DESCRIPTION="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur" PIECE_ENTER_DATE="2018-03-19"
-              PIECE_SERIAL_NUMBER="ML0456" 
-              PIECE_CLIENT_ID="15"
-              PIECE_STATUS="READY"
-    />
-    
-    <TB_PIECE PIECE_TYPE="risus" PIECE_DESCRIPTION="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur" PIECE_ENTER_DATE="2018-03-19"
-              PIECE_SERIAL_NUMBER="ML0400" 
-              PIECE_CLIENT_ID="15"
-              PIECE_STATUS="READY"
-    />
-           
-    <TB_TICKET TICKET_PRIORITY="LOW" TICKET_DATE="2018-10-18"
-               TICKET_STATE="Fechado" 
-               CLIENT_ID="1"
-               EMPLOYEE_ID="2"
-               TICKET_PIECE_ID="3"/>
-    
-    <TB_TICKET TICKET_PRIORITY="LOW" TICKET_DATE="2018-04-20"
-               TICKET_STATE="Aberto" 
-               CLIENT_ID="1"
-               EMPLOYEE_ID="2"
-               TICKET_PIECE_ID="2"/>
-    
-    <TB_TICKET TICKET_PRIORITY="LOW"  TICKET_DATE="2017-10-20" 
-               TICKET_STATE="Fechado" 
-               CLIENT_ID="1"
-               EMPLOYEE_ID="4"
-               TICKET_PIECE_ID="2"/>
-    
-    <TB_TICKET TICKET_PRIORITY="LOW"  TICKET_DATE="2018-04-08"
-               TICKET_STATE="Aberto" 
-               CLIENT_ID="7"
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/>
-    
-    <TB_TICKET TICKET_PRIORITY="URGENT"  TICKET_DATE="2018-05-15"
-               TICKET_STATE="Fechado"
-               CLIENT_ID="9"
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/> 
-    
-    <TB_TICKET TICKET_PRIORITY="LOW"  TICKET_DATE="2018-04-30" 
-               TICKET_STATE="Aberto"
-               CLIENT_ID="11"
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/> 
-    
-    <TB_TICKET TICKET_PRIORITY="HIGH"  TICKET_DATE="2018-02-02"
-               TICKET_STATE="Aberto"
-               CLIENT_ID="13" 
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/>
-    
-    <TB_TICKET TICKET_PRIORITY="URGENT"  TICKET_DATE="2018-05-04"
-               TICKET_STATE="Aberto"
-               CLIENT_ID="15"
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/>
-    
-    <TB_TICKET TICKET_PRIORITY="LOW"  TICKET_DATE="2018-09-03"
-               TICKET_STATE="Aberto"
-               CLIENT_ID="17"
-               EMPLOYEE_ID="10"
-               TICKET_PIECE_ID="1"/>     
+	<monitoramento_movimento id="1" patios_idpatios="1" documento_iddocumento="1" dia_monitoramento=""/>
+    <monitoramento_movimento id="2" patios_idpatios="1" documento_iddocumento="2" dia_monitoramento=""/>
+    <monitoramento_movimento id="3" patios_idpatios="1" documento_iddocumento="3" dia_monitoramento=""/>
+    <monitoramento_movimento id="4" patios_idpatios="2" documento_iddocumento="4" dia_monitoramento=""/>
+    <monitoramento_movimento id="5" patios_idpatios="2" documento_iddocumento="5" dia_monitoramento=""/>     
     
 </dataset>

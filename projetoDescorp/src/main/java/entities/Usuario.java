@@ -11,18 +11,24 @@ import java.util.Date;
 import java.util.HashSet;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,57 +40,43 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.br.CPF;
 import validator.PasswordValidate;
 
-/**
- *
- * @author root
- */
 @Entity
-@Table(name = "TB_USER")
+@Table(name = "usuario")
 @Inheritance(strategy = InheritanceType.JOINED) //Estratégia de herança.
-@DiscriminatorColumn(name = "USER_TYPE", //Nome da coluna que vai discriminar subclasses.
-        discriminatorType = DiscriminatorType.STRING, length = 1)
+@DiscriminatorColumn(name = "tipo_usuario_idtipo_usuario", //Nome da coluna que vai discriminar subclasses.
+        discriminatorType = DiscriminatorType.STRING)
 @Access(AccessType.FIELD)
-public abstract class User implements Serializable {
+public class Usuario implements Serializable {
 
-    public static final String USER_BY_CPF = "UserByCPF";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
-
-    @NotNull
-    @CPF
-    @Column(name = "USER_CPF")
-    protected String cpf;
+    private Long id;
 
     @NotBlank
     @Size(max = 20)
-    @Column(name = "USER_LOGIN")
+    @Column(name = "username_usuario")
     protected String login;
 
-    @Column(name = "USER_NAME")
+    @Column(name = "nome_usuario")
     protected String name;
+    
+    @Column(name = "usuario_ativo_contrato")
+    protected Integer ativo;
 
-    @Email
-    @Column(name = "USER_EMAIL")
+	@Email
+    @Column(name = "email_usuario")
     protected String email;
 
     @NotBlank
-    @Size(min = 6, max = 20)
+    @Size(min = 8, max = 256)
     @PasswordValidate
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "password_usuario")
     protected String password;
-
-    @Past
-    @Temporal(TemporalType.DATE)
-    @Column(name = "USER_BIRTH", nullable = true)
-    protected Date birthday;
-
-    @ElementCollection
-    @CollectionTable(name = "TB_CONTACT",
-            joinColumns = @JoinColumn(name = "ID_USUARIO"))
-    @Column(name = "CONTACT_PHONE", length = 20)
-    protected Collection<String> phones;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "tipo_usuario_idtipo_usuario", referencedColumnName = "id")
+    protected Tipo tipo;
 
     public Long getId() {
         return id;
@@ -94,13 +86,6 @@ public abstract class User implements Serializable {
         this.id = id;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getName() {
         return name;
@@ -109,6 +94,14 @@ public abstract class User implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+    
+    public Integer getAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(Integer ativo) {
+		this.ativo = ativo;
+	}
 
     public String getLogin() {
         return login;
@@ -134,29 +127,6 @@ public abstract class User implements Serializable {
         this.email = email;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Collection<String> getPhones() {
-        return phones;
-    }
-
-    public void addPhone(String phone) {
-        if (phones == null) {
-            phones = new HashSet<>();
-        }
-        phones.add(phone);
-    }
-
-    public boolean contains(String phone) {
-        return phones.contains(phones);
-    }
-
     // Client == Employee???
     @Override
     public int hashCode() {
@@ -167,10 +137,10 @@ public abstract class User implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        if (!(object instanceof User)) {
+        if (!(object instanceof Usuario)) {
             return false;
         }
-        User other = (User) object;
+        Usuario other = (Usuario) object;
 
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
