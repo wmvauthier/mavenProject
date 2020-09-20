@@ -20,6 +20,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -73,9 +74,9 @@ public class Usuario implements Serializable {
     @PasswordValidate
     @Column(name = "password_usuario")
     protected String password;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "tipo_usuario_idtipo_usuario", referencedColumnName = "id")
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "idtipo_usuario")
     protected Tipo tipo;
 
     public Long getId() {
@@ -126,8 +127,15 @@ public class Usuario implements Serializable {
     public void setEmail(String email) {
         this.email = email;
     }
+    
+    public Tipo getTipo() {
+		return tipo;
+	}
 
-    // Client == Employee???
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
     @Override
     public int hashCode() {
         int hash = 0;

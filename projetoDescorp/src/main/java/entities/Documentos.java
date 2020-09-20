@@ -58,8 +58,8 @@ public class Documentos implements Serializable {
     protected String placaVeiculo;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "terminal_idterminal", referencedColumnName = "id")
-    protected Terminal responsavel;
+    @JoinColumn(name = "documento_idterminal", referencedColumnName = "id")
+    protected Terminal terminal;
 
     public Long getId() {
         return id;
@@ -93,12 +93,12 @@ public class Documentos implements Serializable {
 		this.placaVeiculo = placaVeiculo;
 	}
 
-	public Terminal getResponsavel() {
-		return responsavel;
+	public Terminal getTerminal() {
+		return terminal;
 	}
 
-	public void setResponsavel(Terminal responsavel) {
-		this.responsavel = responsavel;
+	public void setTerminal(Terminal terminal) {
+		this.terminal = terminal;
 	}
 
 	@Override

@@ -52,7 +52,7 @@ public class MonitoramentoMovimento implements Serializable {
     protected Patios idPatio;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "patios_idpatios", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(name = "iddocumento", referencedColumnName = "id")
     protected Documentos idDocumentos;
     
     @Column(name="dia_monitoramento")

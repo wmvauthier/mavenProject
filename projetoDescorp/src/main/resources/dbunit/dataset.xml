@@ -1,20 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?> 
 <dataset>
     
-    <tipo_usuario idtipo_usuario="1" nome_tipo="ADMIN"/>
-    <tipo_usuario idtipo_usuario="2" nome_tipo="GESTOR"/>
-    <tipo_usuario idtipo_usuario="3" nome_tipo="CLIENTE"/>
-    <tipo_usuario idtipo_usuario="4" nome_tipo="GUEST"/>
-    
-    <usuario idusuario="1" tipo_usuario_idtipo_usuario="1" usuario_ativo_contrato="T" username_usuario="admin01" password_usuario="123" nome_usuario="Tiago Cintura" email_usuario="a@a.com"/>
-    <usuario idusuario="2" tipo_usuario_idtipo_usuario="2" usuario_ativo_contrato="T" username_usuario="admin02" password_usuario="123" nome_usuario="Paulo Paulada" email_usuario="b@a.com"/>
-    <usuario idusuario="3" tipo_usuario_idtipo_usuario="3" usuario_ativo_contrato="T" username_usuario="admin03" password_usuario="123" nome_usuario="Rafael o Grão Mestre" email_usuario="c@a.com"/>
-    <usuario idusuario="4" tipo_usuario_idtipo_usuario="4" usuario_ativo_contrato="T" username_usuario="admin04" password_usuario="123" nome_usuario="Felipe o Conquistador" email_usuario="d@a.com"/>
+    <tipo idtipo_usuario="1" nome_tipo="ADMIN"/>
+    <tipo idtipo_usuario="2" nome_tipo="GESTOR"/>
+    <tipo idtipo_usuario="3" nome_tipo="CLIENTE"/>
+    <tipo idtipo_usuario="4" nome_tipo="GUEST"/>
     
     <planos idPlanos="1" cod_plano="01" valor_plano="19.90"/>
     <planos idPlanos="2" cod_plano="02" valor_plano="29.90"/>
     <planos idPlanos="3" cod_plano="03" valor_plano="39.90"/>
     <planos idPlanos="4" cod_plano="04" valor_plano="49.90"/>
+    
+    <usuario idusuario="1" idtipo_usuario="1" usuario_ativo_contrato="T" username_usuario="admin01" password_usuario="123" nome_usuario="Tiago Cintura"/>
+    <usuario idusuario="2" idtipo_usuario="2" usuario_ativo_contrato="T" username_usuario="admin02" password_usuario="123" nome_usuario="Paulo Paulada"/>
+    <usuario idusuario="3" idtipo_usuario="3" usuario_ativo_contrato="T" username_usuario="admin03" password_usuario="123" nome_usuario="Rafael o Grão Mestre"/>
+    <usuario idusuario="4" idtipo_usuario="4" usuario_ativo_contrato="T" username_usuario="admin04" password_usuario="123" nome_usuario="Felipe o Conquistador"/>
     
     <patios idpatios="1" nome_patio="Supermercado BoaCompra" preco_base="6.00" preco_fracao="1.50" responsavel_patio_idusuario="1"/>
     <patios idpatios="2" nome_patio="Mercadinho LeveTudo" preco_base="7.00" preco_fracao="1.50" responsavel_patio_idusuario="1"/>
@@ -22,22 +22,22 @@
     <patios idpatios="4" nome_patio="Ferreira Costa" preco_base="0.00" preco_fracao="0.00" responsavel_patio_idusuario="3"/>
     <patios idpatios="5" nome_patio="Super Shopping" preco_base="16.00" preco_fracao="11.50" responsavel_patio_idusuario="2"/>
     
-    <terminal idterminal="1" cod_terminal="01" modelo_terminal="Alpha" patios_idpatios="1"/>
-    <terminal idterminal="2" cod_terminal="02" modelo_terminal="Beta" patios_idpatios="1"/>
-    <terminal idterminal="3" cod_terminal="03" modelo_terminal="Gama" patios_idpatios="2"/>
-    <terminal idterminal="4" cod_terminal="04" modelo_terminal="Omega" patios_idpatios="2"/>
-    <terminal idterminal="5" cod_terminal="05" modelo_terminal="Sigma" patios_idpatios="2"/>
+    <terminal idterminal="1" cod_terminal="01" modelo_terminal="Alpha" terminal_idpatios="1"/>
+    <terminal idterminal="2" cod_terminal="02" modelo_terminal="Beta" terminal_idpatios="1"/>
+    <terminal idterminal="3" cod_terminal="03" modelo_terminal="Gama" terminal_idpatios="2"/>
+    <terminal idterminal="4" cod_terminal="04" modelo_terminal="Omega" terminal_idpatios="2"/>
+    <terminal idterminal="5" cod_terminal="05" modelo_terminal="Sigma" terminal_idpatios="2"/>
     
-    <documento iddocumento="1" entrada_documento="" saida_documento="" placa_veiculo="ABC1234" terminal_idterminal="1" status_documento="0"/>
-    <documento iddocumento="2" entrada_documento="" saida_documento="" placa_veiculo="ABC1235" terminal_idterminal="1" status_documento="1"/>
-    <documento iddocumento="3" entrada_documento="" saida_documento="" placa_veiculo="ABC1236" terminal_idterminal="2" status_documento="0"/>
-    <documento iddocumento="4" entrada_documento="" saida_documento="" placa_veiculo="ABC1237" terminal_idterminal="3" status_documento="1"/>
-    <documento iddocumento="5" entrada_documento="" saida_documento="" placa_veiculo="ABC1238" terminal_idterminal="4" status_documento="0"/>
+    <documento iddocumento="1" entrada_documento="" saida_documento="" placa_veiculo="ABC1234" documento_idterminal="1"/>
+    <documento iddocumento="2" entrada_documento="" saida_documento="" placa_veiculo="ABC1235" documento_idterminal="1"/>
+    <documento iddocumento="3" entrada_documento="" saida_documento="" placa_veiculo="ABC1236" documento_idterminal="2"/>
+    <documento iddocumento="4" entrada_documento="" saida_documento="" placa_veiculo="ABC1237" documento_idterminal="3"/>
+    <documento iddocumento="5" entrada_documento="" saida_documento="" placa_veiculo="ABC1238" documento_idterminal="4"/>
     
-	<monitoramento_movimento id="1" patios_idpatios="1" documento_iddocumento="1" dia_monitoramento=""/>
-    <monitoramento_movimento id="2" patios_idpatios="1" documento_iddocumento="2" dia_monitoramento=""/>
-    <monitoramento_movimento id="3" patios_idpatios="1" documento_iddocumento="3" dia_monitoramento=""/>
-    <monitoramento_movimento id="4" patios_idpatios="2" documento_iddocumento="4" dia_monitoramento=""/>
-    <monitoramento_movimento id="5" patios_idpatios="2" documento_iddocumento="5" dia_monitoramento=""/>     
+	<monitoramento_movimento patios_idpatios="1" documento_iddocumento="1" dia_monitoramento=""/>
+    <monitoramento_movimento patios_idpatios="1" documento_iddocumento="2" dia_monitoramento=""/>
+    <monitoramento_movimento patios_idpatios="1" documento_iddocumento="3" dia_monitoramento=""/>
+    <monitoramento_movimento patios_idpatios="2" documento_iddocumento="4" dia_monitoramento=""/>
+    <monitoramento_movimento patios_idpatios="2" documento_iddocumento="5" dia_monitoramento=""/>
     
 </dataset>

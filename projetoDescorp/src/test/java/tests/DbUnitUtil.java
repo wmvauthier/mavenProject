@@ -41,7 +41,7 @@ public class DbUnitUtil {
             builder.setColumnSensing(true);
             InputStream in = DbUnitUtil.class.getResourceAsStream(XML_FILE);
             IDataSet dataSet = builder.build(in);
-            DatabaseOperation.CLEAN_INSERT.execute(db_conn, dataSet);
+//            DatabaseOperation.CLEAN_INSERT.execute(db_conn, dataSet);
         } catch (Exception ex) {
             throw new RuntimeException(ex.getMessage(), ex);
         } finally {

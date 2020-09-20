@@ -54,7 +54,7 @@ public class Terminal implements Serializable {
     protected String modelo;
     
     @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "patios_idpatios", referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(name = "terminal_idpatios", referencedColumnName = "id")
     protected Patios responsavel;
 
     public Long getId() {
