@@ -55,10 +55,10 @@ public class CRUDsTest extends GenericTest {
         em.persist(tipoGuest);
         em.flush();
         
-        assertNotNull(tipoAdmin.getId());
-        assertNotNull(tipoGestor.getId());
-        assertNotNull(tipoUsuario.getId());
-        assertNotNull(tipoGuest.getId());
+        Assert.assertNotNull(tipoAdmin.getId());
+        Assert.assertNotNull(tipoGestor.getId());
+        Assert.assertNotNull(tipoUsuario.getId());
+        Assert.assertNotNull(tipoGuest.getId());
     }
     
     @Test
@@ -70,7 +70,7 @@ public class CRUDsTest extends GenericTest {
         planos.setValor(valorPlano);
         em.persist(planos);
         em.flush();
-        assertNotNull(planos.getId());
+        Assert.assertNotNull(planos.getId());
         
     }
     
@@ -126,10 +126,10 @@ public class CRUDsTest extends GenericTest {
         	System.out.println(e.getConstraintViolations());
 		}
         
-        assertNotNull(user01.getId());
-        assertNotNull(user02.getId());
-        assertNotNull(user03.getId());
-        assertNotNull(user04.getId());
+        Assert.assertNotNull(user01.getId());
+        Assert.assertNotNull(user02.getId());
+        Assert.assertNotNull(user03.getId());
+        Assert.assertNotNull(user04.getId());
         
     }
     
@@ -144,7 +144,7 @@ public class CRUDsTest extends GenericTest {
         patio.setResponsavel(responsavel);
         em.persist(patio);
         em.flush();
-        assertNotNull(patio.getId());
+        Assert.assertNotNull(patio.getId());
         
     }
     
@@ -172,9 +172,9 @@ public class CRUDsTest extends GenericTest {
         em.persist(t03);
         em.flush();
         
-        assertNotNull(t01.getId());
-        assertNotNull(t02.getId());
-        assertNotNull(t03.getId());
+        Assert.assertNotNull(t01.getId());
+        Assert.assertNotNull(t02.getId());
+        Assert.assertNotNull(t03.getId());
         
     }
     
@@ -199,8 +199,8 @@ public class CRUDsTest extends GenericTest {
         em.persist(doc02);
         em.flush();
         
-        assertNotNull(doc01.getId());
-        assertNotNull(doc02.getId());
+        Assert.assertNotNull(doc01.getId());
+        Assert.assertNotNull(doc02.getId());
         
     }
     
@@ -211,7 +211,7 @@ public class CRUDsTest extends GenericTest {
         properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         Planos planos = em.find(Planos.class, new Long(1));
         Double valorAntigo = new Double("89.90");
-        assertNotNull(planos);
+        Assert.assertNotNull(planos);
         planos.setValor(new Double("189.90"));
         em.flush();
         em.find(Planos.class, new Long(1));
@@ -225,16 +225,28 @@ public class CRUDsTest extends GenericTest {
         Map properties = new HashMap();
         properties.put("javax.persistence.cache.retrieveMode", CacheRetrieveMode.BYPASS);
         Tipo tipoGuest = em.find(Tipo.class, new Long(4));
-        assertNotNull(tipoGuest);
+        Assert.assertNotNull(tipoGuest);
         
         Usuario user01 = em.find(Usuario.class, new Long(2));
-        assertNotNull(user01);
+        Assert.assertNotNull(user01);
         user01.setEmail("tiago.cintura@hotmail.com");
         user01.setTipo(tipoGuest);
         em.flush();
   
         Assert.assertFalse(user01.getEmail().equals("tiago@hotmail.com"));
         Assert.assertTrue(user01.getTipo().getName().equals(tipoGuest.getName()));
+        
+    }
+    
+    @Test
+    public void T10_deleteTerminal() {
+        logger.info("Executando deleteTerminal()");
+        Terminal t03 = em.find(Terminal.class, new Long(3));
+        Assert.assertNotNull(t03);
+        em.remove(t03);
+        em.flush();
+        t03 = em.find(Terminal.class, new Long(3));
+        Assert.assertNull(t03);
         
     }
 
